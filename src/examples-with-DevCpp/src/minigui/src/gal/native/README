@@ -1,0 +1,49 @@
+The macros described below have been moved to config.h.
+
+Old README
+----------
+
+IMPORTANT NOTE:
+
+You can edit native.h to include or exclude specific graphics driver.
+
+Define or undefine the following macros to include or exclude specific drivers:
+
+    #undef _FBLIN1_SUPPORT
+or 
+    #define _FBLIN1_SUPPORT        1
+to exclude or include fb linear 1bpp driver.
+
+    #undef _FBLIN2_SUPPORT
+or
+    #define _FBLIN2_SUPPORT        1
+to exclude or include fb linear 2bpp driver.
+
+    #undef _FBLIN4_SUPPORT
+or
+    #define _FBLIN4_SUPPORT        1
+to exclude or include fb linear 4bpp driver.
+
+NOTE that if your system is big endian, please use fblin4b.c, else use fblin4.c.
+
+    #undef _FBLIN8_SUPPORT
+or
+    #define _FBLIN8_SUPPORT        1
+to exclude or include fb linear 8bpp driver.
+
+    #undef _FBLIN16_SUPPORT
+or
+    #define _FBLIN16_SUPPORT       1
+to exclude or include fb linear 16bpp driver.
+
+    #undef _FBLIN24_SUPPORT
+or
+    #define _FBLIN24_SUPPORT       1
+to exclude or include fb linear 24bpp driver.
+
+    #undef _FBLIN32_SUPPORT
+or
+    #define _FBLIN32_SUPPORT       1
+to exclude or include fb linear 32bpp driver.
+
+

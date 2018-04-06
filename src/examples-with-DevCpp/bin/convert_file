@@ -1,0 +1,1 @@
+arm-elf-objcopy -O binary Station_Meteo Station_Meteo.bin

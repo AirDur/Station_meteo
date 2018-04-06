@@ -1,0 +1,389 @@
+/**
+ * \file menubutton.h
+ * \author Wei Yongming <ymwei@minigui.org>
+ * \date 2001/12/29
+ * 
+ \verbatim
+    Copyright (C) 2002-2005 Feynman Software.
+    Copyright (C) 1998-2002 Wei Yongming.
+
+    This file is part of MiniGUI, a compact cross-platform Graphics 
+    User Interface (GUI) support system for real-time embedded systems.
+
+    This program is free software; you can redistribute it and/or modify
+    it under the terms of the GNU General Public License as published by
+    the Free Software Foundation; either version 2 of the License, or
+    (at your option) any later version.
+
+    This program is distributed in the hope that it will be useful,
+    but WITHOUT ANY WARRANTY; without even the implied warranty of
+    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+    GNU General Public License for more details.
+
+    You should have received a copy of the GNU General Public License
+    along with this program; if not, write to the Free Software
+    Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
+
+    If you are using MiniGUI for developing commercial, proprietary, or other
+    software not covered by the GPL terms, you must have a commercial license
+    for MiniGUI. Please see http://www.minigui.com/product/index.html for 
+    how to obtain this. If you are interested in the commercial MiniGUI 
+    licensing, please write to sales@minigui.com. 
+
+ \endverbatim
+ */
+
+/*
+ * $Id: menubutton.h,v 1.2 2005/02/15 05:00:08 weiym Exp $
+ *
+ *             MiniGUI for Linux/uClinux, eCos, uC/OS-II, VxWorks, 
+ *                     and ThreadX version 1.6.x
+ *             Copyright (C) 2002-2005 Feynman Software.
+ *             Copyright (C) 1999-2002 Wei Yongming.
+ */
+
+#ifndef _MGUI_CTRL_MENUBUTTON_H
+#define _MGUI_CTRL_MENUBUTTON_H
+ 
+#ifdef __cplusplus
+extern "C" {
+#endif  /* __cplusplus */
+
+    /**
+     * \addtogroup controls
+     * @{
+     */
+
+    /**
+     * \defgroup ctrl_menubutton MenuButton control
+     * @{
+     */
+
+/**
+ * \def CTRL_MENUBTN
+ * \brief The class name of menubutton control.
+ */
+#define CTRL_MENUBTN        ("menubutton")
+
+/**
+ * \def CTRL_MENUBUTTON
+ * \brief The class name of menubutton control.
+ */
+#define CTRL_MENUBUTTON     ("menubutton")
+
+/* Menu Button return value */
+#define MB_OKAY                 0
+#define MB_ERR                  -1
+#define MB_INV_ITEM             -2
+#define MB_ERR_SPACE            -3
+
+/* struct used by parent to add/retrive item */
+#define MB_WHICH_TEXT           0x01
+#define MB_WHICH_BMP            0x02
+#define MB_WHICH_ATTDATA        0x04
+
+/** Structure of the menubutton item */
+typedef struct _MENUBUTTONITEM
+{
+    /**
+     * Which fields are valid when sets/retrives the item information 
+     * (ignored when add item). It can be OR'd with the following values:
+     *
+     *  - MB_WHICH_TEXT The \a text field is valid.
+     *  - MB_WHICH_BMP The \a bmp field is valid.
+     *  - MB_WHICH_ATTDATA The \a data field is valid.
+     */
+    DWORD           which;
+    /** Item string */
+    const char*     text;
+    /** Item bitmap */
+    PBITMAP         bmp;
+    /** Attached data */
+    DWORD           data;
+} MENUBUTTONITEM;
+
+/**
+ * \var typedef MENUBUTTONITEM* PMENUBUTTONITEM;
+ * \brief Data type of the pointer to a MENUBUTTONITEM.
+ */
+typedef MENUBUTTONITEM* PMENUBUTTONITEM;
+
+    /**
+     * \defgroup ctrl_menubutton_styles Styles of menubutton control
+     * @{
+     */
+
+/**
+ * \def MBS_SORT
+ * \brief If this bit is set, the items listed in the control 
+ * are displayed in a specified order.  
+ */
+#define MBS_SORT                0x0001
+
+/**
+ * \def MBS_LEFTARROW
+ * \brief The menu pull-down arrow will be display at the left of the text.
+ */
+#define MBS_LEFTARROW           0x0002
+
+/**
+ * \def MBS_NOBUTTON
+ * \brief The control have not push button.
+ */
+#define MBS_NOBUTTON            0x0004
+
+/**
+ * \def MBS_ALIGNLEFT
+ * \brief The text on menubutton is left-align (default).
+ */
+#define MBS_ALIGNLEFT           0x0000
+
+/**
+ * \def MBS_ALIGNRIGHT
+ * \brief The text on menubutton is right-align.
+ */
+#define MBS_ALIGNRIGHT          0x0010
+
+/**
+ * \def MBS_ALIGNCENTER
+ * \brief The text on menubutton is center-align.
+ */
+#define MBS_ALIGNCENTER         0x0020
+
+#define MBS_ALIGNMASK           0x00F0
+
+    /** @} end of ctrl_menubutton_styles */
+
+    /**
+     * \defgroup ctrl_menubutton_msgs Messages of menubutton control
+     * @{
+     */
+
+/**
+ * \def MBM_ADDITEM
+ * \brief Sends to the control to add an item to the menu list.
+ *
+ * \code
+ * MBM_ADDITEM
+ * int pos;
+ * MENUBUTTONITEM newitem;
+ *
+ * wParam = (WPARAM)pos;
+ * lParam = (LPARAM)&newitem;
+ * \endcode
+ *
+ * \param pos The position at which to add the item. If the control
+ *        was created with the style of \a MBS_SORT, this parameter
+ *        will be ignored. If this parameter is less than 0, 
+ *        the new item will be append to the tail of the menu list.
+ * \param newitem Pointer to the menubutton item info structure.
+ *
+ * \return The position at which the item has been added, i.e.,
+ *         the index of the added item if success. Otherwise, 
+ *         the following error code will be returned:
+ *
+ *        - MB_ERR_SPACE\n  No memory can be allocated for new item.
+ */
+#define MBM_ADDITEM                 0xF200
+
+/**
+ * \def MBM_DELITEM
+ * \brief Sends to the control to delete an item in the menu list.
+ *
+ * \code
+ * MBM_DELETEITEM
+ * int delete;
+ *
+ * wParam = (WPARAM)delete;
+ * lParam = 0;
+ * \endcode
+ *
+ * \param delete The index of the item to be deleted.
+ *
+ * \return MB_OKAY if success, else MB_INV_ITEM to indicate valid index.
+ */
+#define MBM_DELITEM                 0xF201
+
+/**
+ * \def MBM_RESETCTRL
+ * \brief Sends to the control to remove all items in the menu list.
+ *
+ * \code
+ * MBM_RESETCTRL
+ *
+ * wParam = 0;
+ * lParam = 0;
+ * \endcode
+ *
+ * \return Always be zero.
+ */
+#define MBM_RESETCTRL               0xF202
+
+/**
+ * \def MBM_SETITEMDATA
+ * \brief Sends to the control to set the data of a specific item.
+ *
+ * \code
+ * MBM_SETITEMDATA
+ * int index;
+ * PMENUBUTTONITEM pmbi;
+ *
+ * wParam = (WPARAM)index;
+ * lParam = (LPARAM)pmbi;
+ * \endcode
+ *
+ * \param index The index of the item to be altered.
+ * \param pmbi Pointer to the MENUBUTTONITEM structure that stores the new 
+ *         menubutton item data.
+ *
+ * \return MB_OKAY if success, otherwise will be one of the following error codes:
+ *
+ *          - MB_INV_ITEM\n     Indicate that the index you passed is valid.
+ *          - MB_ERR_SPACE\n    No memory can be allocated for new item data.
+ * \return 
+ */
+#define MBM_SETITEMDATA             0xF203
+
+/**
+ * \def MBM_GETITEMDATA
+ * \brief Sends to the control to retrive the data of a specific item.
+ *
+ * \code
+ * MBM_GETITEMDATA
+ * int index;
+ * PMENUBUTTONITEM pmbi;
+ *
+ * wParam = (WPARAM)index;
+ * lParam = (LPARAM)pmbi;
+ * \endcode
+ *
+ * \param index The index of the specific item.
+ * \param pmbi Pointer to the MENUBUTTONITEM structure for storing the 
+ *         menubutton item data.
+ *
+ * \return MB_OKAY if success, otherwise MB_INV_ITEM to indicate invalid index.
+ */
+#define MBM_GETITEMDATA             0xF204
+
+/**
+ * \def MBM_GETCURITEM
+ * \brief Sends to get the index of the current selected item.
+ *
+ * \code
+ * MBM_GETCURITEM
+ *
+ * wParam = 0;
+ * lParam = 0;
+ * \endcode
+ *
+ * \return The index of the current selected item. If there is no seleted
+ *         item, MB_INV_ITEM will be returned.
+ */
+#define MBM_GETCURITEM              0xF206
+
+/**
+ * \def MBM_SETCURITEM
+ * \brief Sends to Set the the current selected item based on index.
+ *
+ * \code
+ * MBM_SETCURITEM
+ * int new;
+ *
+ * wParam = (WPARAM)new;
+ * lParam = 0;
+ * \endcode
+ *
+ * \param new The index to be the current item.
+ *
+ * \return The index of the old selected item.
+ */
+#define MBM_SETCURITEM              0xF207
+
+/**
+ * \def MBM_SETSTRCMPFUNC
+ * \brief Sets the STRCMP function used to sort items.
+ *
+ * An application sends a MBM_SETSTRCMPFUNC message to set a 
+ * new STRCMP function to sort items in the menubutton.
+ *
+ * Note that you should send this message before adding 
+ * any item to the menubutton control.
+ *
+ * \code
+ * static int my_strcmp (const char* s1, const char* s2, size_t n)
+ * {
+ *      ...
+ *      return 0;
+ * }
+ *
+ * MBM_SETSTRCMPFUNC
+ *
+ * wParam = 0;
+ * lParam = (LPARAM) my_strcmp;
+ * \endcode
+ *
+ * \param my_strcmp Your own function to compare two strings.
+ *
+ * \return One of the following values:
+ *          - MB_OKAY\n     Success
+ *          - MB_ERR\n      Not an empty menubutton
+ */
+#define MBM_SETSTRCMPFUNC           0xF208
+
+#define MBM_MSGMAX                  0xF210
+
+    /** @} end of ctrl_menubutton_msgs */
+
+    /**
+     * \defgroup ctrl_menubutton_ncs Notification codes of menubutton control
+     * @{
+     */
+
+/**
+ * \def MBN_ERRSPACE
+ * \brief Sends when memory space error occures.
+ */
+#define MBN_ERRSPACE            255
+
+/**
+ * \def MBN_CHANGED
+ * \brief Sends when selected item changes.
+ */
+#define MBN_CHANGED             1
+
+/**
+ * \def MBN_SELECTED
+ * \brief Sends when an item is selected.
+ */
+#define MBN_SELECTED            2
+
+/**
+ * \def MBN_STARTMENU
+ * \brief Sends when starting tracking popup menu.
+ */
+#define MBN_STARTMENU           4
+
+/**
+ * \def MBN_ENDMENU
+ * \brief Sends when ending tracking popup menu.
+ */
+#define MBN_ENDMENU             5
+
+/**
+ * \def MBN_CLICKED
+ * \brief Sends when the user clicked the menubutton but not active the menu.
+ */
+#define MBN_CLICKED             6
+
+    /** @} end of ctrl_menubutton_ncs */
+
+    /** @} end of ctrl_menubutton */
+
+    /** @} end of controls */
+
+#ifdef __cplusplus
+}
+#endif  /* __cplusplus */
+
+#endif /* _MGUI_CTRL_MENUBUTTON_H */
+

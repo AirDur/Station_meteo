@@ -1,0 +1,32 @@
+#**********OPTIONS*******************************
+.equ 	_ISR_STARTADDRESS,	0xc7fff00		/* GCS6:64M DRAM/SDRAM 	*/
+
+
+#BUSWIDTH; 16,32
+    		.global		BUSWIDTH
+.equ 		BUSWIDTH,	16
+
+
+#"DRAM","SDRAM"
+    		.data
+    		.global		BDRAMTYPE
+BDRAMTYPE:	.string		"SDRAM"
+
+
+#This value has to be TRUE on ROM program.
+#This value has to be FALSE in RAM program.
+    		.global    	PLLONSTART
+.equ		PLLONSTART, 	1
+
+		.global 	PLLCLK
+.equ 		PLLCLK,		66000000
+
+
+		.ifeq PLLCLK-66000000	
+.equ 		M_DIV,		58		/* Fin=10MHz Fout=66MHz */
+.equ 		P_DIV,		3
+.equ 		S_DIV,		1
+		.endif
+
+#************************************************
+#		.end
