@@ -60,10 +60,10 @@ void Init_Iic(void)
 
     rIICCON=(1<<7)|(0<<6)|(1<<5)|(0xf);
     //Enable interrupt, IICCLK=MCLK/16, Enable ACK
-    //40Mhz/16/(15+1) = 257Khz	
+    //40Mhz/16/(15+1) = 257Khz
     rIICADD=0x10;   // S3C44B0X slave address
 
-    rIICSTAT=0x10;   
+    rIICSTAT=0x10;
 }
 
 
@@ -74,7 +74,7 @@ void Wr24LCxx(U32 slvAddr,U32 addr,U8 data)
     _iicData[0]=(U8)addr;
     _iicData[1]=data;
     _iicDataCount=2;
-    
+
     rIICDS=slvAddr;//0xa0
     rIICSTAT=0xf0; //MasTx,Start
     //Clearing the pending bit isn't needed because the pending bit has been cleared.
@@ -87,18 +87,18 @@ void Wr24LCxx(U32 slvAddr,U32 addr,U8 data)
 	rIICDS=slvAddr;
 	_iicStatus=0x100;
 	rIICSTAT=0xf0; //MasTx,Start
-	rIICCON=0xaf;  //resumes IIC operation. 
+	rIICCON=0xaf;  //resumes IIC operation.
 	while(_iicStatus==0x100);
 	if(!(_iicStatus&0x1))
 	    break; // when ACK is received
     }
-    rIICSTAT=0xd0;  //stop MasTx condition 
-    rIICCON=0xaf;   //resumes IIC operation. 
+    rIICSTAT=0xd0;  //stop MasTx condition
+    rIICCON=0xaf;   //resumes IIC operation.
     Delay(1);	    //wait until stop condtion is in effect.
 
     //write is completed.
 }
-	
+
 
 void Rd24LCxx(U32 slvAddr,U32 addr,U8 *data)
 {
@@ -108,7 +108,7 @@ void Rd24LCxx(U32 slvAddr,U32 addr,U8 *data)
     _iicDataCount=1;
 
     rIICDS=slvAddr;
-    rIICSTAT=0xf0; //MasTx,Start  
+    rIICSTAT=0xf0; //MasTx,Start
     //Clearing the pending bit isn't needed because the pending bit has been cleared.
     while(_iicDataCount!=-1);
 
@@ -116,10 +116,10 @@ void Rd24LCxx(U32 slvAddr,U32 addr,U8 *data)
 
     _iicPt=0;
     _iicDataCount=1;
-    
+
     rIICDS=slvAddr;
     rIICSTAT=0xb0; //MasRx,Start
-    rIICCON=0xaf;  //resumes IIC operation.   
+    rIICCON=0xaf;  //resumes IIC operation.
     while(_iicDataCount!=-1);
 
     *data=_iicData[1];
@@ -132,7 +132,7 @@ void IicInt(void)
     U32 iicSt,i;
     rI_ISPC=BIT_IIC;
 
-    iicSt=rIICSTAT; 
+    iicSt=rIICSTAT;
     if(iicSt&0x8){} // when bus arbitration is failed.
     if(iicSt&0x4){} // when a slave address is matched with IICADD
     if(iicSt&0x2){} // when a slave address is 0000000b
@@ -148,30 +148,30 @@ void IicInt(void)
 	    if((_iicDataCount--)==0)
 	    {
 		_iicData[_iicPt++]=rIICDS;
-	    
-		rIICSTAT=0x90;  //stop MasRx condition 
+
+		rIICSTAT=0x90;  //stop MasRx condition
 		rIICCON=0xaf;   //resumes IIC operation.
 		Delay(1);	//wait until stop condtion is in effect.
-				//too long time... 
+				//too long time...
 		//The pending bit will not be set after issuing stop condition.
-		break;    
-	    }	     
+		break;
+	    }
 	    _iicData[_iicPt++]=rIICDS;
 				//The last data has to be read with no ack.
 	    if((_iicDataCount)==0)
-		rIICCON=0x2f;	//resumes IIC operation with NOACK.  
-	    else 
+		rIICCON=0x2f;	//resumes IIC operation with NOACK.
+	    else
 		rIICCON=0xaf;	//resumes IIC operation with ACK
 	    break;
 
 	case WRDATA:
 	    if((_iicDataCount--)==0)
 	    {
-		rIICSTAT=0xd0;	//stop MasTx condition 
+		rIICSTAT=0xd0;	//stop MasTx condition
 		rIICCON=0xaf;	//resumes IIC operation.
 		Delay(1);	//wait until stop condtion is in effect.
 		//The pending bit will not be set after issuing stop condition.
-		break;    
+		break;
 	    }
 	    rIICDS=_iicData[_iicPt++];  //_iicData[0] has dummy.
 	    for(i=0;i<10;i++);	    //for setup time until rising edge of IICSCL
@@ -182,7 +182,7 @@ void IicInt(void)
 	    //Uart_Printf("[S%d]",_iicDataCount);
 	    if((_iicDataCount--)==0)
 	    {
-		break;  //IIC operation is stopped because of IICCON[4]    
+		break;  //IIC operation is stopped because of IICCON[4]
 	    }
 	    rIICDS=_iicData[_iicPt++];
 	    for(i=0;i<10;i++);  //for setup time until rising edge of IICSCL
@@ -190,9 +190,6 @@ void IicInt(void)
 	    break;
 
 	default:
-	    break;	  
+	    break;
     }
 }
-
-
-
