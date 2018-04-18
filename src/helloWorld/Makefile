@@ -1,7 +1,7 @@
 CC = arm-elf-gcc
 
 DEFINE = -DINTERVAL_MAJ=5 -DINTERVAL_TENDANCES=10
-DISTRIB_PATH = /home/marmoton/Working_dir/ESIL_Preparation/Departement_IRM/Projet_Architecture_IRM/Projet_Station_Meteo/S3C44-kernel/uClinux-pragm-20070119-modified
+DISTRIB_PATH = /home/airdur/Documents/projet_archi/uClinux-pragm-20070119-modified
 INC_NANOX=$(DISTRIB_PATH)/user/microwin/src/include
 INC_GRAPHICS=/usr/local/arm-linux/sys-include/config/ep93xx
 INCLUDE=-I$(INC_NANOX) -I$(INC_GRAPHICS)
@@ -13,8 +13,8 @@ LIB_NANOX = nano-X
 LIB_THREAD = pthread
 LIBS = -l$(LIB_NANOX) -l$(LIB_THREAD)
 
-SRC_WR = helloWorld.c 
-OBJ_WR = helloWorld.o 
+SRC_WR = helloWorld.c
+OBJ_WR = helloWorld.o
 EXEC   = helloWorld
 
 all :
@@ -22,4 +22,3 @@ all :
 	$(CC) -Wl, -elf2flt $(DEFINE) $(OBJ_WR) -o $(EXEC) $(LIBS_PATH) $(LIBS)
 clean :
 	rm -f *.o *.gdb
-

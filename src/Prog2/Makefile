@@ -1,7 +1,7 @@
 CC = arm-elf-gcc
 
 DEFINE = -DINTERVAL_MAJ=5 -DINTERVAL_TENDANCES=10
-MY_LINUX_PATH=$(HOME)/Working_dir/ESIL_Preparation/Departement_IRM/Projet_Architecture_IRM/Projet_Station_Meteo/S3C44-kernel/uClinux-pragm-20070119-modified
+MY_LINUX_PATH = /home/airdur/Documents/projet_archi/uClinux-pragm-20070119-modified
 INC_NANOX=$(MY_LINUX_PATH)/user/microwin/src/include
 INC_GRAPHICS=/usr/local/arm-linux/sys-include/config/ep93xx
 INCLUDE=-I$(INC_NANOX) -I$(INC_GRAPHICS)
@@ -22,4 +22,3 @@ all :
 	$(CC) -Wl, -elf2flt $(DEFINE) $(OBJ_WR) -o $(EXEC) $(LIBS_PATH) $(LIBS)
 clean :
 	rm -f *.o *.gdb
-
