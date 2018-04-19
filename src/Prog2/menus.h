@@ -56,4 +56,3 @@ extern int affichage_menu_04(GR_WINDOW_ID w, GR_GC_ID gc);
 
 
 #endif /* __MENUS_H__ */
-
