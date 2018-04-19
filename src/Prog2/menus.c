@@ -7,9 +7,9 @@ int affichage_menu_01(GR_WINDOW_ID w, GR_GC_ID gc, t_ptr_captors_data p)
 {
     char sT[64], sP[64], sRH[64];
 
-    sprintf(sT,  "T = %.2f C\n",   p->T);
-    sprintf(sP,  "P = %.2f hPa\n", p->P);
-    sprintf(sRH, "H = %.2f %%\n",  p->RH);
+    sprintf(sT,  "Ttest = %.2f C\n",   p->T);
+    sprintf(sP,  "Ptest = %.2f hPa\n", p->P);
+    sprintf(sRH, "Htest = %.2f %%\n",  p->RH);
 
     GrText(w, gc, 20, 30, "TEST Temps reel",  -1, GR_TFASCII);
     GrText(w, gc, 35, 80,  sT,  -1, GR_TFASCII);
@@ -24,9 +24,9 @@ int affichage_menu_02(GR_WINDOW_ID w, GR_GC_ID gc, t_ptr_captors_data p)
 {
     char sT[64], sP[64], sRH[64];
 
-    sprintf(sT,  "T = %.2f C\n",   p->T);
-    sprintf(sP,  "P = %.2f hPa\n", p->P);
-    sprintf(sRH, "H = %.2f %%\n",  p->RH);
+    sprintf(sT,  "Ttest = %.2f C\n",   p->T);
+    sprintf(sP,  "Ptest = %.2f hPa\n", p->P);
+    sprintf(sRH, "Htest = %.2f %%\n",  p->RH);
 
     GrText(w, gc, 20, 30, "TEST Moyennes",  -1, GR_TFASCII);
     GrText(w, gc, 35, 80,  sT,  -1, GR_TFASCII);
@@ -41,9 +41,9 @@ int affichage_menu_03(GR_WINDOW_ID w, GR_GC_ID gc, t_ptr_tendances p)
 {
     GrText(w, gc, 20, 30, "TEST Tendances", -1, GR_TFASCII);
 
-    GrText(w, gc, 35, 80,  "T =", -1, GR_TFASCII);
-    GrText(w, gc, 35, 110, "P =", -1, GR_TFASCII);
-    GrText(w, gc, 35, 140, "H =", -1, GR_TFASCII);
+    GrText(w, gc, 35, 80,  "Ttest =", -1, GR_TFASCII);
+    GrText(w, gc, 35, 110, "Ptest =", -1, GR_TFASCII);
+    GrText(w, gc, 35, 140, "Htest =", -1, GR_TFASCII);
 
     if (p->T > 0)
         GrDrawImageFromFile(w, gc, 60, 60, 30, 30, IMG_UP, 0);
@@ -64,7 +64,7 @@ int affichage_menu_03(GR_WINDOW_ID w, GR_GC_ID gc, t_ptr_tendances p)
 
 int affichage_menu_04(GR_WINDOW_ID w, GR_GC_ID gc)
 {
-    GrText(w, gc, 40, 75, "Bye bye !",  -1, GR_TFASCII);
+    GrText(w, gc, 40, 75, "Bye bye test !",  -1, GR_TFASCII);
 
     return EXIT_SUCCESS;
 
