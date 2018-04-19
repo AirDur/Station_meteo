@@ -17,9 +17,6 @@ void affiche_message_ecran(int acgc,char **argv)
 
 
   	//exécution des modules et de nano-X
-  	system("insmod adc_s3c44.o");
-  	system("insmod i2c_s3c44.o");
-  	system("./nano-X &");
 
 
   	//configuration pour les préférences d'afichage
