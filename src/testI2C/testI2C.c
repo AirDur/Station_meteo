@@ -23,7 +23,6 @@
 
 #define I2C_SLAVE             0x0703
 
-
 int main(int argc, char**argv)
 {
 	int fd, ret;
