@@ -1,17 +1,25 @@
-#ifndef _BOUTONS_H
-#define _BOUTONS_H
+#ifndef __BUTTONS_H__
+#define __BUTTONS_H__
+
+#include "44b.h"
+
+/**
+ * Nous définissons des flags pour chaque bouton, au lieu de manipuler directement
+ * des données hexadécimals.
+**/
+#define BIT_ZERO            0x0
+#define BUTTON_01           0x1
+#define BUTTON_02           0x2
+#define BUTTON_03           0x4
+#define BUTTON_04           0x8
 
 
-
-//==================constantes boutons
-BUTTON1 0x1
-BUTTON2 0x2
-BUTTON3 0x4
-BUTTON4 0x8
-
-
-//======================les fonctions recuperation boutons
-unsigned int KEYBOARD_STATUS(void);
+/**
+ * @brief  Recupere l'etat des boutons.
+ * @return Etat des boutons.
+ */
+extern unsigned int KEYBOARD_STATUS(void);
 unsigned int Push_Button(void);
 
-#endif /* _BOUTONS_H*/
+
+#endif /* __BUTTONS_H__ */s
