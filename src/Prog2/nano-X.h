@@ -676,7 +676,7 @@ GR_WINDOW_ID	GrNewWindowEx(GR_WM_PROPS props, GR_CHAR *title,
 			GR_SIZE width, GR_SIZE height, GR_COLOR background);
 void		GrDrawLines(GR_DRAW_ID w, GR_GC_ID gc, GR_POINT *points,
 			GR_COUNT count);
-GR_WINDOW_ID    GrNewPixmapFromData(GR_SIZE width, GR_SIZE height, 
+GR_WINDOW_ID    GrNewPixmapFromData(GR_SIZE width, GR_SIZE height,
 			GR_COLOR foreground, GR_COLOR background, void * bits,
 			int flags);
 
