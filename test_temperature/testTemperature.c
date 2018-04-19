@@ -85,27 +85,30 @@ int main(int argc, char**argv)
   int code_erreur, buffer;
   double temperature;
 
-  temperature = 0;
+  while(1) {
+    temperature = 0;
 
-  //Ouverture du perifique i2c :
-  if ((buffer = open(I2C_FILE, O_RDWR)) < 0)
-  {
-      perror("[testTemperature] /dev/i2c0 n'existe pas : le driver n'est pas installe.");
-      return EXIT_FAILURE;
-  }
+    //Ouverture du perifique i2c :
+    if ((buffer = open(I2C_FILE, O_RDWR)) < 0)
+    {
+        perror("[testTemperature] /dev/i2c0 n'existe pas : le driver n'est pas installe.");
+        return EXIT_FAILURE;
+    }
 
-  code_erreur = configuration_i2c(buffer, CONFIG_TEMP_R0 | CONFIG_TEMP_R1);
-  if (code_erreur != EXIT_SUCCESS)
-  {
-      perror("[testTemperature] Configuration registre de temperature");
-      return EXIT_FAILURE;
-  }
+    code_erreur = configuration_i2c(buffer, CONFIG_TEMP_R0 | CONFIG_TEMP_R1);
+    if (code_erreur != EXIT_SUCCESS)
+    {
+        perror("[testTemperature] Configuration registre de temperature");
+        return EXIT_FAILURE;
+    }
 
-  code_erreur = lecture_temperature(buffer, &temperature);
-  if (code_erreur != EXIT_SUCCESS)
-  {
-      perror("[testTemperature] Recuperation temperature");
-      return EXIT_FAILURE;
+    code_erreur = lecture_temperature(buffer, &temperature);
+    if (code_erreur != EXIT_SUCCESS)
+    {
+        perror("[testTemperature] Recuperation temperature");
+        return EXIT_FAILURE;
+    }
+    sleep(2);
   }
 
 }
