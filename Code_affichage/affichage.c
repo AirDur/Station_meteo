@@ -8,9 +8,9 @@
 #include <stdio.h>
 
 
-int main(int ac,char **av)
+void affiche(int ac,char **av)
 {
-    printf("Hello world") ;
+    printf("Hello world") ;         //affichage sur le terminal
 
     return 0;
 
