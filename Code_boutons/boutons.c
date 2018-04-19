@@ -31,4 +31,6 @@ if((Etat_bouton & BUTTON_03) == 4)        //le bouton poussoir 3 recuperé
 
 if((Etat_bouton & BUTTON_04) == 8)        //le bouton poussoir 4 recuperé
   return 4;
+
+  return -1;
 }
