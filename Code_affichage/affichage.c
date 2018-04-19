@@ -34,7 +34,6 @@ void affiche_message_ecran(int acgc,char **argv)
 
       	window = GrNewWindow(GR_ROOT_WINDOW_ID, 20, 100, 120, 120,5, WHITE, BLACK);
 
-
         //function allocates a new graphic context with all parameters set to the default values.
         gc = GrNewGC();                 //fonction ligne 534 dans nano-X.h c'est GR_GC_ID
 
@@ -63,15 +62,17 @@ void affiche_message_ecran(int acgc,char **argv)
       //*********************************************************
 /**     	while(1)
       	{
-  	          KbStatus = KEYBOARD_STATUS();
-      		  if((KbStatus & 0x1)==1)
+          unsigned int Valeur_bouton = Push_Button();
+
+
+      		  if( Valeur_bouton == 1)           //le bouton 1
       		 {
                      printf("Button Ox1, S2 pressed\n") ;
       	 		while( KEYBOARD_STATUS() == KbStatus) ;
       	    		msleep(delay_val) ;
          		}
 
-      		if((KbStatus & 0x2)==2) //bouton 3
+      		if(Valeur_bouton== 2)             //bouton 2
       		{
   			//affichage et positionnement des valeurs(température, humidité et pression)sur l'ecran LCD
   	  		for (;;) {
@@ -83,14 +84,12 @@ void affiche_message_ecran(int acgc,char **argv)
   	  		GrText(w, gc, 0, 100,valeur3 , -1, GR_TFASCII);
   			while( KEYBOARD_STATUS() == KbStatus) ;
       		}
-
-      		if((KbStatus & 0x4)==4)
+      		if((Valeur_bouton== 3)          //le bouton 3
       		{
       			printf("Button 0x4, S4 pressed\n") ;
       			while( KEYBOARD_STATUS() == KbStatus) ;
       		}
-
-      		if((KbStatus & 0x8)==8)
+      		if( Valeur_bouton== 4)          //le bouton 4
       		{
       			printf("Button 0x8, S5 pressed\n") ;
       			while( KEYBOARD_STATUS() == KbStatus) ;
