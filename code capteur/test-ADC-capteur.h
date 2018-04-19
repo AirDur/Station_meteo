@@ -14,6 +14,7 @@
 #include <stdlib.h>
 #include <fcntl.h>
 #include <unistd.h>
+#include <sys/ioctl.h>
 
 
 #ifndef ADC_CHANNEL
@@ -38,7 +39,7 @@ extern int lire_pression(int fd, double * P);
  * @param p  Parametre de sortie. Valeurs des differentes sondes.
  * @return   EXIT_SUCCESS ou EXIT_FAILURE
  */
-extern int lire_donnees_capteurs(t_ptr_captors_data p);
+//extern int lire_donnees_capteurs(t_ptr_captors_data p);
 
 
 #endif /* __CAPTEURS_H__ */
