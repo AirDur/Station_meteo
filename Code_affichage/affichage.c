@@ -84,13 +84,11 @@ void affiche_message_ecran(int acgc,char **argv)
   	  		GrText(w, gc, 0, 100,valeur3 , -1, GR_TFASCII);
   			while( KEYBOARD_STATUS() == KbStatus) ;
       		}
-
       		if((Valeur_bouton== 3)          //le bouton 3
       		{
       			printf("Button 0x4, S4 pressed\n") ;
       			while( KEYBOARD_STATUS() == KbStatus) ;
       		}
-
       		if( Valeur_bouton== 4)          //le bouton 4
       		{
       			printf("Button 0x8, S5 pressed\n") ;
