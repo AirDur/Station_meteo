@@ -4,8 +4,9 @@
  * @brief    	Fontion de base permettant d'afficher sur l'écran un message
  */
 
+#include "affichage.h"
 
-void affiche_message_ecran(int acgc,char **argv)
+int main(int acgc,char **argv)
 {
   	GR_WINDOW_ID window;
     GR_GC_ID gc;
@@ -16,7 +17,7 @@ void affiche_message_ecran(int acgc,char **argv)
     int delay_val = 200;          //l'attente pour les boutons
 
 
-  	//exécution des modules et de nano-X
+  	system("./nano-X &");
 
 
   	//configuration pour les préférences d'afichage
@@ -42,13 +43,13 @@ void affiche_message_ecran(int acgc,char **argv)
 
         /** function tells the server which events the client want to receive for the  window and
         replaces any previously selected event mask for the window.**/
-        GrSelectEvents(w, GR_EVENT_MASK_EXPOSURE);
+        GrSelectEvents(window, GR_EVENT_MASK_EXPOSURE);
 
         //maps a window and any unmapped children of that window
-        GrMapWindow(w);
+        GrMapWindow(window);
 
         //=====================essai affichage text
-        GrText(w, gc, 0, 20,"=== Un premier affichage de la station meteo :)==" , -1, GR_TFASCII);
+        GrText(window, gc, 0, 20,"=== Un premier affichage de la station meteo :)==" , -1, GR_TFASCII);
 
 
        //function flushes any buffered function calls and closes the connection created with the GrOpen function.
