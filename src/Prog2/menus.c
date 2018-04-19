@@ -28,7 +28,7 @@ int affichage_menu_02(GR_WINDOW_ID w, GR_GC_ID gc, t_ptr_captors_data p)
     sprintf(sP,  "Ptest = %.2f hPa\n", p->P);
     sprintf(sRH, "Htest = %.2f %%\n",  p->RH);
 
-    GrText(w, gc, 20, 30, "TEST Moyennes",  -1, GR_TFASCII);
+    GrText(w, gc, 20, 30, "k Moyennes",  -1, GR_TFASCII);
     GrText(w, gc, 35, 80,  sT,  -1, GR_TFASCII);
     GrText(w, gc, 35, 110, sP,  -1, GR_TFASCII);
     GrText(w, gc, 35, 140, sRH, -1, GR_TFASCII);
