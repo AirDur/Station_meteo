@@ -12,7 +12,7 @@
 #define ADC_CHAN_PRESSURE    4
 #define ADC_CHAN_HUMIDITY    5
 
-void main()
+int main()
 {
   short data ;
   int fd, ret ;
@@ -43,7 +43,7 @@ void main()
   RH = RH / (1.0546 - 0.00216 * T); // Calcul de l'humidite avec T
 
   //Affichage humidité
-  printf("Valeur de l'humidité : %lf", &RH);
+  printf("Valeur de l'humidité : %lf \n", RH);
 
 
   //CONFIGURATION DU CANAL POUR LA PRESSION
@@ -61,7 +61,7 @@ void main()
   P = (Vout + Vs * 0.1518) / (Vs * 0.01059) * 10; // Calcul de la pression
 
   //Affichage humidité
-  printf("Valeur de la pression : %lf", &P);
+  printf("Valeur de la pression : %lf \n", P);
 
   //FERMETURE DU PROGRAMME
   close(fd);
