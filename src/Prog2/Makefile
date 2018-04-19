@@ -1,7 +1,7 @@
 CC = arm-elf-gcc
 
 DEFINE = -DINTERVAL_MAJ=5 -DINTERVAL_TENDANCES=10
-MY_LINUX_PATH = /home/thomas-gattaz/Documents/projet_archi/uClinux-pragm-20070119-modified
+MY_LINUX_PATH = /home/airdur/Documents/projet_archi/uClinux-pragm-20070119-modified
 INC_NANOX=$(MY_LINUX_PATH)/user/microwin/src/include
 INC_GRAPHICS=/usr/local/arm-linux/sys-include/config/ep93xx
 INCLUDE=-I$(INC_NANOX) -I$(INC_GRAPHICS)
@@ -15,7 +15,7 @@ LIBS = -l$(LIB_NANOX) -l$(LIB_THREAD)
 
 SRC_WR = main.c capteurs.c buttons.c menus.c threads.c
 OBJ_WR = main.o capteurs.o buttons.o menus.o threads.o
-EXEC   = HelloWorld
+EXEC   = prog2
 
 all :
 	$(CC) $(DEFINE) -c $(SRC_WR) $(INCLUDE)

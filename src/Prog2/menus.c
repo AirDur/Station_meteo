@@ -7,7 +7,7 @@ int affichage_menu_01(GR_WINDOW_ID w, GR_GC_ID gc, t_ptr_captors_data p)
 {
     char sT[64], sP[64], sRH[64];
 
-    sprintf(sT,  "Ttest = %.2f C\n",   p->T);
+    sprintf(sT,  "Ttkfest = %.2f C\n",   p->T);
     sprintf(sP,  "Ptest = %.2f hPa\n", p->P);
     sprintf(sRH, "Htest = %.2f %%\n",  p->RH);
 
@@ -41,7 +41,7 @@ int affichage_menu_03(GR_WINDOW_ID w, GR_GC_ID gc, t_ptr_tendances p)
 {
     GrText(w, gc, 20, 30, "TEST Tendances", -1, GR_TFASCII);
 
-    GrText(w, gc, 35, 80,  "Ttest =", -1, GR_TFASCII);
+    GrText(w, gc, 35, 80,  "P =", -1, GR_TFASCII);
     GrText(w, gc, 35, 110, "Ptest =", -1, GR_TFASCII);
     GrText(w, gc, 35, 140, "Htest =", -1, GR_TFASCII);
 
