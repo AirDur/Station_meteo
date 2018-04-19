@@ -15,8 +15,8 @@
 
 
 // Chemin vers les fichiers images representant les tendances.
-#define IMG_UP      "/home/img/up.gif"
-#define IMG_DOWN    "/home/img/down.gif"
+#define IMG_UP     "/home/img/up.gif"
+#define IMG_DOWN   "/home/img/down.gif"
 
 
 /**
