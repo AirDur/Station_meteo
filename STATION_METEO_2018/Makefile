@@ -9,12 +9,12 @@ LIB_PATH_NANOX = $(DISTRIB_PATH)/user/microwin/src/lib
 LIBS_PATH = -L$(LIB_PATH_NANOX)
 
 LIB_NANOX = nano-X
-LIBS = -l$(LIB_NANOX)
+LIB_THREAD = pthread
+LIBS = -l$(LIB_NANOX) -l$(LIB_THREAD)
 
 SRC_WR = capteurs.c
 OBJ_WR = capteurs.o
 EXEC   = capteurs
-
 
 all :
 	$(CC) -c $(SRC_WR) -o $(OBJ_WR) $(INCLUDE)

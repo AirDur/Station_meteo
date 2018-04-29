@@ -15,6 +15,9 @@
 #include <graphics.h>
 #include <nano-X.h>
 #include <pthread.h>
+#include <stdio.h>
+
+#define MWINCLUDECOLORS
 #define ADC_CHAN_PRESSURE    4
 #define ADC_CHAN_HUMIDITY    5
 
@@ -93,6 +96,7 @@ int main(int argc, char**argv)
   int fd, ret;
   double RH, P;
   double Vout, Vs;
+  unsigned int w;
 
   temperature = 0;
 
@@ -169,7 +173,7 @@ int main(int argc, char**argv)
   //Affichage humidité
   printf(" - Valeur de l'humidité : %lf \n", RH);
 
-  GR_WINDOW_ID w;
+  //GR_WINDOW_ID w;
   GR_GC_ID gc;
   GR_EVENT event;
 
