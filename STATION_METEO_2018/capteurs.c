@@ -82,11 +82,14 @@
  {
    short data ;
    int fd, ret ;
+   int code_erreur, buffer;
    double RH, P, T;
    double Vout, Vs, temperature;
 
    while(1) {
      T = 0;
+
+
 
      //RECUPERATION DE DONNEES CAPTEUR TEMPERATURE
      if ((buffer = open(I2C_FILE, O_RDWR)) < 0)
