@@ -86,10 +86,7 @@
    double RH, P, T;
    double Vout, Vs, temperature;
 
-   while(1) {
      T = 0;
-
-
 
      //RECUPERATION DE DONNEES CAPTEUR TEMPERATURE
      if ((buffer = open(I2C_FILE, O_RDWR)) < 0)
@@ -113,7 +110,6 @@
          return EXIT_FAILURE;
      }
      sleep(2);
-   }
 
    //RECUPERATION DONNEES CAPTEUR HUMIDITE/PRESSION
    if ((fd = open(ADC_DEVICE,O_RDONLY)) < 0 )
