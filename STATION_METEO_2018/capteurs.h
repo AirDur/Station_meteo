@@ -16,9 +16,16 @@
 #include <stdlib.h>
 #include <fcntl.h>
 #include <unistd.h>
-#include <nano-X.h>
+#include "nano-X.h"
 
 #include <string.h>
+#include <graphics.h>
+#include <pthread.h>
+
+#define MWINCLUDECOLORS
+#define ADC_CHAN_PRESSURE    4
+#define ADC_CHAN_HUMIDITY    5
+
 
 #define I2C_SLAVE             0x0703        // "adresse" du bus i2c
 #define I2C_ADDRESS_TEMP      0x92          // Float address + 1 R/W bit low
