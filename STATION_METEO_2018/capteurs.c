@@ -136,10 +136,9 @@ int main(int argc, char**argv)
   Vout = (2.5 / 1024) * data * 2;
   Vs = 5;
   RH = (Vout - Vs * 0.16) / (Vs * 0.0062);  // Calcul humidite
-  RH = RH / (1.0546 - 0.00216 * temperature); // Calcul de l'humidite avec temperature
+  RH = RH / (1.0546 - 0.00216 * temperature); // Calcul de l'humidite avec T
 
-  //Affichage humidité
-  printf(" - Valeur de l'humidité : %lf \n", RH);
+
 
 
   //CONFIGURATION DU CANAL POUR LA PRESSION
@@ -156,10 +155,15 @@ int main(int argc, char**argv)
   Vs = 5.1;
   P = (Vout + Vs * 0.1518) / (Vs * 0.01059) * 10; // Calcul de la pression
 
-  //Affichage humidité
-  printf(" - Valeur de la pression : %lf \n", P);
+
 
   //FERMETURE DU PROGRAMME
   close(fd);
+
+
+  //Affichage humidité
+  printf(" - Valeur de la pression : %lf \n", P);
+  //Affichage humidité
+  printf(" - Valeur de l'humidité : %lf \n", RH);
   return EXIT_SUCCESS;
 }
