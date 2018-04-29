@@ -84,7 +84,7 @@
    int fd, ret ;
    int code_erreur, buffer;
    double RH, P, T;
-   double Vout, Vs, temperature;
+   double Vout, Vs;
 
    while(1) {
      T = 0;
