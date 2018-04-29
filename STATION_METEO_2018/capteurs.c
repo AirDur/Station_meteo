@@ -136,7 +136,7 @@ int main(int argc, char**argv)
   Vout = (2.5 / 1024) * data * 2;
   Vs = 5;
   RH = (Vout - Vs * 0.16) / (Vs * 0.0062);  // Calcul humidite
-  RH = RH / (1.0546 - 0.00216 * T); // Calcul de l'humidite avec T
+  RH = RH / (1.0546 - 0.00216 * temperature); // Calcul de l'humidite avec temperature
 
   //Affichage humidité
   printf(" - Valeur de l'humidité : %lf \n", RH);
