@@ -10,6 +10,7 @@ int main(int acgc,char **argv)
 {
   	GR_WINDOW_ID w;
     GR_EVENT event;
+    GR_FONT_ID font;
 
   	system("./nano-X &");
 
@@ -24,11 +25,14 @@ int main(int acgc,char **argv)
         // parametrès dans l'ordre parent, coordonées x et y (20,100) ,
         //largeur 120, hauteur 120 , bordersize 5 ,backgroud WHITE , bordercolor BLACK
 
-      	w = GrNewWindow(GR_ROOT_WINDOW_ID, 20, 100, 120, 120,5, WHITE, RED);
+      	w = GrNewWindow(GR_ROOT_WINDOW_ID, 0, 0, 240, 240,5, WHITE, RED);
         GrMapWindow(w);
 
           //function allocates a new graphic context with all parameters set to the default values.
           gc = GrNewGC();
+          font=GrCreateFont("Helvetica",6,NULL);
+          GrSetFontRotation(font,90);
+
           GrText(w, gc, 0, 20,"Coucou" , 6, GR_TFASCII);
           /*Enter event loop **/
           for(;;)
