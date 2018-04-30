@@ -30,7 +30,7 @@ gc = GrNewGC();
 font=GrCreateFont("Helvetica",6,NULL);
 GrSetFontRotation(font, 90);
 
-GrText(w, gc, 0, 20,"Ceci est un test", 17, GR_TFASCII);
+GrText(w, gc, 0, 20,"Le nouveau test", 16, GR_TFASCII);
 
 /*Enter event loop **/
 for(;;)
