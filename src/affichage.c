@@ -61,13 +61,13 @@ if (GrOpen() < 0)                            //fonction graphics routines
 w = GrNewWindow(GR_ROOT_WINDOW_ID, 20, 100, 120, 120,5, WHITE, BLACK);
 GrMapWindow(w);
 
+gc = GrNewGC();
+GrText(w, gc, 0, 20,"Ceci est un test", 17, GR_TFASCII);
 
 /*Enter event loop **/
 for(;;)
   GrGetNextEvent(&event);
 
-gc = GrNewGC();
-GrText(w, gc, 0, 20,"Ceci est un test", 17, GR_TFASCII);
 
 
   //function flushes any buffered function calls and closes the connection created with the GrOpen function.
