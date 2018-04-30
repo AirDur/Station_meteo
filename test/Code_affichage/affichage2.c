@@ -31,6 +31,9 @@ int main(int acgc,char **argv)
         /*Enter event loop **/
         for(;;)
           GrGetNextEvent(&event);
+          //function allocates a new graphic context with all parameters set to the default values.
+          gc = GrNewGC();
+          GrText(w, gc, 0, 20,"=== Un premier affichage de la station meteo :)==" , -1, GR_TFASCII);
 
 
           //function flushes any buffered function calls and closes the connection created with the GrOpen function.
