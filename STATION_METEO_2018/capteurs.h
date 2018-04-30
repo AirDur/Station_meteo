@@ -38,6 +38,10 @@
 #define CONFIG_TEMP_R1      0x20
 
 
+#define BLACK			MWRGB( 0  , 0  , 0   )
+#define WHITE			MWRGB( 255, 255, 255 )
+
+
 
 
 #ifndef ADC_CHANNEL

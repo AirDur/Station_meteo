@@ -89,11 +89,14 @@ int main(int argc, char**argv)
   int fd, ret;
   double RH, P;
   double Vout, Vs;
-  
+
   GR_WINDOW_ID w;
   GR_GC_ID gc;
   GR_EVENT event;
   char sT[64], sP[64], sRH[64];
+
+
+  printf("%d\n", BLACK);
 
   temperature = 0;
 
