@@ -23,7 +23,7 @@ if (GrOpen() < 0)                            //fonction graphics routines
 // parametrès dans l'ordre parent, coordonées x et y (20,100) ,
 //largeur 120, hauteur 120 , bordersize 5 ,backgroud WHITE , bordercolor BLACK
 
-w = GrNewWindow(1, 20, 50, 160, 280, 0, BLACK, WHITE);
+w = GrNewWindow(1, 20, 50, 160, 300, 5, WHITE, BLACK);
 GrMapWindow(w);
 
 gc = GrNewGC();
@@ -35,7 +35,7 @@ sprintf(sT, "%lf celsius", temperature);
 sprintf(sP, "%lf bar", pression);
 sprintf(sH, "%lf %%", humidite);
 
-GrText(w, gc, 0, 0,"-en temps reel-", 16, GR_TFASCII);
+GrText(w, gc, 0, 10,"en temps reel", 16, GR_TFASCII);
 GrLine(w, gc, 0, 20, 120, 20);
 GrText(w, gc, 0, 40," - Temperature :", 17, GR_TFASCII);
 GrText(w, gc, 0, 60,sT, 18, GR_TFASCII);
