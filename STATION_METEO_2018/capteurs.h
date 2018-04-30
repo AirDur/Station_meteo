@@ -2,8 +2,8 @@
  * Permet de lire les donnees du bus i2c
  */
 
-#ifndef __TEST__AFFICHAGE__DONNEE__
-#define __TEST__AFFICHAGE__DONNEE__
+#ifndef CAPTEUR_H
+#define CAPTEUR_H
 
 /**
 #include "44b.h"
@@ -16,10 +16,7 @@
 #include <stdlib.h>
 #include <fcntl.h>
 #include <unistd.h>
-#include "nano-X.h"
 
-#include <string.h>
-#include <graphics.h>
 #include <pthread.h>
 
 #define MWINCLUDECOLORS
@@ -36,12 +33,6 @@
 // Bit de configuration du registre de temperature
 #define CONFIG_TEMP_R0      0x40
 #define CONFIG_TEMP_R1      0x20
-
-
-#define BLACK			MWRGB( 0  , 0  , 0   )
-#define WHITE			MWRGB( 255, 255, 255 )
-
-
 
 
 #ifndef ADC_CHANNEL

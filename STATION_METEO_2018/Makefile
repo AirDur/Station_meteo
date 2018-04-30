@@ -13,8 +13,8 @@ LIB_NANOX = nano-X
 LIB_THREAD = pthread
 LIBS = -l$(LIB_NANOX) -l$(LIB_THREAD)
 
-SRC_WR = main.c capteurs.c
-OBJ_WR = main.o capteurs.o
+SRC_WR = main.c capteurs.c affichage.c
+OBJ_WR = main.o capteurs.o affichage.o
 EXEC   = rgt_meteo
 
 all :
