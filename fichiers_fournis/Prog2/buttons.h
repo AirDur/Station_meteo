@@ -1,4 +1,3 @@
-
 #ifndef __BUTTONS_H__
 #define __BUTTONS_H__
 
@@ -24,4 +23,3 @@ extern KEYBOARD_STATUS keyboard_status(void);
 
 
 #endif /* __BUTTONS_H__ */
-
