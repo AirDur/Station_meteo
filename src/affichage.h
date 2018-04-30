@@ -19,13 +19,6 @@
 #define BLACK			MWRGB( 0  , 0  , 0   )
 #define WHITE			MWRGB( 255, 255, 255 )
 
-#ifndef LECTURE_DOUBLE
-union lecture_double {
-  char tab[8];
-  double data;
-}
-#endif
-
 void affichage(double temperature, double pression, double humidite);
 
 #endif

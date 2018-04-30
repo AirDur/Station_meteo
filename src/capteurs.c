@@ -41,7 +41,7 @@ int configuration_i2c(int buffer, unsigned char mask)
   return EXIT_SUCCESS;
 }
 
-int lecture_temperature (int buffer, lecture_double * temperature) {
+int lecture_temperature (int buffer, double * Temperature) {
   int code_erreur;
   unsigned char bus[2];
   short donnees_brut;
@@ -73,14 +73,14 @@ int lecture_temperature (int buffer, lecture_double * temperature) {
   }
 
   donnees_brut = (bus[0] << 4) | (bus[1] >> 4);
-  temperature->data = donnees_brut * 0.0625;                          // 0.0625 = 128 / 2048
+  *Temperature = donnees_brut * 0.0625;                          // 0.0625 = 128 / 2048
 
-	printf(" - Valeur de température : %lf \n", temperature->data);
+	printf(" - Valeur de température : %lf \n", *Temperature);
 
 	return EXIT_SUCCESS;
 }
 
-int lancement_temperature(lecture_double *temperature, int buffer) {
+int lancement_temperature(double *temperature, int buffer) {
   //Ouverture du perifique i2c :
   if ((buffer = open(I2C_FILE, O_RDWR)) < 0)
   {
@@ -104,7 +104,7 @@ int lancement_temperature(lecture_double *temperature, int buffer) {
   return EXIT_SUCCESS;
 }
 
-int ADC_to_humidity(lecture_double temperature, lecture_double *humidite, int buffer) {
+int ADC_to_humidity(double temperature, double *humidite, int buffer) {
   short data;
   double Vout, Vs;
 
@@ -128,16 +128,16 @@ int ADC_to_humidity(lecture_double temperature, lecture_double *humidite, int bu
   // Calcul humidite physique
   Vout = (2.5 / 1024) * data * 2;
   Vs = 5;
-  humidite->data = (Vout - Vs * 0.16) / (Vs * 0.0062);  // Calcul humidite
-  humidite->data = (humidite->data) / (1.0546 - (0.00216 * (temperature.data))); // Calcul de l'humidite avec T
+  *humidite = (Vout - Vs * 0.16) / (Vs * 0.0062);  // Calcul humidite
+  *humidite = (*humidite) / (1.0546 - (0.00216 * (temperature))); // Calcul de l'humidite avec T
 
-	printf(" - Valeur de humidité : %lf \n", humidite->data);
+	printf(" - Valeur de humidité : %lf \n", *humidite);
 
   return EXIT_SUCCESS;
 }
 
 
-int ADC_to_pression(lecture_double temperature, lecture_double *pression, int buffer) {
+int ADC_to_pression(double temperature, double *pression, int buffer) {
   short data;
   double Vout, Vs;
 
@@ -160,9 +160,9 @@ int ADC_to_pression(lecture_double temperature, lecture_double *pression, int bu
 
   Vout = (2.5 / 1024) * data * 2;
   Vs = 5.1;
-  pression->data = (Vout + Vs * 0.1518) / (Vs * 0.01059) * 10; // Calcul de la pression
+  *pression = (Vout + Vs * 0.1518) / (Vs * 0.01059) * 10; // Calcul de la pression
 
-	printf(" - Valeur de pression : %lf \n", pression->data);
+	printf(" - Valeur de pression : %lf \n", *pression);
 
   return EXIT_SUCCESS;
 }

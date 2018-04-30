@@ -42,15 +42,6 @@
 // Fichier correspondant aux peripheriques de la carte
 #define ADC_DEVICE           "/dev/adc"
 
-
-#ifndef LECTURE_DOUBLE
-union lecture_double {
-  char tab[8];
-  double data;
-}
-#endif
-
-
 extern int lire_humidite(int fd, double T, double * RH);
 
 /**

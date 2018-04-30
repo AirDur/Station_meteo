@@ -1,9 +1,8 @@
 #include "affichage.h"
 
 
-void affichage(lecture_double temperature, lecture_double pression, lecture_double humidite) {
-  char string_temperature[10];
-  snprintf (string_temperature, 10, "%4.8f", temperature.data);
+
+void affichage(double temperature, double pression, double humidite) {
 /*  GR_WINDOW_ID w;
   GR_GC_ID gc;
   GR_EVENT event;
