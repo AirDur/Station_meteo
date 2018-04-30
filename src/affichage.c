@@ -39,8 +39,8 @@ GrText(w, gc, 0, 20," - Temperature :", 17, GR_TFASCII);
 GrText(w, gc, 0, 40,sT, 18, GR_TFASCII);
 GrText(w, gc, 0, 70," - Pression :", 14, GR_TFASCII);
 GrText(w, gc, 0, 90,sP, 15, GR_TFASCII);
-GrText(w, gc, 0, 120," - Humidite :", 10, GR_TFASCII);
-GrText(w, gc, 0, 140,sH, 16, GR_TFASCII);
+GrText(w, gc, 0, 120," - Humidite :", 14, GR_TFASCII);
+GrText(w, gc, 0, 140,sH, 10, GR_TFASCII);
 
 
 /*Enter event loop **/
