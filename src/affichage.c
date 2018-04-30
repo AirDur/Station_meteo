@@ -23,7 +23,7 @@ if (GrOpen() < 0)                            //fonction graphics routines
 // parametrès dans l'ordre parent, coordonées x et y (20,100) ,
 //largeur 120, hauteur 120 , bordersize 5 ,backgroud WHITE , bordercolor BLACK
 
-w = GrNewWindow(1, 10, 100, 160, 280, 0, BLACK, WHITE);
+w = GrNewWindow(1, 10, 80, 160, 280, 0, BLACK, WHITE);
 GrMapWindow(w);
 
 gc = GrNewGC();
@@ -39,13 +39,14 @@ GrText(w, gc, 0, 20," - Temperature :", 17, GR_TFASCII);
 GrText(w, gc, 0, 40,sT, 18, GR_TFASCII);
 GrText(w, gc, 0, 70," - Pression :", 14, GR_TFASCII);
 GrText(w, gc, 0, 90,sP, 15, GR_TFASCII);
-GrText(w, gc, 0, 120," - Humidite :", 12, GR_TFASCII);
+GrText(w, gc, 0, 120," - Humidite :", 10, GR_TFASCII);
 GrText(w, gc, 0, 140,sH, 16, GR_TFASCII);
 
 
 /*Enter event loop **/
 for(;;)
-  GrGetNextEvent(&event);
+  GrGetNextEvent(&eve20nt);
+
 
 
 
