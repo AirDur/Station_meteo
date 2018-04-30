@@ -27,14 +27,12 @@ int main(int acgc,char **argv)
       	w = GrNewWindow(GR_ROOT_WINDOW_ID, 20, 100, 120, 120,5, WHITE, RED);
         GrMapWindow(w);
 
-
-        /*Enter event loop **/
-        for(;;)
-          GrGetNextEvent(&event);
           //function allocates a new graphic context with all parameters set to the default values.
           gc = GrNewGC();
-          GrText(w, gc, 0, 20,"=== Un premier affichage de la station meteo :)==" , -1, GR_TFASCII);
-
+          GrText(w, gc, 0, 20,"Coucou" , 6, GR_TFASCII);
+          /*Enter event loop **/
+          for(;;)
+            GrGetNextEvent(&event);
 
           //function flushes any buffered function calls and closes the connection created with the GrOpen function.
          GrClose();
