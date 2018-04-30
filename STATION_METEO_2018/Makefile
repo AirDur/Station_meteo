@@ -22,4 +22,6 @@ all :
 	$(CC) -Wl, -elf2flt $(OBJ_WR) -o $(EXEC) $(LIBS_PATH) $(LIBS)
 
 clean :
-	rm -f *.o *.gdb $(EXEC)
+	rm -f *.o *.gdb *.gch $(EXEC)
+
+remake : clean all
