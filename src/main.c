@@ -19,11 +19,8 @@ int main(int argc, char**argv)
       perror("[main.c] calcul_humidite_pression");
       return EXIT_FAILURE;
   }
-
-
-
-  //FERMETURE DU PROGRAMME
-  close(fd);
+  
+  close(buffer);
 
   affichage(temperature, humidite, pression);
 

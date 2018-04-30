@@ -144,4 +144,6 @@ int clacul_humidite_pression(double temperature, double *pression, double *humid
   Vout = (2.5 / 1024) * data * 2;
   Vs = 5.1;
   *pression = (Vout + Vs * 0.1518) / (Vs * 0.01059) * 10; // Calcul de la pression
+
+  return EXIT_SUCCESS;
 }
