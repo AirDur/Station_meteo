@@ -28,24 +28,24 @@ GrMapWindow(w);
 
 gc = GrNewGC();
 
-font=GrCreateFont("Helvetica",6,NULL);
-GrSetFontRotation(font, 90);
+//font=GrCreateFont("Helvetica",6,NULL);
+//GrSetFontRotation(font, 90);
 
 sprintf(sT, "%lf °C", temperature);
 sprintf(sP, "%lf bar", pression);
 sprintf(sH, "%lf %%", humidite);
 
 GrText(w, gc, 0, 20," - Température :", 16, GR_TFASCII);
-GrText(w, gc, 0, 20,sT, 16, GR_TFASCII);
-GrText(w, gc, 0, 20," - Pression :", 13, GR_TFASCII);
-GrText(w, gc, 0, 50,sP, 16, GR_TFASCII);
-GrText(w, gc, 0, 20," - Humidité :", 13, GR_TFASCII);
-GrText(w, gc, 0, 80,sH, 16, GR_TFASCII);
+GrText(w, gc, 0, 40,sT, 16, GR_TFASCII);
+GrText(w, gc, 0, 70," - Pression :", 13, GR_TFASCII);
+GrText(w, gc, 0, 80,sP, 16, GR_TFASCII);
+GrText(w, gc, 0, 110," - Humidité :", 13, GR_TFASCII);
+GrText(w, gc, 0, 130,sH, 16, GR_TFASCII);
 
 
 /*Enter event loop **/
 for(;;)
-  GrGetNextEvent(&event);
+  GrGetNextEvent(&eve20nt);
 
 
 
