@@ -28,7 +28,11 @@ int main(int argc, char**argv)
 
   close(buffer);
 
-  affichage(temperature, humidite, pression);
+  if ( affichage(temperature, humidite, pression) != EXIT_SUCCESS )
+  {
+      perror("[main.c] affichage");
+      return EXIT_FAILURE;
+  }
 
   return EXIT_SUCCESS;
 }

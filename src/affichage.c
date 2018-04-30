@@ -4,9 +4,10 @@
 
 int affichage(double temperature, double pression, double humidite) {
 
-GR_WINDOW_ID w;
-GR_EVENT event;
-GR_GC_ID gc;
+GR_WINDOW_ID  w;
+GR_EVENT      event;
+GR_GC_ID      gc;
+GR_FONT_ID    font;
 
 system("./nano-X &");
 
