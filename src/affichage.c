@@ -67,7 +67,7 @@ for(;;)
   GrGetNextEvent(&event);
 
 gc = GrNewGC();
-GrText(w, gc, 0, 20,"Ceci est un test", -1, GR_TFASCII);
+GrText(w, gc, 0, 20,"Ceci est un test", 17, GR_TFASCII);
 
 
   //function flushes any buffered function calls and closes the connection created with the GrOpen function.
