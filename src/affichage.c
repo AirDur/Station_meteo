@@ -58,15 +58,19 @@ if (GrOpen() < 0)                            //fonction graphics routines
 // parametrès dans l'ordre parent, coordonées x et y (20,100) ,
 //largeur 120, hauteur 120 , bordersize 5 ,backgroud WHITE , bordercolor BLACK
 
-w = GrNewWindow(GR_ROOT_WINDOW_ID, 20, 100, 120, 120,5, WHITE, BLACK);
+w = GrNewWindow(1, 0, 0, 160, 240, 0, BLACK, WHITE);
 GrMapWindow(w);
-
 gc = GrNewGC();
+
+font=GrCreateFont("Helvetica",6,NULL);
+GrSetFontRotation(font, 90);
+
 GrText(w, gc, 0, 20,"Ceci est un test", 17, GR_TFASCII);
 
 /*Enter event loop **/
 for(;;)
   GrGetNextEvent(&event);
+
 
 
 
