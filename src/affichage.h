@@ -10,13 +10,21 @@
 #include <stdlib.h>
 #include <fcntl.h>
 #include <unistd.h>
-
+#include <float.h>
+#include <math.h>
 #include <pthread.h>
 #include <string.h>
 #include <graphics.h>
 
 #define BLACK			MWRGB( 0  , 0  , 0   )
 #define WHITE			MWRGB( 255, 255, 255 )
+
+#ifndef LECTURE_DOUBLE
+union lecture_double {
+  char tab[8];
+  double data;
+}
+#endif
 
 void affichage(double temperature, double pression, double humidite);
 

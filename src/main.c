@@ -5,7 +5,7 @@ int main(int argc, char**argv)
 {
   int buffer, ret;
 
-  double temperature = 0.0, humidite, pression;
+  lecture_double temperature = 0.0, humidite = 0.0, pression = 0.0;
 
 
   if ( lancement_temperature(&temperature, buffer) != EXIT_SUCCESS )
