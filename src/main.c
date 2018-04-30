@@ -14,7 +14,7 @@ int main(int argc, char**argv)
       return EXIT_FAILURE;
   }
 
-  if ( calcul_humidite_pression(&pression, &humidite, buffer) != EXIT_SUCCESS )
+  if ( calcul_humidite_pression(temperature, &pression, &humidite, buffer) != EXIT_SUCCESS )
   {
       perror("[main.c] calcul_humidite_pression");
       return EXIT_FAILURE;
