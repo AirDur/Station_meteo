@@ -31,31 +31,17 @@ gc = GrNewGC();
 font=GrCreateFont("Helvetica",6,NULL);
 GrSetFontRotation(font, 90);
 
-sprintf(sT, "%lf", temperature);
-sprintf(sP, "%lf", pression);
-sprintf(sH, "%lf", humidite);
+sprintf(sT, "%lf °C", temperature);
+sprintf(sP, "%lf bar", pression);
+sprintf(sH, "%lf %%", humidite);
 
-<<<<<<< HEAD
+GrText(w, gc, 0, 20," - Température :", 16, GR_TFASCII);
 GrText(w, gc, 0, 20,sT, 16, GR_TFASCII);
+GrText(w, gc, 0, 20," - Pression :", 13, GR_TFASCII);
 GrText(w, gc, 0, 50,sP, 16, GR_TFASCII);
+GrText(w, gc, 0, 20," - Humidité :", 13, GR_TFASCII);
 GrText(w, gc, 0, 80,sH, 16, GR_TFASCII);
-GrText(w, gc, 0, 20,sT, 16, GR_TFASCII);
-GrText(w, gc, 0, 50,sP, 16, GR_TFASCII);
-GrText(w, gc, 0, 80,sH, 16, GR_TFASCII);
-GrText(w, gc, 0, 20,sT, 16, GR_TFASCII);
-GrText(w, gc, 0, 50,sP, 16, GR_TFASCII);
-GrText(w, gc, 0, 80,sH, 16, GR_TFASCII);
-=======
-printf("%lf et %s\n", temperature, sT );
-GrText(w, gc, 0, 20, sT, 16, GR_TFASCII);
-GrText(w, gc, 0, 50,"Le nouveau test", 16, GR_TFASCII);
-GrText(w, gc, 0, 80,"Le nouveau test", 16, GR_TFASCII);
-GrText(w, gc, 0, 110,"Le nouveau test", 16, GR_TFASCII);
-GrText(w, gc, 0, 140,"Le nouveau test", 16, GR_TFASCII);
-GrText(w, gc, 0, 170,"Le nouveau test", 16, GR_TFASCII);
-GrText(w, gc, 0, 200,"Le nouveau test", 16, GR_TFASCII);
-GrText(w, gc, 0, 230,"Le nouveau test", 16, GR_TFASCII);
->>>>>>> ef23c870ac14a17e8e790bf7486fc4ecbe6fa0e7
+
 
 /*Enter event loop **/
 for(;;)
