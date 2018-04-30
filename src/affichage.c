@@ -35,7 +35,8 @@ sprintf(sT, "%lf", temperature);
 sprintf(sP, "%lf", pression);
 sprintf(sH, "%lf", humidite);
 
-GrText(w, gc, 0, 20,sT, 16, GR_TFASCII);
+printf("%lf et %s\n", temperature, sT );
+GrText(w, gc, 0, 20, sT, 16, GR_TFASCII);
 GrText(w, gc, 0, 50,"Le nouveau test", 16, GR_TFASCII);
 GrText(w, gc, 0, 80,"Le nouveau test", 16, GR_TFASCII);
 GrText(w, gc, 0, 110,"Le nouveau test", 16, GR_TFASCII);
