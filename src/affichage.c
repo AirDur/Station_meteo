@@ -8,6 +8,7 @@ GR_WINDOW_ID  w;
 GR_EVENT      event;
 GR_GC_ID      gc;
 GR_FONT_ID    font;
+char sT[16], sP[16], sH[16];
 
 system("./nano-X &");
 
@@ -22,7 +23,7 @@ if (GrOpen() < 0)                            //fonction graphics routines
 // parametrès dans l'ordre parent, coordonées x et y (20,100) ,
 //largeur 120, hauteur 120 , bordersize 5 ,backgroud WHITE , bordercolor BLACK
 
-w = GrNewWindow(1, 0, 0, 160, 240, 0, BLACK, WHITE);
+w = GrNewWindow(1, 0, 0, 160, 280, 0, BLACK, WHITE);
 GrMapWindow(w);
 
 gc = GrNewGC();
@@ -30,7 +31,18 @@ gc = GrNewGC();
 font=GrCreateFont("Helvetica",6,NULL);
 GrSetFontRotation(font, 90);
 
-GrText(w, gc, 0, 20,"Le nouveau test", 16, GR_TFASCII);
+sprintf(sT, "%lf", temperature);
+sprintf(sP, "%lf", pression);
+sprintf(sH, "%lf", humidite);
+
+GrText(w, gc, 0, 20,sT, 16, GR_TFASCII);
+GrText(w, gc, 0, 50,"Le nouveau test", 16, GR_TFASCII);
+GrText(w, gc, 0, 80,"Le nouveau test", 16, GR_TFASCII);
+GrText(w, gc, 0, 110,"Le nouveau test", 16, GR_TFASCII);
+GrText(w, gc, 0, 140,"Le nouveau test", 16, GR_TFASCII);
+GrText(w, gc, 0, 170,"Le nouveau test", 16, GR_TFASCII);
+GrText(w, gc, 0, 200,"Le nouveau test", 16, GR_TFASCII);
+GrText(w, gc, 0, 230,"Le nouveau test", 16, GR_TFASCII);
 
 /*Enter event loop **/
 for(;;)
