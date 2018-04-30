@@ -23,7 +23,7 @@ if (GrOpen() < 0)                            //fonction graphics routines
 // parametrès dans l'ordre parent, coordonées x et y (20,100) ,
 //largeur 120, hauteur 120 , bordersize 5 ,backgroud WHITE , bordercolor BLACK
 
-w = GrNewWindow(1, 10, 50, 130, 250, 5, BLACK, WHITE);
+w = GrNewWindow(1, 10, 50, 140, 280, 5, BLACK, WHITE);
 GrMapWindow(w);
 
 gc = GrNewGC();
@@ -35,15 +35,15 @@ sprintf(sT, "%lf celsius", temperature);
 sprintf(sP, "%lf bar", pression);
 sprintf(sH, "%lf %%", humidite);
 
-GrText(w, gc, 15, 20,"en temps reel", 16, GR_TFASCII);
-GrLine(w, gc, 0, 40, 120, 40);
-GrText(w, gc, 0, 60," - Temperature :", 17, GR_TFASCII);
-GrText(w, gc, 0, 80,sT, 18, GR_TFASCII);
-GrText(w, gc, 0, 110," - Pression :", 14, GR_TFASCII);
-GrText(w, gc, 0, 130,sP, 15, GR_TFASCII);
-GrText(w, gc, 0, 170," - Humidite :", 14, GR_TFASCII);
-GrText(w, gc, 0, 190,sH, 12, GR_TFASCII);
-GrLine(w, gc, 0, 210, 120, 210);
+GrText(w, gc, 25, 20,"en temps reel", 16, GR_TFASCII);
+GrLine(w, gc, 10, 40, 120, 40);
+GrText(w, gc, 10, 60," - Temperature :", 17, GR_TFASCII);
+GrText(w, gc, 10, 80,sT, 18, GR_TFASCII);
+GrText(w, gc, 10, 110," - Pression :", 14, GR_TFASCII);
+GrText(w, gc, 10, 130,sP, 15, GR_TFASCII);
+GrText(w, gc, 10, 170," - Humidite :", 14, GR_TFASCII);
+GrText(w, gc, 10, 190,sH, 12, GR_TFASCII);
+GrLine(w, gc, 10, 210, 120, 210);
 
 /*Enter event loop **/
 for(;;)
