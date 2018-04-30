@@ -23,7 +23,7 @@ if (GrOpen() < 0)                            //fonction graphics routines
 // parametrès dans l'ordre parent, coordonées x et y (20,100) ,
 //largeur 120, hauteur 120 , bordersize 5 ,backgroud WHITE , bordercolor BLACK
 
-w = GrNewWindow(1, 10, 70, 140, 200, 5, BLACK, WHITE);
+w = GrNewWindow(1, 10, 20, 140, 200, 5, BLACK, WHITE);
 GrMapWindow(w);
 
 gc = GrNewGC();
