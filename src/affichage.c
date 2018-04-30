@@ -37,4 +37,6 @@ void affichage(double temperature, double pression, double humidite) {
   GrText(w, gc, 15, 145,  sT,  -1, GR_TFASCII);
   GrText(w, gc, 90, 100, sP,  -1, GR_TFASCII);
   GrText(w, gc, 90, 190, sRH, -1, GR_TFASCII);
+
+  GrClose();
 }
