@@ -1,5 +1,6 @@
 CC = arm-elf-gcc
 
+
 DISTRIB_PATH = /home/airdur/Documents/projet_archi/uClinux-pragm-20070119-modified
 INC_NANOX = $(DISTRIB_PATH)/user/microwin/src/include
 INC_GRAPHICS = /usr/local/arm-linux/sys-include/config/ep93xx
@@ -12,12 +13,12 @@ LIB_NANOX = nano-X
 LIB_THREAD = pthread
 LIBS = -l$(LIB_NANOX) -l$(LIB_THREAD)
 
-SRC_WR = capteurs.c
-OBJ_WR = capteurs.o
-EXEC   = capteurs
+SRC_WR = main.c capteurs.c
+OBJ_WR = main.o capteurs.o
+EXEC   = rgt_meteo
 
 all :
-	$(CC) -c $(SRC_WR) -o $(OBJ_WR) $(INCLUDE)
+	$(CC) -c $(SRC_WR) $(INCLUDE)
 	$(CC) -Wl, -elf2flt $(OBJ_WR) -o $(EXEC) $(LIBS_PATH) $(LIBS)
 
 clean :
