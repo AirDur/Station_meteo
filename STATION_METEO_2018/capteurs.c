@@ -89,6 +89,7 @@ int main(int argc, char**argv)
   int fd, ret;
   double RH, P;
   double Vout, Vs;
+  
   GR_WINDOW_ID w;
   GR_GC_ID gc;
   GR_EVENT event;
