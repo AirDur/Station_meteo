@@ -104,7 +104,7 @@ int lancement_temperature(double *temperature, int buffer) {
   return EXIT_SUCCESS;
 }
 
-int clacul_humidite_pression(double temperature, double *pression, double *humidite, int buffer) {
+int ADC_to_humidity(double temperature, double *humidite, int buffer) {
   short data;
   double Vout, Vs;
 
@@ -131,6 +131,23 @@ int clacul_humidite_pression(double temperature, double *pression, double *humid
   *humidite = (Vout - Vs * 0.16) / (Vs * 0.0062);  // Calcul humidite
   *humidite = (*humidite) / (1.0546 - (0.00216 * (temperature))); // Calcul de l'humidite avec T
 
+	printf(" - Valeur de humidité : %lf \n", *humidite);
+
+  return EXIT_SUCCESS;
+}
+
+
+int ADC_to_pression(double temperature, double *pression, int buffer) {
+  short data;
+  double Vout, Vs;
+
+
+  //RECUPERATION DONNES CAPTEUR HUMIDITE/PRESSION
+  if ((buffer = open(ADC_DEVICE,O_RDONLY)) < 0 )
+  {
+    printf("[TEST ADC CAPTEUR] Problème d'ouverture de : %s\n", ADC_DEVICE);
+    return EXIT_FAILURE;
+  }
 
   //CONFIGURATION DU CANAL POUR LA PRESSION
   if(ioctl(buffer, ADC_CHANNEL, ADC_CHAN_PRESSURE) < 0)
@@ -144,6 +161,8 @@ int clacul_humidite_pression(double temperature, double *pression, double *humid
   Vout = (2.5 / 1024) * data * 2;
   Vs = 5.1;
   *pression = (Vout + Vs * 0.1518) / (Vs * 0.01059) * 10; // Calcul de la pression
+
+	printf(" - Valeur de pression : %lf \n", *pression);
 
   return EXIT_SUCCESS;
 }
