@@ -36,13 +36,14 @@ sprintf(sP, "%lf", pression);
 sprintf(sH, "%lf", humidite);
 
 GrText(w, gc, 0, 20,sT, 16, GR_TFASCII);
-GrText(w, gc, 0, 50,"Le nouveau test", 16, GR_TFASCII);
-GrText(w, gc, 0, 80,"Le nouveau test", 16, GR_TFASCII);
-GrText(w, gc, 0, 110,"Le nouveau test", 16, GR_TFASCII);
-GrText(w, gc, 0, 140,"Le nouveau test", 16, GR_TFASCII);
-GrText(w, gc, 0, 170,"Le nouveau test", 16, GR_TFASCII);
-GrText(w, gc, 0, 200,"Le nouveau test", 16, GR_TFASCII);
-GrText(w, gc, 0, 230,"Le nouveau test", 16, GR_TFASCII);
+GrText(w, gc, 0, 50,sP, 16, GR_TFASCII);
+GrText(w, gc, 0, 80,sH, 16, GR_TFASCII);
+GrText(w, gc, 0, 20,sT, 16, GR_TFASCII);
+GrText(w, gc, 0, 50,sP, 16, GR_TFASCII);
+GrText(w, gc, 0, 80,sH, 16, GR_TFASCII);
+GrText(w, gc, 0, 20,sT, 16, GR_TFASCII);
+GrText(w, gc, 0, 50,sP, 16, GR_TFASCII);
+GrText(w, gc, 0, 80,sH, 16, GR_TFASCII);
 
 /*Enter event loop **/
 for(;;)
