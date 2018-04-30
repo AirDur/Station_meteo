@@ -24,6 +24,7 @@ if (GrOpen() < 0)                            //fonction graphics routines
 
 w = GrNewWindow(1, 0, 0, 160, 240, 0, BLACK, WHITE);
 GrMapWindow(w);
+
 gc = GrNewGC();
 
 font=GrCreateFont("Helvetica",6,NULL);
