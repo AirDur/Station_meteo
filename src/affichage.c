@@ -35,14 +35,15 @@ sprintf(sT, "%lf celsius", temperature);
 sprintf(sP, "%lf bar", pression);
 sprintf(sH, "%lf %%", humidite);
 
-GrLine(w, gc, 0, 0, 150, 0);
-GrText(w, gc, 0, 20," - Temperature :", 17, GR_TFASCII);
-GrText(w, gc, 0, 40,sT, 18, GR_TFASCII);
-GrText(w, gc, 0, 70," - Pression :", 14, GR_TFASCII);
-GrText(w, gc, 0, 90,sP, 15, GR_TFASCII);
-GrText(w, gc, 0, 120," - Humidite :", 14, GR_TFASCII);
-GrText(w, gc, 0, 140,sH, 12, GR_TFASCII);
-GrLine(w, gc, 0, 160, 150, 160);
+GrText(w, gc, 0, 20,"- Donnees en temps réel -", 26, GR_TFASCII);
+GrLine(w, gc, 0, 40, 30, 40);
+GrText(w, gc, 0, 60," - Temperature :", 17, GR_TFASCII);
+GrText(w, gc, 0, 80,sT, 18, GR_TFASCII);
+GrText(w, gc, 0, 110," - Pression :", 14, GR_TFASCII);
+GrText(w, gc, 0, 130,sP, 15, GR_TFASCII);
+GrText(w, gc, 0, 160," - Humidite :", 14, GR_TFASCII);
+GrText(w, gc, 0, 180,sH, 12, GR_TFASCII);
+GrLine(w, gc, 0, 200, 30, 200);
 
 /*Enter event loop **/
 for(;;)
