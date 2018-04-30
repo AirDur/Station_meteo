@@ -51,29 +51,29 @@ system("./nano-X &");
 //configuration pour les préférences d'afichage
 if (GrOpen() < 0)                            //fonction graphics routines
 {
-        printf("Can't open graphics\n");
-        exit(1);
-    }
+    printf("Can't open graphics\n");
+    exit(1);
+}
 
-    // parametrès dans l'ordre parent, coordonées x et y (20,100) ,
-    //largeur 120, hauteur 120 , bordersize 5 ,backgroud WHITE , bordercolor BLACK
+// parametrès dans l'ordre parent, coordonées x et y (20,100) ,
+//largeur 120, hauteur 120 , bordersize 5 ,backgroud WHITE , bordercolor BLACK
 
-    w = GrNewWindow(GR_ROOT_WINDOW_ID, 20, 100, 120, 120,5, WHITE, RED);
-    GrMapWindow(w);
-
-
-    /*Enter event loop **/
-    for(;;)
-      GrGetNextEvent(&event);
-
-    gc = GrNewGC();
-    GrText(w, gc, 0, 20,"Ceci est un test", -1, GR_TFASCII);
+w = GrNewWindow(GR_ROOT_WINDOW_ID, 20, 100, 120, 120,5, WHITE, BLACK);
+GrMapWindow(w);
 
 
-      //function flushes any buffered function calls and closes the connection created with the GrOpen function.
-     GrClose();
+/*Enter event loop **/
+for(;;)
+  GrGetNextEvent(&event);
+
+gc = GrNewGC();
+GrText(w, gc, 0, 20,"Ceci est un test", -1, GR_TFASCII);
 
 
-     return (0);
+  //function flushes any buffered function calls and closes the connection created with the GrOpen function.
+ GrClose();
 
-   }
+
+ //return EXIT_SUCCESS;
+
+}
