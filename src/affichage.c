@@ -1,5 +1,7 @@
 #include "affichage.h"
 
+
+
 void affichage(double temperature, double pression, double humidite) {
 /*  GR_WINDOW_ID w;
   GR_GC_ID gc;

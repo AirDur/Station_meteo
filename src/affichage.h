@@ -10,7 +10,8 @@
 #include <stdlib.h>
 #include <fcntl.h>
 #include <unistd.h>
-
+#include <float.h>
+#include <math.h>
 #include <pthread.h>
 #include <string.h>
 #include <graphics.h>
