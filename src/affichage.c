@@ -35,7 +35,7 @@ sprintf(sT, "%lf celsius", temperature);
 sprintf(sP, "%lf bar", pression);
 sprintf(sH, "%lf %%", humidite);
 
-GrText(w, gc, 0, 0,"- en temps reel -", 18, GR_TFASCII);
+GrText(w, gc, 0, 0,"-en temps reel-", 16, GR_TFASCII);
 GrLine(w, gc, 0, 20, 120, 20);
 GrText(w, gc, 0, 40," - Temperature :", 17, GR_TFASCII);
 GrText(w, gc, 0, 60,sT, 18, GR_TFASCII);
