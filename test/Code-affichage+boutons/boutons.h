@@ -15,11 +15,14 @@
 
 
 /**
- * KEYBOARD_STATUS
- * @brief Retourne le bit du bouton pressé
-*/
+ * @brief  Recupere l'etat des boutons.
+ * @return Etat des boutons.
+ */
 extern unsigned int KEYBOARD_STATUS(void);
 
+//2 fonctiond d'attente pour les boutons
+int __nsleep(const struct timespec *req, struct timespec *rem);
+int msleep(unsigned long milisec);
 
 unsigned int Push_Button(void);
 

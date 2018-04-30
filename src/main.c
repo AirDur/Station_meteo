@@ -1,6 +1,6 @@
 #include "capteurs.h"
 #include "affichage.h"
-//#include "boutons.h"
+#include "boutons.h"
 
 int main(int argc, char**argv)
 {
