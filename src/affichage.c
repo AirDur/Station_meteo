@@ -1,7 +1,7 @@
 #include "affichage.h"
 
 void affichage(double temperature, double pression, double humidite) {
-  GR_WINDOW_ID w;
+/*  GR_WINDOW_ID w;
   GR_GC_ID gc;
   GR_EVENT event;
   char sT[64], sP[64], sRH[64];
@@ -38,3 +38,40 @@ void affichage(double temperature, double pression, double humidite) {
   GrText(w, gc, 90, 100, sP,  -1, GR_TFASCII);
   GrText(w, gc, 90, 190, sRH, -1, GR_TFASCII);
 }
+*/
+GR_WINDOW_ID w;
+GR_EVENT event;
+GR_GC_ID gc;
+
+system("./nano-X &");
+
+
+//configuration pour les préférences d'afichage
+if (GrOpen() < 0)                            //fonction graphics routines
+{
+        printf("Can't open graphics\n");
+        exit(1);
+    }
+
+    // parametrès dans l'ordre parent, coordonées x et y (20,100) ,
+    //largeur 120, hauteur 120 , bordersize 5 ,backgroud WHITE , bordercolor BLACK
+
+    w = GrNewWindow(GR_ROOT_WINDOW_ID, 20, 100, 120, 120,5, WHITE, RED);
+    GrMapWindow(w);
+
+
+    /*Enter event loop **/
+    for(;;)
+      GrGetNextEvent(&event);
+
+    gc = GrNewGC();
+    GrText(w, gc, 0, 20,"Ceci est un test", -1, GR_TFASCII);
+
+
+      //function flushes any buffered function calls and closes the connection created with the GrOpen function.
+     GrClose();
+
+
+     return (0);
+
+   }

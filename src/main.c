@@ -10,16 +10,22 @@ int main(int argc, char**argv)
 
   if ( lancement_temperature(&temperature, buffer) != EXIT_SUCCESS )
   {
-      perror("[main.c] lancement temperature");
+      perror("[main.c] lancement température");
       return EXIT_FAILURE;
   }
 
-  if ( calcul_humidite_pression(temperature, &pression, &humidite, buffer) != EXIT_SUCCESS )
+  if ( ADC_to_humidity(temperature, &humidite, buffer) != EXIT_SUCCESS )
   {
-      perror("[main.c] calcul_humidite_pression");
+      perror("[main.c] lancement humidité");
       return EXIT_FAILURE;
   }
-  
+
+  if ( ADC_to_pression(temperature, &pression, buffer) != EXIT_SUCCESS )
+  {
+      perror("[main.c] lancement pression");
+      return EXIT_FAILURE;
+  }
+
   close(buffer);
 
   affichage(temperature, humidite, pression);
