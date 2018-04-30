@@ -57,6 +57,6 @@ extern int lire_pression(int fd, double * P);
  * @param p  Parametre de sortie. Valeurs des differentes sondes.
  * @return   EXIT_SUCCESS ou EXIT_FAILURE
  */
-//extern int lire_donnees_capteurs(t_ptr_captors_data p);
+int lancement_temperature(double *temperature, int buffer);
 
 #endif
