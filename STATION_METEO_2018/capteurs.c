@@ -95,9 +95,6 @@ int main(int argc, char**argv)
   GR_EVENT event;
   char sT[64], sP[64], sRH[64];
 
-
-  printf("%d\n", BLACK);
-
   temperature = 0;
 
   //Ouverture du perifique i2c :
