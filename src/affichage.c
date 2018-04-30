@@ -70,7 +70,6 @@ for(;;)
 
 
 
-
   //function flushes any buffered function calls and closes the connection created with the GrOpen function.
  GrClose();
 
