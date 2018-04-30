@@ -103,3 +103,45 @@ int lancement_temperature(double *temperature, int buffer) {
 
   return EXIT_SUCCESS;
 }
+
+int clacul_humidite_pression(double *pression, double *humidite, int buffer) {
+  short data;
+  double Vout, Vs;
+
+
+  //RECUPERATION DONNES CAPTEUR HUMIDITE/PRESSION
+  if ((buffer = open(ADC_DEVICE,O_RDONLY)) < 0 )
+  {
+    printf("[TEST ADC CAPTEUR] Problème d'ouverture de : %s\n", ADC_DEVICE);
+    return EXIT_FAILURE;
+  }
+
+  //CONFIGURATION DU CANAL POUR L'HUMIDITE
+  if(ioctl(buffer, ADC_CHANNEL, ADC_CHAN_HUMIDITY) < 0)
+  {
+    perror("[TEST ADC CAPTEUR] Configuration du canal Humidité");
+    return EXIT_FAILURE;
+  }
+
+  read(buffer, &data, 2);  // Lecture de la valeur du capteur
+
+  // Calcul humidite physique
+  Vout = (2.5 / 1024) * data * 2;
+  Vs = 5;
+  *humidite = (Vout - Vs * 0.16) / (Vs * 0.0062);  // Calcul humidite
+  *humidite = (*humidite) / (1.0546 - (0.00216 * (*temperature))); // Calcul de l'humidite avec T
+
+
+  //CONFIGURATION DU CANAL POUR LA PRESSION
+  if(ioctl(buffer, ADC_CHANNEL, ADC_CHAN_PRESSURE) < 0)
+  {
+      perror("[[TEST ADC CAPTEUR] Configuration du canal Pression");
+      return EXIT_FAILURE;
+  }
+
+  read(buffer, &data, 2);  // Lecture de la valeur du capteur
+
+  Vout = (2.5 / 1024) * data * 2;
+  Vs = 5.1;
+  *pression = (Vout + Vs * 0.1518) / (Vs * 0.01059) * 10; // Calcul de la pression
+}
