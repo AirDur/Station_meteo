@@ -15,9 +15,9 @@
 
 
 /**
- * @brief  Recupere l'etat des boutons.
- * @return Etat des boutons.
- */
+ * KEYBOARD_STATUS
+ * @brief Retourne le bit du bouton pressé
+*/
 extern unsigned int KEYBOARD_STATUS(void);
 
 //2 fonctiond d'attente pour les boutons

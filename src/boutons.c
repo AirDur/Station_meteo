@@ -1,6 +1,3 @@
-/****================Recuperation de boutons poussoirs situés sur la carte
-********************** on a 4 boutons qu'on va les récuperer  **/
-
 #include "boutons.h"       //le fichier .h
 
 /**

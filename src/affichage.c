@@ -45,7 +45,7 @@ GrText(w, gc, 0, 130,sH, 16, GR_TFASCII);
 
 /*Enter event loop **/
 for(;;)
-  GrGetNextEvent(&eve20nt);
+  GrGetNextEvent(&event);
 
 
 
