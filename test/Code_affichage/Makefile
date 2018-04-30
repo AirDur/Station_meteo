@@ -11,8 +11,8 @@ LIBS_PATH = -L$(LIB_PATH_NANOX)
 LIB_NANOX = nano-X
 LIBS = -l$(LIB_NANOX)
 
-SRC_WR = affichage.c
-OBJ_WR = affichage.o
+SRC_WR = affichage2.c
+OBJ_WR = affichage2.o
 EXEC   = affichage
 
 
