@@ -41,6 +41,11 @@ int configuration_i2c(int buffer, unsigned char mask)
   return EXIT_SUCCESS;
 }
 
+//calcul de la température à partir des données brutes
+double calcul_temperature(short donnees_brut){
+  return donnees_brut * 0.0625;
+}
+
 int lecture_temperature (int buffer, double * Temperature) {
   int code_erreur;
   unsigned char bus[2];
@@ -73,7 +78,7 @@ int lecture_temperature (int buffer, double * Temperature) {
   }
 
   donnees_brut = (bus[0] << 4) | (bus[1] >> 4);
-  *Temperature = donnees_brut * 0.0625;                          // 0.0625 = 128 / 2048
+  *Temperature = calcul_temperature(donnees_brut);                          // 0.0625 = 128 / 2048
 
 	printf(" - Valeur de température : %lf \n", *Temperature);
 
@@ -103,6 +108,8 @@ int lancement_temperature(double *temperature, int buffer) {
 
   return EXIT_SUCCESS;
 }
+
+
 
 int ADC_to_humidity(double temperature, double *humidite, int buffer) {
   short data;
