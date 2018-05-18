@@ -109,12 +109,17 @@ int lancement_temperature(double *temperature, int buffer) {
   return EXIT_SUCCESS;
 }
 
-
+double calcul_humidite(short donnees_brut, double temperature){
+  double Vout, Vs, resultat;
+  Vout = (2.5 / 1024) * data * 2;
+  Vs = 5;
+  resultat = (Vout - Vs * 0.16) / (Vs * 0.0062);  // Calcul humidite
+  resultat = (resultat) / (1.0546 - (0.00216 * (temperature))); // Calcul de l'humidite avec T
+  return resultat;
+}
 
 int ADC_to_humidity(double temperature, double *humidite, int buffer) {
-  short data;
-  double Vout, Vs;
-
+  short donnees_brut;
 
   //RECUPERATION DONNES CAPTEUR HUMIDITE/PRESSION
   if ((buffer = open(ADC_DEVICE,O_RDONLY)) < 0 )
@@ -133,19 +138,24 @@ int ADC_to_humidity(double temperature, double *humidite, int buffer) {
   read(buffer, &data, 2);  // Lecture de la valeur du capteur
 
   // Calcul humidite physique
-  Vout = (2.5 / 1024) * data * 2;
-  Vs = 5;
-  *humidite = (Vout - Vs * 0.16) / (Vs * 0.0062);  // Calcul humidite
-  *humidite = (*humidite) / (1.0546 - (0.00216 * (temperature))); // Calcul de l'humidite avec T
+
+  *humidite = calcul_humidite(short donnees_brut, double temperature);
+
 
 	printf(" - Valeur de humidité : %lf \n", *humidite);
 
   return EXIT_SUCCESS;
 }
 
+double calcul_pression(short donnees_brut){
+  double Vout, Vs;
+  Vout = (2.5 / 1024) * donnees_brut * 2;
+  Vs = 5.1;
+  return (Vout + Vs * 0.1518) / (Vs * 0.01059) * 10; // Calcul de la pression
+}
 
-int ADC_to_pression(double temperature, double *pression, int buffer) {
-  short data;
+int ADC_to_pression(double *pression, int buffer) {
+  short donnees_brut;
   double Vout, Vs;
 
 
@@ -165,9 +175,7 @@ int ADC_to_pression(double temperature, double *pression, int buffer) {
 
   read(buffer, &data, 2);  // Lecture de la valeur du capteur
 
-  Vout = (2.5 / 1024) * data * 2;
-  Vs = 5.1;
-  *pression = (Vout + Vs * 0.1518) / (Vs * 0.01059) * 10; // Calcul de la pression
+  *pression = calcul_pression(donnees_brut);
 
 	printf(" - Valeur de pression : %lf \n", *pression);
 

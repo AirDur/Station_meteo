@@ -20,7 +20,7 @@ int main(int argc, char**argv)
         return EXIT_FAILURE;
     }
 
-    if ( ADC_to_pression(temperature, &pression, buffer) != EXIT_SUCCESS )
+    if ( ADC_to_pression(&pression, buffer) != EXIT_SUCCESS )
     {
         perror("[main.c] lancement pression");
         return EXIT_FAILURE;
