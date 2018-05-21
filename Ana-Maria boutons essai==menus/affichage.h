@@ -23,24 +23,24 @@
 *********** Bouton 1 ************
 ***********          ***********/
 int affichage_bouton1(double temperature, double pression, double humidite);
-void affichage_main_bouton_1();
+int affichage_main_bouton_1();
 
 /************    ****************
 *********** Bouton 2 ************
 ***********          ***********/
 int affichage_bouton2(double temperature, double pression, double humidite);
-void affichage_main_bouton_2();
+int affichage_main_bouton_2();
 
 /************    ****************
 *********** Bouton 3 ************
 ***********          ***********/
 int affichage_bouton3(double temperature, double pression, double humidite);
-void affichage_main_bouton_3();
+int affichage_main_bouton_3();
 
 /************    ****************
 *********** Bouton 4 ************
 ***********          ***********/
 int affichage_bouton4(double temperature, double pression, double humidite);
-void affichage_main_bouton_4();
+int affichage_main_bouton_4();
 
 #endif

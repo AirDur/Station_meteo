@@ -58,7 +58,7 @@ for(;;)
 }
 
 
-void affichage_main_bouton_1(){
+int affichage_main_bouton_1(){
 int buffer, ret, i=0;
 
 double temperature = 0.0, humidite = 0.0, pression = 0.0;
@@ -134,7 +134,7 @@ int affichage_bouton2(double temperature, double pression, double humidite) {
       return EXIT_SUCCESS;
 }
 
-void affichage_main_bouton_2(){
+int affichage_main_bouton_2(){
 int buffer, ret, i=0;
 
 double temperature = 0.0, humidite = 0.0, pression = 0.0;
@@ -211,7 +211,7 @@ int affichage_bouton3(double temperature, double pression, double humidite) {
 
 }
 
-void affichage_main_bouton_3(){
+int affichage_main_bouton_3(){
 int buffer, ret, i=0;
 
 double temperature = 0.0, humidite = 0.0, pression = 0.0;
@@ -285,7 +285,7 @@ int affichage_bouton4(double temperature, double pression, double humidite) {
 
 }
 
-void affichage_main_bouton_4(){
+int affichage_main_bouton_4(){
 int buffer, ret, i=0;
 
 double temperature = 0.0, humidite = 0.0, pression = 0.0;
