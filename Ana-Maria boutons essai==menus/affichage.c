@@ -101,6 +101,7 @@ int affichage_bouton2(double temperature, double pression, double humidite) {
 
  GR_WINDOW_ID w;
  GR_EVENT event;
+ GR_GC_ID gc;
  GR_FONT_ID font;
 
  system("./nano-X &");
@@ -116,7 +117,7 @@ int affichage_bouton2(double temperature, double pression, double humidite) {
      // parametrès dans l'ordre parent, coordonées x et y (20,100) ,
      //largeur 120, hauteur 120 , bordersize 5 ,backgroud WHITE , bordercolor BLACK
 
-     w = GrNewWindow(GR_ROOT_WINDOW_ID, 0, 0, 240, 240,5, WHITE, RED);
+     w = GrNewWindow(GR_ROOT_WINDOW_ID, 0, 0, 240, 240,5, WHITE, BLACK);
      GrMapWindow(w);
 
        //function allocates a new graphic context with all parameters set to the default values.
@@ -129,7 +130,7 @@ int affichage_bouton2(double temperature, double pression, double humidite) {
        for(;;)
          GrGetNextEvent(&event);
 
-       //function flushes any buffered function calls and closes the connection created with the GrOpen function.
+       //function flushes any buffeBLACK function calls and closes the connection created with the GrOpen function.
       GrClose();
       return EXIT_SUCCESS;
 }
@@ -177,6 +178,7 @@ int affichage_bouton3(double temperature, double pression, double humidite) {
 
   GR_WINDOW_ID w;
   GR_EVENT event;
+	GR_GC_ID gc;
   GR_FONT_ID font;
 
   system("./nano-X &");
@@ -192,7 +194,7 @@ int affichage_bouton3(double temperature, double pression, double humidite) {
       // parametrès dans l'ordre parent, coordonées x et y (20,100) ,
       //largeur 120, hauteur 120 , bordersize 5 ,backgroud WHITE , bordercolor BLACK
 
-      w = GrNewWindow(GR_ROOT_WINDOW_ID, 0, 0, 240, 240,5, WHITE, RED);
+      w = GrNewWindow(GR_ROOT_WINDOW_ID, 0, 0, 240, 240,5, WHITE, BLACK);
       GrMapWindow(w);
 
         //function allocates a new graphic context with all parameters set to the default values.
@@ -205,7 +207,7 @@ int affichage_bouton3(double temperature, double pression, double humidite) {
         for(;;)
           GrGetNextEvent(&event);
 
-        //function flushes any buffered function calls and closes the connection created with the GrOpen function.
+        //function flushes any buffeBLACK function calls and closes the connection created with the GrOpen function.
        GrClose();
        return EXIT_SUCCESS;
 
@@ -251,6 +253,7 @@ int affichage_bouton4(double temperature, double pression, double humidite) {
 
   GR_WINDOW_ID w;
   GR_EVENT event;
+	GR_GC_ID gc;
   GR_FONT_ID font;
 
   system("./nano-X &");
@@ -266,7 +269,7 @@ int affichage_bouton4(double temperature, double pression, double humidite) {
       // parametrès dans l'ordre parent, coordonées x et y (20,100) ,
       //largeur 120, hauteur 120 , bordersize 5 ,backgroud WHITE , bordercolor BLACK
 
-      w = GrNewWindow(GR_ROOT_WINDOW_ID, 0, 0, 240, 240,5, WHITE, RED);
+      w = GrNewWindow(GR_ROOT_WINDOW_ID, 0, 0, 240, 240,5, WHITE, BLACK);
       GrMapWindow(w);
 
         //function allocates a new graphic context with all parameters set to the default values.
@@ -279,7 +282,7 @@ int affichage_bouton4(double temperature, double pression, double humidite) {
         for(;;)
           GrGetNextEvent(&event);
 
-        //function flushes any buffered function calls and closes the connection created with the GrOpen function.
+        //function flushes any buffeBLACK function calls and closes the connection created with the GrOpen function.
        GrClose();
        return EXIT_SUCCESS;
 
