@@ -16,7 +16,12 @@ int main(int argc, char**argv)
             if(Push_Button() == 1)
             {
               printf("===Premier button appuyé===\n") ;
-              affichage_main_bouton_1();
+               if ( affichage_main_bouton_1() != EXIT_SUCCESS )
+				  {
+					  perror("[main.c] affichage bouton 1");
+					  return EXIT_FAILURE;
+				  }
+				  
               sleep(2);
               while(Push_Button() != 4){}
               ok = 1;
@@ -25,7 +30,11 @@ int main(int argc, char**argv)
             if(Push_Button() == 2)
             {
               printf("===Deuxième bouton===\n") ;
-              affichage_main_bouton_2();
+              if ( affichage_main_bouton_2() != EXIT_SUCCESS )
+				  {
+					  perror("[main.c] affichage bouton 2");
+					  return EXIT_FAILURE;
+				  }
               sleep(2);
               while(Push_Button() != 4){}
               ok = 1;
@@ -34,7 +43,11 @@ int main(int argc, char**argv)
             if(Push_Button() == 3)
             {
               printf("===Troisième bouton===\n") ;
-              affichage_main_bouton_3();
+              if ( affichage_main_bouton_3() != EXIT_SUCCESS )
+				  {
+					  perror("[main.c] affichage bouton 3");
+					  return EXIT_FAILURE;
+				  }
               sleep(4);
               ok = 0;
               break;
@@ -42,7 +55,11 @@ int main(int argc, char**argv)
             if(Push_Button() == 4)
             {
               printf("===Quatrième bouton===\n") ;
-              affichage_main_bouton_4();
+              if ( affichage_main_bouton_4() != EXIT_SUCCESS )
+				  {
+					  perror("[main.c] affichage bouton 4");
+					  return EXIT_FAILURE;
+				  }
               sleep(4);
               ok = 0;
               break;

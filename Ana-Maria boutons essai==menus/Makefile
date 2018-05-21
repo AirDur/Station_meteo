@@ -1,6 +1,6 @@
 CC = arm-elf-gcc
 
-DISTRIB_PATH = /home/ana-maria/Documents/projet_archi/uClinux-pragm-20070119-modified
+DISTRIB_PATH = /home/ana-maria/Documente/projet_archi/uClinux-pragm-20070119-modified
 INC_NANOX = $(DISTRIB_PATH)/user/microwin/src/include
 INC_GRAPHICS = /usr/local/arm-linux/sys-include/config/ep93xx
 INCLUDE = -I$(INC_NANOX) -I$(INC_GRAPHICS)

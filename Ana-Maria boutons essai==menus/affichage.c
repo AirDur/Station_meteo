@@ -7,51 +7,51 @@
 
 int affichage_bouton1(double temperature, double pression, double humidite) {
 
-GR_WINDOW_ID  w;
-GR_EVENT      event;
-GR_GC_ID      gc;
-GR_FONT_ID    font;
-char sT[16], sP[16], sH[16];
+	GR_WINDOW_ID  w;
+	GR_EVENT      event;
+	GR_GC_ID      gc;
+	GR_FONT_ID    font;
+	char sT[16], sP[16], sH[16];
 
-system("./nano-X &");
+	system("./nano-X &");
 
 
-//configuration pour les préférences d'afichage
-if (GrOpen() < 0)                            //fonction graphics routines
-{
-    printf("Can't open graphics\n");
-    return EXIT_FAILURE;
-}
+	//configuration pour les préférences d'afichage
+	if (GrOpen() < 0)                            //fonction graphics routines
+	{
+		printf("Can't open graphics\n");
+		return EXIT_FAILURE;
+	}
 
-// parametrès dans l'ordre parent, coordonées x et y (20,100) ,
-//largeur 120, hauteur 120 , bordersize 5 ,backgroud WHITE , bordercolor BLACK
+	// parametrès dans l'ordre parent, coordonées x et y (20,100) ,
+	//largeur 120, hauteur 120 , bordersize 5 ,backgroud WHITE , bordercolor BLACK
 
-w = GrNewWindow(1, 10, 20, 140, 200, 5, BLACK, WHITE);
-GrMapWindow(w);
+	w = GrNewWindow(1, 10, 20, 140, 200, 5, BLACK, WHITE);
+	GrMapWindow(w);
 
-gc = GrNewGC();
+	gc = GrNewGC();
 
-//font=GrCreateFont("Helvetica",6,NULL);
-//GrSetFontRotation(font, 90);
+	//font=GrCreateFont("Helvetica",6,NULL);
+	//GrSetFontRotation(font, 90);
 
-sprintf(sT, "%lf celsius", temperature);
-sprintf(sP, "%lf bar", pression);
-sprintf(sH, "%lf %%", humidite);
+	sprintf(sT, "%lf celsius", temperature);
+	sprintf(sP, "%lf bar", pression);
+	sprintf(sH, "%lf %%", humidite);
 
-GrText(w, gc, 25, 20,"OM a perdu", 16, GR_TFASCII);
-GrLine(w, gc, 10, 40, 130, 40);
-GrText(w, gc, 10, 70," - Temperature :", 17, GR_TFASCII);
-GrText(w, gc, 10, 90,sT, 18, GR_TFASCII);
-GrText(w, gc, 10, 120," - Pression :", 14, GR_TFASCII);
-GrText(w, gc, 10, 140,sP, 15, GR_TFASCII);
-GrText(w, gc, 10, 170," - Humidite :", 14, GR_TFASCII);
-GrText(w, gc, 10, 190,sH, 12, GR_TFASCII);
-//GrLine(w, gc, 10, 210, 130, 210);
+	GrText(w, gc, 25, 20,"OM a perdu", 16, GR_TFASCII);
+	GrLine(w, gc, 10, 40, 130, 40);
+	GrText(w, gc, 10, 70," - Temperature :", 17, GR_TFASCII);
+	GrText(w, gc, 10, 90,sT, 18, GR_TFASCII);
+	GrText(w, gc, 10, 120," - Pression :", 14, GR_TFASCII);
+	GrText(w, gc, 10, 140,sP, 15, GR_TFASCII);
+	GrText(w, gc, 10, 170," - Humidite :", 14, GR_TFASCII);
+	GrText(w, gc, 10, 190,sH, 12, GR_TFASCII);
+	//GrLine(w, gc, 10, 210, 130, 210);
 
-/*Enter event loop **/
-for(;;)
-  GrGetNextEvent(&event);
- GrClose();
+	/*Enter event loop **/
+	for(;;)
+	  GrGetNextEvent(&event);
+	 GrClose();
 
 
  return EXIT_SUCCESS;
@@ -59,35 +59,35 @@ for(;;)
 
 
 int affichage_main_bouton_1(){
-int buffer, ret, i=0;
+	int buffer, ret, i=0;
 
-double temperature = 0.0, humidite = 0.0, pression = 0.0;
+	double temperature = 0.0, humidite = 0.0, pression = 0.0;
 
-  if ( lancement_temperature(&temperature, buffer) != EXIT_SUCCESS )
-  {
-      perror("[main.c] lancement température");
-      return EXIT_FAILURE;
-  }
+	  if ( lancement_temperature(&temperature, buffer) != EXIT_SUCCESS )
+	  {
+		  perror("[main.c] lancement température");
+		  return EXIT_FAILURE;
+	  }
 
-  if ( ADC_to_humidity(temperature, &humidite, buffer) != EXIT_SUCCESS )
-  {
-      perror("[main.c] lancement humidité");
-      return EXIT_FAILURE;
-  }
+	  if ( ADC_to_humidity(temperature, &humidite, buffer) != EXIT_SUCCESS )
+	  {
+		  perror("[main.c] lancement humidité");
+		  return EXIT_FAILURE;
+	  }
 
-  if ( ADC_to_pression(&pression, buffer) != EXIT_SUCCESS )
-  {
-      perror("[main.c] lancement pression");
-      return EXIT_FAILURE;
-  }
+	  if ( ADC_to_pression(&pression, buffer) != EXIT_SUCCESS )
+	  {
+		  perror("[main.c] lancement pression");
+		  return EXIT_FAILURE;
+	  }
 
-  close(buffer);
+	  close(buffer);
 
-  if ( affichage_bouton1(temperature, pression, humidite) != EXIT_SUCCESS )
-  {
-      perror("[main.c] affichage");
-      return EXIT_FAILURE;
-  }
+	  if ( affichage_bouton1(temperature, pression, humidite) != EXIT_SUCCESS )
+	  {
+		  perror("[main.c] affichage");
+		  return EXIT_FAILURE;
+	  }
 
 
 return EXIT_SUCCESS;
