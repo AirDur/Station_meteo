@@ -1,6 +1,44 @@
 #include "affichage.h"
 
+int affichage_main(){
 
+	if(Push_Button() == 1)
+	{
+		printf("===Premier button appuyé===\n") ;
+		 if ( affichage_main_bouton_1() != EXIT_SUCCESS )
+{
+	perror("[main.c] affichage bouton 1");
+	return EXIT_FAILURE;
+}
+
+if(Push_Button() == 2)
+{
+	printf("===Deuxième button appuyé===\n") ;
+	 if ( affichage_main_bouton_2() != EXIT_SUCCESS )
+{
+perror("[main.c] affichage bouton 2");
+return EXIT_FAILURE;
+}
+
+if(Push_Button() == 3)
+{
+	printf("===Troisième button appuyé===\n") ;
+	 if ( affichage_main_bouton_3() != EXIT_SUCCESS )
+{
+perror("[main.c] affichage bouton 3");
+return EXIT_FAILURE;
+}
+
+if(Push_Button() == 4)
+{
+	printf("===Quatrième button appuyé===\n") ;
+	 if ( affichage_main_bouton_4() != EXIT_SUCCESS )
+{
+perror("[main.c] affichage bouton 4");
+return EXIT_FAILURE;
+}
+
+}
 /************    ****************
 *********** Bouton 1 ************
 ***********          ***********/
@@ -49,10 +87,16 @@ int affichage_bouton1(double temperature, double pression, double humidite) {
 	//GrLine(w, gc, 10, 210, 130, 210);
 
 	/*Enter event loop **/
-	for(;;)
-	  GrGetNextEvent(&event);
+	//for(;;)
+	//  GrGetNextEvent(&event);
 	 GrClose();
 
+	 //le prochain bouton
+	 if ( affichage_main() != EXIT_SUCCESS )
+	 {
+	 perror("[main.c] affichage menu");
+	 return EXIT_FAILURE;
+	 }
 
  return EXIT_SUCCESS;
 }
@@ -127,11 +171,17 @@ int affichage_bouton2(double temperature, double pression, double humidite) {
 
        GrText(w, gc, 0, 20,"Coucou-- Deuxieme bouton" , 6, GR_TFASCII);
        /*Enter event loop **/
-       for(;;)
-         GrGetNextEvent(&event);
+      // for(;;)
+      //   GrGetNextEvent(&event);
 
        //function flushes any buffeBLACK function calls and closes the connection created with the GrOpen function.
       GrClose();
+			//le prochain bouton
+	 	 if ( affichage_main() != EXIT_SUCCESS )
+		 	 {
+		 	 perror("[main.c] affichage menu");
+		 	 return EXIT_FAILURE;
+		 	 }
       return EXIT_SUCCESS;
 }
 
@@ -204,11 +254,17 @@ int affichage_bouton3(double temperature, double pression, double humidite) {
 
         GrText(w, gc, 0, 20,"Coucou-- Troisième bouton" , 6, GR_TFASCII);
         /*Enter event loop **/
-        for(;;)
-          GrGetNextEvent(&event);
+      //  for(;;)
+      //    GrGetNextEvent(&event);
 
         //function flushes any buffeBLACK function calls and closes the connection created with the GrOpen function.
        GrClose();
+			 //le prochain bouton
+			 if ( affichage_main() != EXIT_SUCCESS )
+			 {
+			 perror("[main.c] affichage menu");
+			 return EXIT_FAILURE;
+			 }
        return EXIT_SUCCESS;
 
 }
@@ -279,11 +335,18 @@ int affichage_bouton4(double temperature, double pression, double humidite) {
 
         GrText(w, gc, 0, 20,"Coucou-- Quatrième bouton" , 6, GR_TFASCII);
         /*Enter event loop **/
-        for(;;)
-          GrGetNextEvent(&event);
+      //  for(;;)
+    //      GrGetNextEvent(&event);
 
         //function flushes any buffeBLACK function calls and closes the connection created with the GrOpen function.
        GrClose();
+			 //le prochain bouton
+			 if ( affichage_main() != EXIT_SUCCESS )
+			 {
+			 perror("[main.c] affichage menu");
+			 return EXIT_FAILURE;
+			 }
+
        return EXIT_SUCCESS;
 
 }
