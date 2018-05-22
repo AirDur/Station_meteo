@@ -176,7 +176,7 @@ int affichage_bouton2(double temperature, double pression, double humidite) {
       //   GrGetNextEvent(&event);
 
        //function flushes any buffeBLACK function calls and closes the connection created with the GrOpen function.
-      GrClose();
+      //GrClose();
 
 			//le prochain bouton
 	 	 if ( affichage_main() != EXIT_SUCCESS )
@@ -261,7 +261,7 @@ int affichage_bouton3(double temperature, double pression, double humidite) {
       //    GrGetNextEvent(&event);
 
         //function flushes any buffeBLACK function calls and closes the connection created with the GrOpen function.
-       GrClose();
+       //GrClose();
 
 			 //le prochain bouton
 			 if ( affichage_main() != EXIT_SUCCESS )
@@ -343,7 +343,7 @@ int affichage_bouton4(double temperature, double pression, double humidite) {
     //      GrGetNextEvent(&event);
 
         //function flushes any buffeBLACK function calls and closes the connection created with the GrOpen function.
-       GrClose();
+       //GrClose();
 			 //le prochain bouton
 			 if ( affichage_main() != EXIT_SUCCESS )
 			 {
