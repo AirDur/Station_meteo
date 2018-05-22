@@ -110,7 +110,7 @@ int lancement_temperature(double *temperature, int buffer) {
 }
 
 double calcul_humidite(short donnees_brut, double temperature){
-  double Vout, Vs, resultat;
+  double Vout, Vs, resultat1, resultat2;
   Vout = (2.5 / 1024) * donnees_brut * 2;
   Vs = 5;
   printf(" Données brutes : %hi \n", donnees_brut);
