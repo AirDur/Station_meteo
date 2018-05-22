@@ -34,12 +34,12 @@ int main(int ac,char **av){
   }
   */
   // Configuration de l'ecran
-  w = GrNewWindow(1, 0, 0, 160, 240, 0, BLACK, WHITE);
-  gc = GrNewGC();
+  //w = GrNewWindow(1, 0, 0, 160, 240, 0, BLACK, WHITE);
+  //gc = GrNewGC();
   GrSetGCForeground(gc, WHITE);
   GrSetGCUseBackground(gc, GR_FALSE);
   GrSelectEvents(w, GR_EVENT_MASK_EXPOSURE);
-  GrMapWindow(w);
+  //GrMapWindow(w);
 
   // Creation des threads
   pthread_create(&th_boutons,   NULL, &verifier_etat_boutons, &button);

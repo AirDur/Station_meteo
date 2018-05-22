@@ -23,8 +23,10 @@ int main(int argc, char**argv)
   }
 
   w = GrNewWindow(1, 0, 0, 160, 240, 0, BLACK, WHITE);
-  gc = GrNewGC();
+
   GrMapWindow(w);
+
+  gc = GrNewGC();
 
   if(get_donnees(&buffer, &temperature, &humidite, &pression) == EXIT_FAILURE) {
     perror("[main.c] Problème au niveau de la récupération des données.");
@@ -49,33 +51,4 @@ int main(int argc, char**argv)
    GrClose();
 
    return EXIT_SUCCESS;
-   /*
-    if ( lancement_temperature(&temperature, buffer) != EXIT_SUCCESS )
-    {
-        perror("[main.c] lancement température");
-        return EXIT_FAILURE;
-    }
-
-    if ( ADC_to_humidity(temperature, &humidite, buffer) != EXIT_SUCCESS )
-    {
-        perror("[main.c] lancement humidité");
-        return EXIT_FAILURE;
-    }
-
-    if ( ADC_to_pression(&pression, buffer) != EXIT_SUCCESS )
-    {
-        perror("[main.c] lancement pression");
-        return EXIT_FAILURE;
-    }
-
-    close(buffer);
-
-    if ( affichage(temperature, pression, humidite) != EXIT_SUCCESS )
-    {
-        perror("[main.c] affichage");
-        return EXIT_FAILURE;
-    }
-
-
-  return EXIT_SUCCESS; */
 }
