@@ -37,7 +37,7 @@ int affichage_current_data(GR_WINDOW_ID w, GR_GC_ID gc, double * temperature, do
   */
   sprintf(sT, "%lf celsius", *temperature);
   sprintf(sP, "%lf bar", *pression);
-  sprintf(sH, "%lf %%", *humidite);
+  sprintf(sRH, "%lf %%", *humidite);
 
   GrText(w, gc, 25, 20,"OM a perdu", 16, GR_TFASCII);
   GrLine(w, gc, 10, 40, 130, 40);
@@ -46,7 +46,7 @@ int affichage_current_data(GR_WINDOW_ID w, GR_GC_ID gc, double * temperature, do
   GrText(w, gc, 10, 120," - Pression :", 14, GR_TFASCII);
   GrText(w, gc, 10, 140,sP, 15, GR_TFASCII);
   GrText(w, gc, 10, 170," - Humidite :", 14, GR_TFASCII);
-  GrText(w, gc, 10, 190,sH, 12, GR_TFASCII);
+  GrText(w, gc, 10, 190,sRH, 12, GR_TFASCII);
 
   return EXIT_SUCCESS;
 
