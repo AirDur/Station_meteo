@@ -135,7 +135,7 @@ int affichage_main_bouton_1(){
 	  }
 
 
-return EXIT_SUCCESS;
+		return EXIT_SUCCESS;
 }
 
 /************    ****************
@@ -187,38 +187,38 @@ int affichage_bouton2(double temperature, double pression, double humidite) {
 }
 
 int affichage_main_bouton_2(){
-int buffer, ret, i=0;
+	int buffer, ret, i=0;
 
-double temperature = 0.0, humidite = 0.0, pression = 0.0;
+	double temperature = 0.0, humidite = 0.0, pression = 0.0;
 
-  if ( lancement_temperature(&temperature, buffer) != EXIT_SUCCESS )
-  {
-      perror("[main.c] lancement température");
-      return EXIT_FAILURE;
-  }
+	  if ( lancement_temperature(&temperature, buffer) != EXIT_SUCCESS )
+	  {
+	      perror("[main.c] lancement température");
+	      return EXIT_FAILURE;
+	  }
 
-  if ( ADC_to_humidity(temperature, &humidite, buffer) != EXIT_SUCCESS )
-  {
-      perror("[main.c] lancement humidité");
-      return EXIT_FAILURE;
-  }
+	  if ( ADC_to_humidity(temperature, &humidite, buffer) != EXIT_SUCCESS )
+	  {
+	      perror("[main.c] lancement humidité");
+	      return EXIT_FAILURE;
+	  }
 
-  if ( ADC_to_pression(&pression, buffer) != EXIT_SUCCESS )
-  {
-      perror("[main.c] lancement pression");
-      return EXIT_FAILURE;
-  }
+	  if ( ADC_to_pression(&pression, buffer) != EXIT_SUCCESS )
+	  {
+	      perror("[main.c] lancement pression");
+	      return EXIT_FAILURE;
+	  }
 
-  close(buffer);
+	  close(buffer);
 
-  if ( affichage_bouton2(temperature, pression, humidite) != EXIT_SUCCESS )
-  {
-      perror("[main.c] affichage");
-      return EXIT_FAILURE;
-  }
+	  if ( affichage_bouton2(temperature, pression, humidite) != EXIT_SUCCESS )
+	  {
+	      perror("[main.c] affichage");
+	      return EXIT_FAILURE;
+	  }
 
 
-return EXIT_SUCCESS;
+	return EXIT_SUCCESS;
 }
 
 /************    ****************
@@ -271,36 +271,36 @@ int affichage_bouton3(double temperature, double pression, double humidite) {
 }
 
 int affichage_main_bouton_3(){
-int buffer, ret, i=0;
+	int buffer, ret, i=0;
 
-double temperature = 0.0, humidite = 0.0, pression = 0.0;
+	double temperature = 0.0, humidite = 0.0, pression = 0.0;
 
-  if ( lancement_temperature(&temperature, buffer) != EXIT_SUCCESS )
-  {
-      perror("[main.c] lancement température");
-      return EXIT_FAILURE;
-  }
+	if ( lancement_temperature(&temperature, buffer) != EXIT_SUCCESS )
+	{
+	    perror("[main.c] lancement température");
+	    return EXIT_FAILURE;
+	}
 
-  if ( ADC_to_humidity(temperature, &humidite, buffer) != EXIT_SUCCESS )
-  {
-      perror("[main.c] lancement humidité");
-      return EXIT_FAILURE;
-  }
+	if ( ADC_to_humidity(temperature, &humidite, buffer) != EXIT_SUCCESS )
+	{
+	    perror("[main.c] lancement humidité");
+	    return EXIT_FAILURE;
+	}
 
-  if ( ADC_to_pression(&pression, buffer) != EXIT_SUCCESS )
-  {
-      perror("[main.c] lancement pression");
-      return EXIT_FAILURE;
-  }
+	if ( ADC_to_pression(&pression, buffer) != EXIT_SUCCESS )
+	{
+	    perror("[main.c] lancement pression");
+	    return EXIT_FAILURE;
+	}
 
-  close(buffer);
+	close(buffer);
 
-  if ( affichage_bouton3(temperature, pression, humidite) != EXIT_SUCCESS )
-  {
-      perror("[main.c] affichage");
-      return EXIT_FAILURE;
-  }
-return EXIT_SUCCESS;
+	if ( affichage_bouton3(temperature, pression, humidite) != EXIT_SUCCESS )
+	{
+	    perror("[main.c] affichage");
+	    return EXIT_FAILURE;
+	}
+	return EXIT_SUCCESS;
 }
 
 /************    ****************
@@ -334,7 +334,7 @@ int affichage_bouton4(double temperature, double pression, double humidite) {
       //  font=GrCreateFont("Helvetica",6,NULL);
       //  GrSetFontRotation(font,90);
 
-        GrText(w, gc, 0, 20,"Coucou-- Quatrième bouton" , 6, GR_TFASCII);
+        GrText(w, gc, 0, 20,"Coucou-- Quatrieme bouton" , 6, GR_TFASCII);
         /*Enter event loop **/
       //  for(;;)
     //      GrGetNextEvent(&event);
@@ -353,36 +353,36 @@ int affichage_bouton4(double temperature, double pression, double humidite) {
 }
 
 int affichage_main_bouton_4(){
-int buffer, ret, i=0;
+	int buffer, ret, i=0;
 
-double temperature = 0.0, humidite = 0.0, pression = 0.0;
+	double temperature = 0.0, humidite = 0.0, pression = 0.0;
 
-  if ( lancement_temperature(&temperature, buffer) != EXIT_SUCCESS )
-  {
-      perror("[main.c] lancement température");
-      return EXIT_FAILURE;
-  }
+	  if ( lancement_temperature(&temperature, buffer) != EXIT_SUCCESS )
+	  {
+	      perror("[main.c] lancement température");
+	      return EXIT_FAILURE;
+	  }
 
-  if ( ADC_to_humidity(temperature, &humidite, buffer) != EXIT_SUCCESS )
-  {
-      perror("[main.c] lancement humidité");
-      return EXIT_FAILURE;
-  }
+	  if ( ADC_to_humidity(temperature, &humidite, buffer) != EXIT_SUCCESS )
+	  {
+	      perror("[main.c] lancement humidité");
+	      return EXIT_FAILURE;
+	  }
 
-  if ( ADC_to_pression(&pression, buffer) != EXIT_SUCCESS )
-  {
-      perror("[main.c] lancement pression");
-      return EXIT_FAILURE;
-  }
+	  if ( ADC_to_pression(&pression, buffer) != EXIT_SUCCESS )
+	  {
+	      perror("[main.c] lancement pression");
+	      return EXIT_FAILURE;
+	  }
 
-  close(buffer);
+	  close(buffer);
 
-  if ( affichage_bouton4(temperature, pression, humidite) != EXIT_SUCCESS )
-  {
-      perror("[main.c] affichage");
-      return EXIT_FAILURE;
-  }
+	  if ( affichage_bouton4(temperature, pression, humidite) != EXIT_SUCCESS )
+	  {
+	      perror("[main.c] affichage");
+	      return EXIT_FAILURE;
+	  }
 
 
-return EXIT_SUCCESS;
+	return EXIT_SUCCESS;
 }

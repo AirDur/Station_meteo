@@ -8,6 +8,7 @@ int main(int argc, char**argv)
 
   double temperature = 0.0, humidite = 0.0, pression = 0.0;
 
+<<<<<<< HEAD
   int ok = 1;
   do{
        ok = 0;
@@ -71,6 +72,53 @@ int main(int argc, char**argv)
             }
         }
 }while(ok == 1);
+=======
+  int execute = 1;
+
+  do {
+    unsigned int pressed = Push_Button();
+    if(pressed == 1) {
+      printf("===Premier button appuyé===\n") ;
+      if ( affichage_main_bouton_1() != EXIT_SUCCESS ) {
+			  perror("[main.c] affichage bouton 1");
+			  return EXIT_FAILURE;
+		  }
+		  sleep(2);
+      //while(Push_Button() != 4){}
+      //break;
+    }
+    else if(pressed == 2) {
+      printf("===deuxième button appuyé===\n") ;
+      if ( affichage_main_bouton_1() != EXIT_SUCCESS ) {
+			  perror("[main.c] affichage bouton 2");
+			  return EXIT_FAILURE;
+		  }
+		  sleep(2);
+      //while(Push_Button() != 4){}
+      break;
+    }
+    else if(pressed == 3) {
+      printf("===Troisième button appuyé===\n") ;
+      if ( affichage_main_bouton_1() != EXIT_SUCCESS ) {
+			  perror("[main.c] affichage bouton 3");
+			  return EXIT_FAILURE;
+		  }
+		  sleep(2);
+      //while(Push_Button() != 4){}
+      break;
+    } else if(pressed == 4) {
+      printf("===Quatrieme button appuyé===\n") ;
+      if ( affichage_main_bouton_1() != EXIT_SUCCESS ) {
+			  perror("[main.c] affichage bouton 4");
+			  return EXIT_FAILURE;
+		  }
+		  sleep(2);
+      //while(Push_Button() != 4){}
+      execute = 0;
+      break;
+    }
+  } while ( execute == 1 );
+>>>>>>> 860399f0772718a8758b261cf2780d4d7087393b
 
   return 0;
 }
