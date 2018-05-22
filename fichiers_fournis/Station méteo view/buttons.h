@@ -1,7 +1,5 @@
-
 #ifndef __BUTTONS_H__
 #define __BUTTONS_H__
-
 
 #include "44b.h"
 
