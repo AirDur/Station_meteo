@@ -59,6 +59,5 @@ extern int lire_pression(int fd, double * P);
  */
 int lancement_temperature(double *temperature, int buffer);
 
-int clacul_humidite_pression(double temperature, double *pression, double *humidite, int buffer);
 
 #endif

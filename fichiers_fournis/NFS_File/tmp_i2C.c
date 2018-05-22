@@ -56,20 +56,20 @@ int msleep(unsigned long milisec)
 
 
 int main(int argc, char**argv)
-{	  
+{
 	unsigned int KbStatus;
    	int delay_val = 200;
 	GR_WINDOW_ID w;
         GR_GC_ID gc;
         GR_EVENT event;
 	short data_H,data_P;
-	double temp,RH,P,VOUT_H,VS_H,VOUT_P,VS_P; 
+	double temp,RH,P,VOUT_H,VS_H,VOUT_P,VS_P;
 	char valeur1[256];
 	char valeur2[256];
 	char valeur3[256];
 	int fd, ret;
 	unsigned char val[2];
-	
+
 	VS_H=5;
 	VS_P=5.1;
 	val[0]=0x01;
@@ -79,8 +79,8 @@ int main(int argc, char**argv)
 	system("insmod adc_s3c44.o");
 	system("insmod i2c_s3c44.o");
 	system("./nano-X &");
-	 
- 
+
+
 	//calcul de la temperature
 
 	if ((fd = open("/dev/i2c0",O_RDWR)) < 0 ) //on ouvre le fichier i2c0 en lecture et ecriture
@@ -97,28 +97,28 @@ int main(int argc, char**argv)
              close(fd);
              return (-1);
 	}
-	
+
 	write(fd, val ,2);//ecriture de deux valeurs sur fd
 	read(fd, val, 1);//lecture d'une valeur sur fd
 	printf("val[%d] = %x\n", 0x92, val[0]);
-	
+
 	val[0]=0x00;
 	write(fd, val ,1);
 	read(fd, val, 2);
 	//calcul
-	temp=(val[0] << 4) | (val[1] >> 4);//décalage 
+	temp=(val[0] << 4) | (val[1] >> 4);//décalage
 	temp=temp*0.0625;
-	
+
 
 	// calcul de l'humidity
-	
-	if ((fd = open("/dev/adc",O_RDWR)) < 0 )//on ouvre le fichier adc en lecture et ecriture 
+
+	if ((fd = open("/dev/adc",O_RDWR)) < 0 )//on ouvre le fichier adc en lecture et ecriture
 	{
 		perror("open");
 		printf("Error opening /dev/adc");
 		return (-1);
 	}
-	
+
 	ret = ioctl(fd, ADC_CHANNEL, ADC_CHANNEL_HUMIDITY);
         if(ret <0)
         {
@@ -126,17 +126,23 @@ int main(int argc, char**argv)
              close(fd);
              return (-1);
 	}
-	
+
 	read(fd, &data_H, 2);//lecture
 	//calcul
+  printf(" Données brutes : %hi  \n", data_H);
+  printf(" Temperature = %lf  \n", temp);
+  printf(" Vs = %lf  \n", VS_H);
 	VOUT_H=(2.5/1024)*data_H*2;
+  printf(" Vout = %lf  \n", VOUT_H);
 	RH=(VOUT_H - VS_H * 0.16)/(VS_H*0.0062);
+  printf(" Resultat 1 = %lf  \n", RH);
 	RH=RH/(1.0546-(0.00216*temp));
+  printf(" Resultat 2 = %lf  \n", RH);
 
- 
-	
+
+
 	//calcul de la pression
- 
+
 	ret = ioctl(fd, ADC_CHANNEL, ADC_CHANNEL_PRESSURE);
         if(ret <0)
         {    //si le fichier n'existe pas on affiche un message d'erreur
@@ -144,21 +150,21 @@ int main(int argc, char**argv)
              close(fd);
              return (-1);
 	}
-	
+
 	read(fd, &data_P, 2);
 	VOUT_P=(2.5/1024)*data_P*2;
 	P=(VOUT_P + (VS_P * 0.1518))/(VS_P * 0.01059);
 	P=P*10;
-	 
+
 	//stockage des valeurs sous forme de chaine de caractére
-	
+
 	sprintf(valeur1,"T= %.1f C \n",temp);//stockage de la valeur temp dans valeur1
-	sprintf(valeur2,"H= %.1f %%\n" ,RH);//stockage de la valeur RH dans valeur2 
+	sprintf(valeur2,"H= %.1f %%\n" ,RH);//stockage de la valeur RH dans valeur2
 	sprintf(valeur3,"P= %.1f kPa \n",P);//stockage de la valeur P dans valeur3
 
 
-	//configuration pour les préférences d'afichage   	
-	if (GrOpen() < 0) 
+	//configuration pour les préférences d'afichage
+	if (GrOpen() < 0)
 	{
         	printf("Can't open graphics\n");
         	exit(1);
@@ -174,15 +180,15 @@ int main(int argc, char**argv)
 
   	//utilisation des boutons
    	while(1)
-    	{  
+    	{
 	          KbStatus = KEYBOARD_STATUS();
-    		  if((KbStatus & 0x1)==1) 
+    		  if((KbStatus & 0x1)==1)
     		 {
                    printf("Button Ox1, S2 pressed\n") ;
     	 		while( KEYBOARD_STATUS() == KbStatus) ;
     	    		msleep(delay_val) ;
-       		}	        
-    	
+       		}
+
     		if((KbStatus & 0x2)==2) //bouton 3
     		{
 			//affichage et positionnement des valeurs(température, humidité et pression)sur l'ecran LCD
@@ -194,20 +200,20 @@ int main(int argc, char**argv)
 	  		GrText(w, gc, 0, 60,valeur2 , -1, GR_TFASCII);
 	  		GrText(w, gc, 0, 100,valeur3 , -1, GR_TFASCII);
 			while( KEYBOARD_STATUS() == KbStatus) ;
-    		}	        
-    	
-    		if((KbStatus & 0x4)==4) 
+    		}
+
+    		if((KbStatus & 0x4)==4)
     		{
     			printf("Button 0x4, S4 pressed\n") ;
     			while( KEYBOARD_STATUS() == KbStatus) ;
-    		}	        
-    	
-    		if((KbStatus & 0x8)==8) 
+    		}
+
+    		if((KbStatus & 0x8)==8)
     		{
     			printf("Button 0x8, S5 pressed\n") ;
     			while( KEYBOARD_STATUS() == KbStatus) ;
     		}
-  
+
     	}
 
 
@@ -216,10 +222,7 @@ int main(int argc, char**argv)
     }
     GrClose();
 
-	
+
 	close(fd);
 	return 0;
 }
-
- 
-
