@@ -59,5 +59,14 @@ extern int lire_pression(int fd, double * P);
  */
 int lancement_temperature(double *temperature, int buffer);
 
+int get_donnees(int * buffer, double * temperature, double * humidite, double * pression);
+
+double calcul_temperature(short donnees_brut);
+int lecture_temperature (int buffer, double * Temperature);
+int lancement_temperature(double *temperature, int buffer);
+double calcul_humidite(short donnees_brut, double temperature);
+int ADC_to_humidity(double temperature, double *humidite, int buffer);
+double calcul_pression(short donnees_brut);
+int ADC_to_pression(double *pression, int buffer);
 
 #endif

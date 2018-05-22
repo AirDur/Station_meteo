@@ -19,20 +19,20 @@
 
 
 int main(int ac,char **av){
-  GR_WINDOW_ID w;
-  GR_GC_ID gc;
-  GR_EVENT event;
+  //GR_WINDOW_ID w;
+  //GR_GC_ID gc;
+  //GR_EVENT event;
   int current_screen = CURRENT_DATA;
   int button = BUTTON_NONE;
   int orientation = 0;
   pthread_t th_boutons, th_capteurs, th_tendances;
 
-  if (GrOpen() < 0)
+  /*if (GrOpen() < 0)
   {
     printf("Can't open graphics\n");
     exit(1);
   }
-
+  */
   // Configuration de l'ecran
   w = GrNewWindow(1, 0, 0, 160, 240, 0, BLACK, WHITE);
   gc = GrNewGC();

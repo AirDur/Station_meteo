@@ -13,6 +13,30 @@
 
 #include "capteurs.h"
 
+int get_donnees(int * buffer, double * temperature, double * humidite, double * pression) {
+
+  if ( lancement_temperature(temperature, *buffer) != EXIT_SUCCESS )
+  {
+      perror("[main.c] lancement température");
+      return EXIT_FAILURE;
+  }
+
+  if ( ADC_to_humidity(*temperature, humidite, *buffer) != EXIT_SUCCESS )
+  {
+      perror("[main.c] lancement humidité");
+      return EXIT_FAILURE;
+  }
+
+  if ( ADC_to_pression(pression, *buffer) != EXIT_SUCCESS )
+  {
+      perror("[main.c] lancement pression");
+      return EXIT_FAILURE;
+  }
+
+  close(*buffer);
+
+  return EXIT_SUCCESS;
+}
 
 int configuration_i2c(int buffer, unsigned char mask)
 {
@@ -110,7 +134,7 @@ int lancement_temperature(double *temperature, int buffer) {
 }
 
 double calcul_humidite(short donnees_brut, double temperature){
-  double Vout, Vs, resultat;
+  double Vout, Vs, resultat1, resultat2;
   Vout = (2.5 / 1024) * donnees_brut * 2;
   Vs = 5;
   printf(" Données brutes : %hi \n", donnees_brut);
