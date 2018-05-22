@@ -98,6 +98,7 @@ int affichage(double temperature, double pression, double humidite) {
   //GrLine(w, gc, 10, 210, 130, 210);
 
   /*Enter event loop **/
+  /*
   for(;;)
     GrGetNextEvent(&event);
 
