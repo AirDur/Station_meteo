@@ -10,7 +10,7 @@ int affichage_main(){
 	perror("[main.c] affichage bouton 1");
 	return EXIT_FAILURE;
 }
-
+}
 if(Push_Button() == 2)
 {
 	printf("===Deuxième button appuyé===\n") ;
@@ -19,7 +19,7 @@ if(Push_Button() == 2)
 perror("[main.c] affichage bouton 2");
 return EXIT_FAILURE;
 }
-
+}
 if(Push_Button() == 3)
 {
 	printf("===Troisième button appuyé===\n") ;
@@ -28,7 +28,7 @@ if(Push_Button() == 3)
 perror("[main.c] affichage bouton 3");
 return EXIT_FAILURE;
 }
-
+}
 if(Push_Button() == 4)
 {
 	printf("===Quatrième button appuyé===\n") ;
@@ -38,6 +38,7 @@ perror("[main.c] affichage bouton 4");
 return EXIT_FAILURE;
 }
 
+}
 }
 /************    ****************
 *********** Bouton 1 ************
@@ -166,8 +167,8 @@ int affichage_bouton2(double temperature, double pression, double humidite) {
 
        //function allocates a new graphic context with all parameters set to the default values.
        gc = GrNewGC();
-       font=GrCreateFont("Helvetica",6,NULL);
-       GrSetFontRotation(font,90);
+       //font=GrCreateFont("Helvetica",6,NULL);
+      // GrSetFontRotation(font,90);
 
        GrText(w, gc, 0, 20,"Coucou-- Deuxieme bouton" , 6, GR_TFASCII);
        /*Enter event loop **/
@@ -249,8 +250,8 @@ int affichage_bouton3(double temperature, double pression, double humidite) {
 
         //function allocates a new graphic context with all parameters set to the default values.
         gc = GrNewGC();
-        font=GrCreateFont("Helvetica",6,NULL);
-        GrSetFontRotation(font,90);
+      //  font=GrCreateFont("Helvetica",6,NULL);
+      //  GrSetFontRotation(font,90);
 
         GrText(w, gc, 0, 20,"Coucou-- Troisième bouton" , 6, GR_TFASCII);
         /*Enter event loop **/
@@ -330,8 +331,8 @@ int affichage_bouton4(double temperature, double pression, double humidite) {
 
         //function allocates a new graphic context with all parameters set to the default values.
         gc = GrNewGC();
-        font=GrCreateFont("Helvetica",6,NULL);
-        GrSetFontRotation(font,90);
+      //  font=GrCreateFont("Helvetica",6,NULL);
+      //  GrSetFontRotation(font,90);
 
         GrText(w, gc, 0, 20,"Coucou-- Quatrième bouton" , 6, GR_TFASCII);
         /*Enter event loop **/
