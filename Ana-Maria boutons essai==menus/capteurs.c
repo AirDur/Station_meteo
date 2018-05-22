@@ -139,7 +139,7 @@ int ADC_to_humidity(double temperature, double *humidite, int buffer) {
 
   // Calcul humidite physique
 
-  *humidite = calcul_humidite(short donnees_brut, double temperature);
+  *humidite = calcul_humidite(donnees_brut,temperature);
 
 
 	printf(" - Valeur de humidité : %lf \n", *humidite);
