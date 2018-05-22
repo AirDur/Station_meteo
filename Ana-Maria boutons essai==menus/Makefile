@@ -18,7 +18,7 @@ EXEC   = rgt_meteo
 
 all :
 	$(CC) -c $(SRC_WR) $(INCLUDE)
-	$(CC) -Wl, -elf2flt $(OBJ_WR) -o $(EXEC) $(LIBS_PATH) $(LIBS)
+	$(CC) -Wl, -elf2flt $(OBJ_WR) -o $(EXEC) $(LIBS_PATH) $(LIBS) -lm
 
 clean :
 	rm -f *.o *.gdb *.gch $(EXEC)
