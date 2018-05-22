@@ -42,6 +42,10 @@
 // Fichier correspondant aux peripheriques de la carte
 #define ADC_DEVICE           "/dev/adc"
 
+
+double calcul_temperature_Celcius(short donnees_brut);
+double calcul_temperature_Farenheit(short donnees_brut);
+
 extern int lire_humidite(int fd, double T, double * RH);
 
 /**

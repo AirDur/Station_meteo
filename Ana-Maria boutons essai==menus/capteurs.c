@@ -41,16 +41,21 @@ int configuration_i2c(int buffer, unsigned char mask)
   return EXIT_SUCCESS;
 }
 
-//calcul de la température à partir des données brutes
-double calcul_temperature(short donnees_brut){
+/************    ****************
+*********** Temperature en Celcius ************
+***********          ***********/
+
+//calcul de la température à partir des données brutes en Celcius
+double calcul_temperature_Celcius(short donnees_brut){
   return donnees_brut * 0.0625;
 }
 
-int lecture_temperature (int buffer, double * Temperature) {
+int lecture_temperature_Celcius (int buffer, double * Temperature) {
   int code_erreur;
   unsigned char bus[2];
   short donnees_brut;
 
+  // Configuration de l'adresse
   code_erreur = ioctl(buffer, I2C_SLAVE, I2C_ADDRESS_TEMP);
   if(code_erreur < 0)
   {
@@ -59,10 +64,10 @@ int lecture_temperature (int buffer, double * Temperature) {
        return EXIT_FAILURE;
   }
 
-
+  // Configuration Register 0x01 : Configuration register
 	bus[0] = OCTET_ZERO;
 
-  code_erreur = write(buffer, bus, 1); //ecriture de deux valeurs sur fd
+  code_erreur = write(buffer, bus, 1); //ecriture de deux valeurs sur le bus I2C fd
   if (code_erreur < 0)
   {
     perror("[lecture_temperature] Probleme de configuration des registres");
@@ -78,14 +83,14 @@ int lecture_temperature (int buffer, double * Temperature) {
   }
 
   donnees_brut = (bus[0] << 4) | (bus[1] >> 4);
-  *Temperature = calcul_temperature(donnees_brut);                          // 0.0625 = 128 / 2048
+  *Temperature = calcul_temperature_Celcius(donnees_brut);                          // 0.0625 = 128 / 2048
 
 	printf(" - Valeur de température : %lf \n", *Temperature);
 
 	return EXIT_SUCCESS;
 }
 
-int lancement_temperature(double *temperature, int buffer) {
+int lancement_temperature_Celcius(double *temperature, int buffer) {
   //Ouverture du perifique i2c :
   if ((buffer = open(I2C_FILE, O_RDWR)) < 0)
   {
@@ -99,7 +104,7 @@ int lancement_temperature(double *temperature, int buffer) {
       return EXIT_FAILURE;
   }
 
-  if (lecture_temperature(buffer, temperature) != EXIT_SUCCESS)
+  if (lecture_temperature_Celcius(buffer, temperature) != EXIT_SUCCESS)
   {
       perror("[testTemperature] Recuperation temperature");
       return EXIT_FAILURE;
@@ -108,6 +113,81 @@ int lancement_temperature(double *temperature, int buffer) {
 
   return EXIT_SUCCESS;
 }
+
+/************    ****************
+*********** Temperature en Farenheit ************
+***********          ***********/
+
+//calcul de la température à partir des données brutes en Farenheit
+double calcul_temperature_Farenheit(short donnees_brut){
+  return (donnees_brut * 0.0625)* 1.8 + 32;
+}
+
+int lecture_temperature_Farenheit(int buffer, double * Temperature) {
+  int code_erreur;
+  unsigned char bus[2];
+  short donnees_brut;
+
+  // Configuration de l'adresse
+  code_erreur = ioctl(buffer, I2C_SLAVE, I2C_ADDRESS_TEMP);
+  if(code_erreur < 0)
+  {
+       perror("[lecture_temperature] Probleme de configuration de i2c");
+       close(buffer);
+       return EXIT_FAILURE;
+  }
+
+  // Configuration Register 0x01 : Configuration register
+	bus[0] = OCTET_ZERO;
+
+  code_erreur = write(buffer, bus, 1); //ecriture de deux valeurs sur le bus I2C fd
+  if (code_erreur < 0)
+  {
+    perror("[lecture_temperature] Probleme de configuration des registres");
+    close(buffer);
+    return EXIT_FAILURE;
+  }
+  code_erreur = read(buffer, bus, 2); //ecriture de deux valeurs sur fd
+  if (code_erreur < 0)
+  {
+    perror("[lecture_temperature] Probleme de lecture du registre de temperature");
+    close(buffer);
+    return EXIT_FAILURE;
+  }
+
+  donnees_brut = (bus[0] << 4) | (bus[1] >> 4);
+  *Temperature = calcul_temperature_Farenheit(donnees_brut);                          // 0.0625 = 128 / 2048
+
+	printf(" - Valeur de température : %lf \n", *Temperature);
+
+	return EXIT_SUCCESS;
+}
+
+int lancement_temperature_Farenheit(double *temperature, int buffer) {
+  //Ouverture du perifique i2c :
+  if ((buffer = open(I2C_FILE, O_RDWR)) < 0)
+  {
+      perror("[testTemperature] /dev/i2c0 n'existe pas : le driver n'est pas installe.");
+      return EXIT_FAILURE;
+  }
+
+  if (configuration_i2c(buffer, CONFIG_TEMP_R0 | CONFIG_TEMP_R1) != EXIT_SUCCESS)
+  {
+      perror("[testTemperature] Configuration registre de temperature");
+      return EXIT_FAILURE;
+  }
+
+  if (lecture_temperature_Farenheit(buffer, temperature) != EXIT_SUCCESS)
+  {
+      perror("[testTemperature] Recuperation temperature");
+      return EXIT_FAILURE;
+  }
+  sleep(2);
+
+  return EXIT_SUCCESS;
+}
+
+
 
 double calcul_humidite(short donnees_brut, double temperature){
   double Vout, Vs, resultat;
