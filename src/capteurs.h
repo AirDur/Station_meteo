@@ -1,15 +1,6 @@
-/**
- * Permet de lire les donnees du bus i2c
- */
-
 #ifndef CAPTEUR_H
 #define CAPTEUR_H
 
-/**
-#include "44b.h"
-#include <time.h>
-#include <signal.h>
-*/
 #include <sys/ioctl.h>
 
 #include <stdio.h>
@@ -42,7 +33,18 @@
 // Fichier correspondant aux peripheriques de la carte
 #define ADC_DEVICE           "/dev/adc"
 
+int get_donnees(int * buffer, double * temperature, double * humidite, double * pression);
+
+/**
+ * @brief    Lecture du niveau d'humidite.
+ * @param fd Descripteur de fichier du peripherique (CAN).
+ * @param T  Valeur de la temperature ambiante.
+ * @param RH Parametre de sortie. Valeur de l'humidite mesuree (en pourcent).
+ * @return   EXIT_SUCCESS ou EXIT_FAILURE
+ */
 extern int lire_humidite(int fd, double T, double * RH);
+double calcul_humidite(short donnees_brut, double temperature);
+int ADC_to_humidity(double temperature, double *humidite, int buffer);
 
 /**
  * @brief    Lecture du niveau de pression.
@@ -51,6 +53,8 @@ extern int lire_humidite(int fd, double T, double * RH);
  * @return   EXIT_SUCCESS ou EXIT_FAILURE
  */
 extern int lire_pression(int fd, double * P);
+double calcul_pression(short donnees_brut);
+int ADC_to_pression(double *pression, int buffer);
 
 /**
  * @brief    Lectures des donnees de tous les capteurs.
@@ -58,15 +62,7 @@ extern int lire_pression(int fd, double * P);
  * @return   EXIT_SUCCESS ou EXIT_FAILURE
  */
 int lancement_temperature(double *temperature, int buffer);
-
-int get_donnees(int * buffer, double * temperature, double * humidite, double * pression);
-
-double calcul_temperature(short donnees_brut);
 int lecture_temperature (int buffer, double * Temperature);
-int lancement_temperature(double *temperature, int buffer);
-double calcul_humidite(short donnees_brut, double temperature);
-int ADC_to_humidity(double temperature, double *humidite, int buffer);
-double calcul_pression(short donnees_brut);
-int ADC_to_pression(double *pression, int buffer);
+double calcul_temperature(short donnees_brut);
 
 #endif
