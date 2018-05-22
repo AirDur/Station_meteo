@@ -19,6 +19,7 @@
 #define BLACK			MWRGB( 0  , 0  , 0   )
 #define WHITE			MWRGB( 255, 255, 255 )
 
-int affichage(double temperature, double pression, double humidite);
+
+int affichage_current_data(GR_WINDOW_ID, GR_GC_ID, double *, double *, double *);
 
 #endif
