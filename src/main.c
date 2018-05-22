@@ -12,7 +12,6 @@ int main(int argc, char**argv)
   GR_WINDOW_ID  w;
   GR_EVENT      event;
   GR_GC_ID      gc;
-  GR_FONT_ID    font;
   int buffer, ret, i=0;
 
   double temperature = 0.0, humidite = 0.0, pression = 0.0;
@@ -43,6 +42,7 @@ int main(int argc, char**argv)
   /*Enter event loop **/
   for(;;)
     GrGetNextEvent(&event);
+
 
 
 
