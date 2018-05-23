@@ -49,6 +49,9 @@ int affichage_bouton1(double temperature, double pression, double humidite) {
     switch (event.type) {
     case GR_EVENT_TYPE_CLOSE_REQ:
       GrClose();
+			//===essai un truc
+			GrDestroyGC(gc);
+			GrDestroyWindow(w);
       exit(0);
     }
   }
@@ -135,6 +138,9 @@ int affichage_bouton2(double temperature, double pression, double humidite) {
     switch (event.type) {
     case GR_EVENT_TYPE_CLOSE_REQ:
       GrClose();
+			//===essai un truc
+			GrDestroyGC(gc);
+			GrDestroyWindow(w);
       exit(0);
     }
   }
@@ -220,6 +226,9 @@ int affichage_bouton3(double temperature, double pression, double humidite) {
     switch (event.type) {
     case GR_EVENT_TYPE_CLOSE_REQ:
       GrClose();
+			//===essai un truc
+			GrDestroyGC(gc);
+			GrDestroyWindow(w);
       exit(0);
     }
   }
@@ -302,6 +311,9 @@ int affichage_bouton4(double temperature, double pression, double humidite) {
     switch (event.type) {
     case GR_EVENT_TYPE_CLOSE_REQ:
       GrClose();
+			//===essai un truc
+			GrDestroyGC(gc);
+			GrDestroyWindow(w);
       exit(0);
     }
   }
