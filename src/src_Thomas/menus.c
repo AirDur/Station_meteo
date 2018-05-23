@@ -19,6 +19,7 @@ int affichage_menu_01(GR_WINDOW_ID w, GR_GC_ID gc, t_ptr_captors_data p)
     GrText(w, gc, 10, 140,sP, 15, GR_TFASCII);
     GrText(w, gc, 10, 170," - Humidite :", 14, GR_TFASCII);
     GrText(w, gc, 10, 190,sRH, 12, GR_TFASCII);
+    GrLine(w, gc, 10, 220, 130, 40);
 
     return EXIT_SUCCESS;
 
@@ -40,6 +41,7 @@ int affichage_menu_02(GR_WINDOW_ID w, GR_GC_ID gc, t_ptr_captors_data p)
   GrText(w, gc, 10, 140,sP, 15, GR_TFASCII);
   GrText(w, gc, 10, 170," - Humidite :", 14, GR_TFASCII);
   GrText(w, gc, 10, 190,sRH, 12, GR_TFASCII);
+  GrLine(w, gc, 10, 220, 130, 40);
 
   return EXIT_SUCCESS;
 
@@ -58,6 +60,7 @@ int affichage_menu_03(GR_WINDOW_ID w, GR_GC_ID gc, t_ptr_tendances p)
   GrText(w, gc, 10, 70," - Temperature :", 17, GR_TFASCII);
   GrText(w, gc, 10, 120," - Pression :", 14, GR_TFASCII);
   GrText(w, gc, 10, 170," - Humidite :", 14, GR_TFASCII);
+  GrLine(w, gc, 10, 200, 130, 40);
 
   if (p->T > 0)
       GrDrawImageFromFile(w, gc, 110, 45, 30, 30, IMG_UP, 0);

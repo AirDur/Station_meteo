@@ -31,7 +31,7 @@ int main(int ac,char **av)
     }
 
     // Configuration de l'ecran
-    w = GrNewWindow(1, 0, 0, 160, 240, 0, BLACK, WHITE);
+    w = GrNewWindow(1, 0, 0, 160, 240, 0, WHITE, BLACK);
     gc = GrNewGC();
     GrSetGCForeground(gc, BLACK);
     GrSetGCUseBackground(gc, GR_FALSE);
