@@ -48,7 +48,7 @@ int main(int ac,char **av)
     {
         switch (g_etat_boutons)
         {
-          case BOUTON_01:       // MENU "TEMPS REEL"
+          case BOUTON_1:       // MENU "TEMPS REEL"
 
             GrGetNextEventTimeout(&event, 1000);
             switch (event.type)
@@ -62,7 +62,7 @@ int main(int ac,char **av)
             }
             break;
 
-          case BOUTON_02:       // MENU "MOYENNES DES DONNEES"
+          case BOUTON_2:       // MENU "MOYENNES DES DONNEES"
 
             GrGetNextEventTimeout(&event, 1000);
             switch (event.type)
@@ -76,7 +76,7 @@ int main(int ac,char **av)
             }
             break;
 
-          case BOUTON_03:       // MENU "TENDANCES"
+          case BOUTON_3:       // MENU "TENDANCES"
 
             GrGetNextEventTimeout(&event, 1000);
             switch (event.type)
@@ -90,7 +90,7 @@ int main(int ac,char **av)
             }
             break;
 
-          case BOUTON_04:       // ARRET DE L'APPLICATION
+          case BOUTON_4:       // ARRET DE L'APPLICATION
 
             GrGetNextEventTimeout(&event, 3000);
             switch (event.type)

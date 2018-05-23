@@ -60,7 +60,7 @@ void calculer_moyennes(void)
 
 void * verifier_etat_boutons(void * arg)
 {
-    KEYBOARD_STATUS KbStatus;
+    BIT_BOUTON KbStatus;
 
     while (!g_fin_programme)
     {

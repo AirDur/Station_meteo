@@ -19,6 +19,6 @@
  * @brief  Recupere l'etat des boutons.
  * @return Etat des boutons.
  */
-extern BIT_BOUTON KEYBOARD_STATUS(void);
+extern BIT_BOUTON BIT_BOUTON(void);
 
 #endif

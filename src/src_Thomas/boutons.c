@@ -1,9 +1,9 @@
 #include "boutons.h"
 
-BIT_BOUTON KEYBOARD_STATUS(void)
+BIT_BOUTON BIT_BOUTON(void)
 {
     rPCONG = 0x0;       //IN7~0
     rPUPG  = 0x0;       //pull up enable
     return ~((rPDATG & 0xf0) >> 4) & 0xF;
 
-} // keyboard_status
+} // KEYBOARD_STATUS
