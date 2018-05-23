@@ -1,12 +1,3 @@
-/**
- * @file     capteurs.c
- *
- * @author   GOURDON Arnaud
- *           PREVOST Theophile
- *
- * @brief    Fonctions permettant la lecture des donnees des capteurs.
- */
-
 #include "capteurs.h"
 
 
@@ -73,7 +64,7 @@ int lire_temperature(int fd, double * T)
 
     data = (octets[0] << 4) | (octets[1] >> 4);
     *T = data * 0.0625;                             // 0.0625 = 128 / 2048
-    
+
     return EXIT_SUCCESS;
 
 } // lire_temperature
@@ -144,7 +135,7 @@ int lire_donnees_capteurs(t_ptr_captors_data p)
         perror("[I2C] Configuration registre de temperature");
         return EXIT_FAILURE;
     }
-    
+
     r = lire_temperature(fd, &p->T);
     if (r != EXIT_SUCCESS)
     {
@@ -176,7 +167,7 @@ int lire_donnees_capteurs(t_ptr_captors_data p)
     }
 
     close(fd);
-    
+
     return EXIT_SUCCESS;
 
 } // lire_donnees_capteurs
