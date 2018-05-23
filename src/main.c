@@ -77,6 +77,7 @@ int main(int argc, char**argv)
               case BUTTON_04:
                 button = NO_BUTTON;
                 printf("bouton 4\n");
+                programme_en_cours = 0;
                 //current_format_pressure = (current_format_pressure+1)%3;
                 break;
             }
