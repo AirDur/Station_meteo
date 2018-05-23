@@ -14,7 +14,7 @@ LIBS = -l$(LIB_NANOX) -l$(LIB_THREAD)
 
 SRC_WR = main.c capteurs.c affichage.c boutons.c
 OBJ_WR = main.o capteurs.o affichage.o boutons.o
-EXEC   = test2_Ana
+EXEC   = test1_Ana
 
 all :
 	$(CC) -c $(SRC_WR) $(INCLUDE)

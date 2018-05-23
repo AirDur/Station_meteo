@@ -18,7 +18,7 @@ int main(int argc, char * * argv) {
         perror("[main.c] affichage bouton 1");
         return EXIT_FAILURE;
       }
-      sleep(10000); //en milisecondes
+      sleep(5000); //en milisecondes
       printf("==Voila le sleep est terminée==");
       while (KEYBOARD_STATUS() == KbStatus);
     }
@@ -30,7 +30,7 @@ int main(int argc, char * * argv) {
         perror("[main.c] affichage bouton 2");
         return EXIT_FAILURE;
       }
-      sleep(10000); //en milisecondes
+      sleep(5000); //en milisecondes
       printf("==Voila le sleep est terminée==");
       while (KEYBOARD_STATUS() == KbStatus);
     }
@@ -42,7 +42,7 @@ int main(int argc, char * * argv) {
         perror("[main.c] affichage bouton 3");
         return EXIT_FAILURE;
       }
-      sleep(10000); //en milisecondes
+      sleep(5000); //en milisecondes
       printf("==Voila le sleep est terminée==");
 
       while (KEYBOARD_STATUS() == KbStatus);
@@ -55,7 +55,7 @@ int main(int argc, char * * argv) {
         perror("[main.c] affichage bouton 4");
         return EXIT_FAILURE;
       }
-      sleep(10000); //en milisecondes
+      sleep(5000); //en milisecondes
       printf("==Voila le sleep est terminée==");
       while (KEYBOARD_STATUS() == KbStatus);
     }

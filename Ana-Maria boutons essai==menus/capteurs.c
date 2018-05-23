@@ -315,12 +315,51 @@ int ADC_to_humidity_absolue(double temperature, double * humidite, int buffer) {
  *********** Humidité  en pourcentage à partir de la pression et de la temperature************
  ***********          ***********/
 //==========================Notre implementation ================
+
+/************    ****************
+ *********** New implementation ****
+ ***********          ***********/
+
+ double humidite_pression_temperature0(double pression, double temperature) {
+   return (100 * pression) / (6.112 * pow(M_E, (17.67 * temperature) / (temperature + 243.5)));
+ }
+
+ int ADC_to_humidity0_poucentage(double temperature,double pression, double *humidite, int buffer) {
+   short donnees_brut;
+
+   //RECUPERATION DONNES CAPTEUR HUMIDITE/PRESSION
+   if ((buffer = open(ADC_DEVICE,O_RDONLY)) < 0 )
+   {
+     printf("[TEST ADC CAPTEUR] Problème d'ouverture de : %s\n", ADC_DEVICE);
+     return EXIT_FAILURE;
+   }
+
+   //CONFIGURATION DU CANAL POUR L'HUMIDITE
+   if(ioctl(buffer, ADC_CHANNEL, ADC_CHAN_HUMIDITY) < 0)
+   {
+     perror("[TEST ADC CAPTEUR] Configuration du canal Humidité");
+     return EXIT_FAILURE;
+   }
+
+   read(buffer, &donnees_brut, 2);  // Lecture de la valeur du capteur
+
+   // Calcul humidite théorique
+
+   *humidite = humidite_pression_temperature0(pression,temperature);
+
+ 	printf(" - Valeur de humidité : %lf \n", *humidite);
+
+   return EXIT_SUCCESS;
+ }
+
 double humidite_pression_temperature(short donnees_brut_pression, double pression, short donnees_brut_temperature, double temperature) {
   pression = calcul_pression_hPa(donnees_brut_pression);
   temperature = calcul_temperature_Celsius(donnees_brut_temperature);
   return (100 * pression) / (6.112 * pow(M_E, (17.67 * temperature) / (temperature + 243.5)));
 }
 
+
+//================================vérification
 int ADC_to_humidity2_poucentage(double temperature, double pression, double * humidite, int buffer) {
   short donnees_brut_pression, donnees_brut_temperature;
   int code_erreur;

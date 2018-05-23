@@ -44,17 +44,17 @@ int affichage_bouton1(double temperature, double pression, double humidite) {
   GrLine(w, gc, 10, 210, 130, 210);
 
   /*Enter event loop il n'y a pas de loop?????? si GrDestroyWindow(w); **/
-  for (;;) {
-    GrGetNextEvent( & event);
-    switch (event.type) {
-    case GR_EVENT_TYPE_CLOSE_REQ:
-      GrClose();
-			//===essai un truc
-			GrDestroyGC(gc);
-			GrDestroyWindow(w);
-      exit(0);
-    }
-  }
+  // for (;;) {
+  //   GrGetNextEvent( & event);
+  //   switch (event.type) {
+  //   case GR_EVENT_TYPE_CLOSE_REQ:
+  //     GrClose();
+	// 		//===essai un truc
+  //     exit(0);
+  //   }
+  // }
+	GrDestroyGC(gc);
+	GrDestroyWindow(w);
 	//GrDestroyGC(gc);
 	//GrDestroyWindow(w);
   return EXIT_SUCCESS;
@@ -76,7 +76,7 @@ int affichage_main_bouton_1() {
   }
 
   //  if ( ADC_to_humidity_poucentage(temperature, &humidite, buffer) != EXIT_SUCCESS )
-  if (ADC_to_humidity2_poucentage(temperature, pression, & humidite, buffer) != EXIT_SUCCESS) {
+  if (ADC_to_humidity0_poucentage(temperature, pression, & humidite, buffer) != EXIT_SUCCESS) {
     perror("[main.c] lancement humidité");
     return EXIT_FAILURE;
   }
@@ -133,17 +133,17 @@ int affichage_bouton2(double temperature, double pression, double humidite) {
   GrLine(w, gc, 10, 210, 130, 210);
 
   /*Enter event loop il n'y a pas de loop?????? si GrDestroyWindow(w); **/
-  for (;;) {
-    GrGetNextEvent( & event);
-    switch (event.type) {
-    case GR_EVENT_TYPE_CLOSE_REQ:
-      GrClose();
-			//===essai un truc
-			GrDestroyGC(gc);
-			GrDestroyWindow(w);
-      exit(0);
-    }
-  }
+  // for (;;) {
+  //   GrGetNextEvent( & event);
+  //   switch (event.type) {
+  //   case GR_EVENT_TYPE_CLOSE_REQ:
+  //     GrClose();
+	// 		//===essai un truc
+  //     exit(0);
+  //   }
+  // }
+	GrDestroyGC(gc);
+	GrDestroyWindow(w);
 	//GrDestroyGC(gc);
 	//GrDestroyWindow(w);
   return EXIT_SUCCESS;
@@ -221,17 +221,17 @@ int affichage_bouton3(double temperature, double pression, double humidite) {
   GrLine(w, gc, 10, 210, 130, 210);
 
   /*Enter event loop il n'y a pas de loop?????? si GrDestroyWindow(w); **/
-  for (;;) {
-    GrGetNextEvent( & event);
-    switch (event.type) {
-    case GR_EVENT_TYPE_CLOSE_REQ:
-      GrClose();
-			//===essai un truc
-			GrDestroyGC(gc);
-			GrDestroyWindow(w);
-      exit(0);
-    }
-  }
+  // for (;;) {
+  //   GrGetNextEvent( & event);
+  //   switch (event.type) {
+  //   case GR_EVENT_TYPE_CLOSE_REQ:
+  //     GrClose();
+	// 		//===essai un truc
+  //     exit(0);
+  //   }
+  // }
+	GrDestroyGC(gc);
+	GrDestroyWindow(w);
 	//GrDestroyGC(gc);
   //GrDestroyWindow(w);
   return EXIT_SUCCESS;
@@ -306,17 +306,17 @@ int affichage_bouton4(double temperature, double pression, double humidite) {
   GrLine(w, gc, 10, 210, 130, 210);
 
   /*Enter event loop il n'y a pas de loop?????? si GrDestroyWindow(w);??? **/
-  for (;;) {
-    GrGetNextEvent( & event);
-    switch (event.type) {
-    case GR_EVENT_TYPE_CLOSE_REQ:
-      GrClose();
-			//===essai un truc
-			GrDestroyGC(gc);
-			GrDestroyWindow(w);
-      exit(0);
-    }
-  }
+  // for (;;) {
+  //   GrGetNextEvent( & event);
+  //   switch (event.type) {
+  //   case GR_EVENT_TYPE_CLOSE_REQ:
+  //     GrClose();
+	// 		//===essai un truc
+  //     exit(0);
+  //   }
+  // }
+	GrDestroyGC(gc);
+	GrDestroyWindow(w);
 	//GrDestroyGC(gc);
 	//GrDestroyWindow(w);
   return EXIT_SUCCESS;
@@ -333,7 +333,7 @@ int affichage_main_bouton_4() {
   }
 
   // if ( ADC_to_humidity_poucentage(temperature, &humidite, buffer) != EXIT_SUCCESS )
-  if (ADC_to_humidity2_poucentage(temperature, pression, & humidite, buffer) != EXIT_SUCCESS) {
+  if (ADC_to_humidity0_poucentage(temperature, pression, & humidite, buffer) != EXIT_SUCCESS) {
     perror("[main.c] lancement humidité");
     return EXIT_FAILURE;
   }
