@@ -1,25 +1,24 @@
 #ifndef __BOUTONS_H__
 #define __BOUTONS_H__
 
-
 #include "44b.h"
 
-
-// Definition de type
-#define KEYBOARD_STATUS     unsigned int
-
-// Flag des differents boutons
-#define BOUTON_01           0x01
-#define BOUTON_02           0x02
-#define BOUTON_03           0x04
-#define BOUTON_04           0x08
-
+/**
+ * Nous définissons des flags pour chaque bouton, au lieu de manipuler directement
+ * des données hexadécimals.
+**/
+#define BIT_ZERO            0x0
+#define NO_BUTTON           0x0
+#define BUTTON_01           0x1
+#define BUTTON_02           0x2
+#define BUTTON_03           0x4
+#define BUTTON_04           0x8
+#define BIT_BOUTON          unsigned int
 
 /**
  * @brief  Recupere l'etat des boutons.
  * @return Etat des boutons.
  */
-extern KEYBOARD_STATUS keyboard_status(void);
+extern BIT_BOUTON KEYBOARD_STATUS(void);
 
-
-#endif /* __BOUTONS_H__ */
+#endif
