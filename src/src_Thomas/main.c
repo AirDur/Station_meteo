@@ -13,7 +13,7 @@
 #include "nano-X.h"
 #include <pthread.h>
 #include <stdio.h>
-#include "buttons.h"
+#include "boutons.h"
 #include "threads.h"
 
 
@@ -31,7 +31,7 @@ int main(int ac,char **av)
     }
 
     // Configuration de l'ecran
-    w = GrNewWindow(1, 5, 5, 150, 180, 5, WHITE, BLACK);
+    w = GrNewWindow(1, 0, 0, 160, 240, 0, BLACK, WHITE);
     gc = GrNewGC();
     GrSetGCForeground(gc, BLACK);
     GrSetGCUseBackground(gc, GR_FALSE);
@@ -48,7 +48,7 @@ int main(int ac,char **av)
     {
         switch (g_etat_boutons)
         {
-          case BUTTON_01:       // MENU "TEMPS REEL"
+          case BOUTON_01:       // MENU "TEMPS REEL"
 
             GrGetNextEventTimeout(&event, 1000);
             switch (event.type)
@@ -62,7 +62,7 @@ int main(int ac,char **av)
             }
             break;
 
-          case BUTTON_02:       // MENU "MOYENNES DES DONNEES"
+          case BOUTON_02:       // MENU "MOYENNES DES DONNEES"
 
             GrGetNextEventTimeout(&event, 1000);
             switch (event.type)
@@ -76,7 +76,7 @@ int main(int ac,char **av)
             }
             break;
 
-          case BUTTON_03:       // MENU "TENDANCES"
+          case BOUTON_03:       // MENU "TENDANCES"
 
             GrGetNextEventTimeout(&event, 1000);
             switch (event.type)
@@ -90,7 +90,7 @@ int main(int ac,char **av)
             }
             break;
 
-          case BUTTON_04:       // ARRET DE L'APPLICATION
+          case BOUTON_04:       // ARRET DE L'APPLICATION
 
             GrGetNextEventTimeout(&event, 3000);
             switch (event.type)

@@ -13,9 +13,9 @@ LIB_NANOX = nano-X
 LIB_THREAD = pthread
 LIBS = -l$(LIB_NANOX) -l$(LIB_THREAD)
 
-SRC_WR = main.c capteurs.c buttons.c menus.c threads.c
-OBJ_WR = main.o capteurs.o buttons.o menus.o threads.o
-EXEC   = prog2
+SRC_WR = main.c capteurs.c boutons.c menus.c threads.c
+OBJ_WR = main.o capteurs.o boutons.o menus.o threads.o
+EXEC   = final_meteo
 
 all :
 	$(CC) $(DEFINE) -c $(SRC_WR) $(INCLUDE)
