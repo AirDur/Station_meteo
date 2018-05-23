@@ -9,8 +9,6 @@
  *		du fichier special situe dans /dev
  *		# ls /dev/i2c0c
  */
-
-
 #include "capteurs.h"
 
 int configuration_i2c(int buffer, unsigned char mask)
@@ -114,7 +112,8 @@ int lancement_temperature_Celsius(double *temperature, int buffer) {
 }
 
 /************    ****************
-*********** Temperature en Farenheit ************ --->>  la formule suivante: Celsius * 9/5 + 32.
+*********** Temperature en Farenheit ************ --->>
+la formule suivante: Celsius * 9/5 + 32.
 ***********          ***********/
 
 //calcul de la température à partir des données brutes en Farenheit
@@ -344,7 +343,9 @@ int ADC_to_humidity_absolue(double temperature, double *humidite, int buffer) {
 *********** Humidité  ************
 ***********          ***********/
 //calcul de l'humidité en pourcentage à partir de la pression et de la temperature
-double humidite_pression_temperature(double pression, double temperature){
+double humidite_pression_temperature(short donnees_brut,double *pression, double *temperature){
 
-return (100*pression)/ (6.112* pow (M_E, (17.67*temperature)/ (temperature+243.5)) );
+*pression = calcul_pression_hPa(donnees_brut);
+*temperature = calcul_temperature_Celsius(donnees_brut);
+return (100*(*pression))/ (6.112* pow (M_E, (17.67*(*temperature))/ ((*temperature)+243.5)) );
 }
