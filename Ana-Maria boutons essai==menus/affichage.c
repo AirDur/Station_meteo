@@ -124,11 +124,12 @@ int affichage_main_bouton_1(){
 				  return EXIT_FAILURE;
 			  }
 
-	  if ( ADC_to_humidity_poucentage(temperature, &humidite, buffer) != EXIT_SUCCESS )
-	  {
-		  perror("[main.c] lancement humidité");
-		  return EXIT_FAILURE;
-	  }
+	//  if ( ADC_to_humidity_poucentage(temperature, &humidite, buffer) != EXIT_SUCCESS )
+			if ( ADC_to_humidity2_poucentage (temperature,pression, &humidite,buffer) != EXIT_SUCCESS )
+				{
+				  perror("[main.c] lancement humidité");
+				  return EXIT_FAILURE;
+			  }
 
 	  close(buffer);
 
@@ -398,11 +399,12 @@ int affichage_main_bouton_4(){
 	      return EXIT_FAILURE;
 	  }
 
-	  if ( ADC_to_humidity_poucentage(temperature, &humidite, buffer) != EXIT_SUCCESS )
-	  {
-	      perror("[main.c] lancement humidité");
-	      return EXIT_FAILURE;
-	  }
+	 // if ( ADC_to_humidity_poucentage(temperature, &humidite, buffer) != EXIT_SUCCESS )
+		if ( ADC_to_humidity2_poucentage (temperature,pression, &humidite,buffer) != EXIT_SUCCESS )
+			{
+		      perror("[main.c] lancement humidité");
+		      return EXIT_FAILURE;
+		  }
 
 	  if ( ADC_to_pression_hPa(&pression, buffer) != EXIT_SUCCESS )
 	  {

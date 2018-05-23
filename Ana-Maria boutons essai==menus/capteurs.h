@@ -112,8 +112,9 @@ int ADC_to_humidity_absolue(double temperature, double *humidite, int buffer) ;
 *********** Humidité  ************
 ***********          ***********/
 //calcul de l'humidité à partir de la pression et de la temperature
-double humidite_pression_temperature(short donnees_brut,double *pression, double *temperature);
+double humidite_pression_temperature(short donnees_brut_pression,double pression,short donnees_brut_temperature, double temperature);
 
+int ADC_to_humidity2_poucentage(double temperature,double pression, double *humidite, int buffer) ;
 
 extern int lire_humidite(int fd, double T, double * RH);
 

@@ -263,7 +263,7 @@ int ADC_to_pression_mmHg(double *pression, int buffer) {
 /************    ****************
 *********** Humidité relative en pourcentages% ************
 ***********          ***********/
-
+//****************CONFORME AU DATASHEET ===============
 double calcul_humidite_pourcentage(short donnees_brut, double temperature){
   double Vout, Vs, resultat;
   Vout = (2.5 / 1024) * donnees_brut * 2;
@@ -302,9 +302,8 @@ int ADC_to_humidity_poucentage(double temperature, double *humidite, int buffer)
 }
 
 /************    ****************
-*********** Humidité relative en g/m¨3 ************
-***********          ***********/
-
+*********** Humidité absolue en g/m¨3 ************
+***********          ***********///****************coforme au datasheet ===============
 double calcul_humidite_absolue(short donnees_brut, double temperature){
   double Vout, Vs, resultat;
   Vout = (2.5 / 1024) * donnees_brut * 2;
@@ -339,13 +338,73 @@ int ADC_to_humidity_absolue(double temperature, double *humidite, int buffer) {
 
   return EXIT_SUCCESS;
 }
-/************    ****************
-*********** Humidité  ************
-***********          ***********/
-//calcul de l'humidité en pourcentage à partir de la pression et de la temperature
-double humidite_pression_temperature(short donnees_brut,double *pression, double *temperature){
 
-*pression = calcul_pression_hPa(donnees_brut);
-*temperature = calcul_temperature_Celsius(donnees_brut);
-return (100*(*pression))/ (6.112* pow (M_E, (17.67*(*temperature))/ ((*temperature)+243.5)) );
+/************    ****************
+*********** Humidité  en pourcentage à partir de la pression et de la temperature************
+***********          ***********/
+//==========================Notre implementation ================
+double humidite_pression_temperature(short donnees_brut_pression,double pression,short donnees_brut_temperature, double temperature){
+pression = calcul_pression_hPa(donnees_brut_pression);
+temperature = calcul_temperature_Celsius(donnees_brut_temperature);
+return (100*pression)/ (6.112* pow (M_E, (17.67*temperature)/ (temperature+243.5)) );
+}
+
+int ADC_to_humidity2_poucentage(double temperature,double pression, double *humidite, int buffer) {
+  short donnees_brut_pression,donnees_brut_temperature;
+  int code_erreur;
+  unsigned char bus[2];
+
+  
+  //RECUPERATION DONNES CAPTEUR HUMIDITE/PRESSION
+  if ((buffer = open(ADC_DEVICE,O_RDONLY)) < 0 )
+  {
+    printf("[TEST ADC CAPTEUR] Problème d'ouverture de : %s\n", ADC_DEVICE);
+    return EXIT_FAILURE;
+  }
+
+  //CONFIGURATION DU CANAL POUR LA PRESSION
+  if(ioctl(buffer, ADC_CHANNEL, ADC_CHAN_PRESSURE) < 0)
+  {
+      perror("[[TEST ADC CAPTEUR] Configuration du canal Pression");
+      return EXIT_FAILURE;
+  }
+
+  read(buffer, &donnees_brut_pression, 2);  // Lecture de la valeur du capteur pression
+
+//=========================TEMPERATURE =================
+// Configuration de l'adresse
+code_erreur = ioctl(buffer, I2C_SLAVE, I2C_ADDRESS_TEMP);
+if(code_erreur < 0)
+{
+     perror("[lecture_temperature] Probleme de configuration de i2c");
+     close(buffer);
+     return EXIT_FAILURE;
+}
+
+// Configuration Register 0x01 : Configuration register
+bus[0] = OCTET_ZERO;
+
+code_erreur = write(buffer, bus, 1); //ecriture de deux valeurs sur le bus I2C fd
+if (code_erreur < 0)
+{
+  perror("[lecture_temperature] Probleme de configuration des registres");
+  close(buffer);
+  return EXIT_FAILURE;
+}
+code_erreur = read(buffer, bus, 2); //ecriture de deux valeurs sur fd
+if (code_erreur < 0)
+{
+  perror("[lecture_temperature] Probleme de lecture du registre de temperature");
+  close(buffer);
+  return EXIT_FAILURE;
+}
+
+donnees_brut_temperature = (bus[0] << 4) | (bus[1] >> 4);
+
+  // Calcul humidite à partir de temperature + pression
+  *humidite = humidite_pression_temperature(donnees_brut_pression,pression,donnees_brut_temperature,temperature);
+
+	printf(" - Valeur de humidité : %lf \n", *humidite);
+
+  return EXIT_SUCCESS;
 }
