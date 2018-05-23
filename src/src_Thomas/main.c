@@ -8,7 +8,6 @@
  *           Gestion de l'affichage et des differents menus.
  */
 
-#define MWINCLUDECOLORS
 #include <graphics.h>
 #include "nano-X.h"
 #include <pthread.h>
