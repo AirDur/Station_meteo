@@ -56,7 +56,7 @@ int main(int argc, char**argv)
         }
 
         switch(selection_ecran){
-          case CURRENT_DATA:
+          case DONNEES_ACTUELLES:
             GrClearWindow(w,0); //On réactualise les données
             affichage_current_data(w,gc,&g_donnees_capteurs);
 
@@ -69,13 +69,13 @@ int main(int argc, char**argv)
                 break;
 
               case BUTTON_03:
-                button = NO_BUTTON;
+                bouton = NO_BUTTON;
                 printf("bouton 3\n");
                 //current_format_temp = (current_format_temp+1)%3;
                 break;
 
               case BUTTON_04:
-                button = NO_BUTTON;
+                bouton = NO_BUTTON;
                 printf("bouton 4\n");
                 programme_en_cours = 0;
                 //current_format_pressure = (current_format_pressure+1)%3;

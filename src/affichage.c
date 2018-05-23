@@ -25,7 +25,7 @@ int affichage_current_data(GR_WINDOW_ID w, GR_GC_ID gc, double * temperature, do
 
 //-------------------------
 //-------------------------
-
+/*
 //extern volatile int current_screen = 0;
 extern volatile int current_orientation = 0;
 
@@ -75,7 +75,7 @@ int affichage_current_data(GR_WINDOW_ID w, GR_GC_ID gc, t_ptr_captors_data p){
 
 /**
  * Affichage de l'historique de la semaine
- */
+
 int affichage_menu_02(GR_WINDOW_ID w, GR_GC_ID gc, t_captors_data data [],int nbArchives){
 
   char title[64], minC[64], maxC[64];
@@ -89,7 +89,7 @@ int affichage_menu_02(GR_WINDOW_ID w, GR_GC_ID gc, t_captors_data data [],int nb
   GrFillRect(w,gc,0,40,160,2);
   /*GrFillRect(w,gc,10, 70, 2,130);
   //absscisse temp
-  GrFillRect(w,gc,10, 200, 120,2);*/
+  GrFillRect(w,gc,10, 200, 120,2);
 
 
   switch(current_data){
@@ -479,3 +479,4 @@ int next(int current, int max){
     return current + 1;
   }
 }
+*/
