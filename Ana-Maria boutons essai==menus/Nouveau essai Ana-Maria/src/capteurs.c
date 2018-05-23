@@ -28,8 +28,8 @@ int configuration_i2c(int buffer, unsigned char mask)
 
 //calcul de la température à partir des données brutes
 double calcul_temperature(short donnees_brut, int unite){
-  if(unite == 1) return donnees_brut * 0.0625;    //en clesius
-  else return (donnees_brut * 0.0625) * 1.8 + 32; //en Farenheit selon l'unité
+  if(unite == 1) return donnees_brut * 0.0625;
+  else return (donnees_brut * 0.0625) * 1.8 + 32;
 }
 
 int lecture_temperature (int buffer, double * Temperature, int unite) {
@@ -141,7 +141,7 @@ double calcul_pression(short donnees_brut, int unite){
   double resultat, Vout, Vs;
   Vout = (2.5 / 1024) * donnees_brut * 2;
   Vs = 5.1;
-  resultat = (Vout + Vs * 0.1518) / (Vs * 0.01059) * 10;  //en hPa(hectopascali)
+  resultat = (Vout + Vs * 0.1518) / (Vs * 0.01059) * 10;
   if(unite == 1) {
     return resultat; // Calcul de la pression
   } else {
