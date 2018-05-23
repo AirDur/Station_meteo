@@ -13,12 +13,13 @@
 #define BOUTON_2            0x2
 #define BOUTON_3            0x4
 #define BOUTON_4            0x8
+
 #define BIT_BOUTON          unsigned int
 
 /**
  * @brief  Recupere l'etat des boutons.
  * @return Etat des boutons.
  */
-extern BIT_BOUTON BIT_BOUTON(void);
+extern BIT_BOUTON KEYBOARD_STATUS(void);
 
 #endif
