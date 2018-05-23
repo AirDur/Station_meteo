@@ -7,7 +7,7 @@
 #include <stdlib.h>
 #include <fcntl.h>
 #include <unistd.h>
-//TODO #include <pthread.h>
+#include <pthread.h>
 
 
 #ifndef ADC_CHANNEL
@@ -18,11 +18,11 @@
     #define I2C_SLAVE        0x0703
 #endif
 
+#define OCTET_ZERO            0x00          //Just un octet de 0.
+
 // Fichier correspondant aux peripheriques de la carte
 #define ADC_DEVICE           "/dev/adc"
 #define I2C_DEVICE           "/dev/i2c0"
-
-#define OCTET_ZERO            0x00          //Just un octet de 0.
 
 // Bit de configuration du registre de temperature
 #define CONFIG_TEMP_R0      0x40
@@ -33,6 +33,32 @@
 #define I2C_ADDRESS_TEMP     0x92   // Float address + 1 R/W bit low
 #define ADC_CHAN_PRESSURE    4
 #define ADC_CHAN_HUMIDITY    5
+
+
+/**
+ * @struct t_captors_data
+ * @brief  Structure comprenant les valeurs physiques des differents capteurs
+ *         (Temperature, pression et humidite)
+ */
+typedef struct s_captors_data
+{
+    double T;       /**< Temperature (en C) */
+    double P;       /**< Pression (en hPA) */
+    double RH;      /**< Humidite (en %) */
+} t_captors_data, * t_ptr_captors_data;
+
+/**
+ * @struct t_tendances
+ * @brief  Structure comprenant les tendances des differents capteurs
+ *         (Temperature, pression et humidite).
+ *         Croissant si > 0 / Decroissant si < 0
+ */
+typedef struct s_tendances
+{
+    int T;          /**< Temperature (en C) */
+    int P;          /**< Pression (en hPA) */
+    int RH;         /**< Humidite (en %) */
+} t_tendances, * t_ptr_tendances;
 
 
 int get_donnees(int * buffer, double * temperature, double * humidite, double * pression);
