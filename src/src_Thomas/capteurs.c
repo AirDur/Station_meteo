@@ -62,9 +62,12 @@ int lire_temperature(int fd, double * T)
 
 } // lire_temperature
 
-int lire_humidite(int fd, double T, double * RH)
+int lire_humidite(int fd, double T, double P, double * RH)
 {
-    int ret;
+  *RH = (100 * P) / (6.112 * pow(M_E, (17.67 * T) / (T + 243.5)));
+  return EXIT_SUCCESS;
+
+  /*  int ret;
     short data;
     double Vout, Vs;
 
@@ -83,7 +86,8 @@ int lire_humidite(int fd, double T, double * RH)
     *RH = (Vout - Vs * 0.16) / (Vs * 0.0062);       // Calcul humidite
     *RH = *RH / (1.0546 - 0.00216 * T);             // Calcul de l'humidite avec T
 
-    return EXIT_SUCCESS;
+
+    return EXIT_SUCCESS; */
 
 } // lire_humidite
 
@@ -152,7 +156,7 @@ int lire_donnees_capteurs(t_ptr_captors_data p)
         return EXIT_FAILURE;
     }
 
-    r = lire_humidite(fd, p->T, &p->RH);
+    r = lire_humidite(fd, p->T, p->P, &p->RH);
     if (r != EXIT_SUCCESS)
     {
         perror("[ADC] Recuperation humidite");

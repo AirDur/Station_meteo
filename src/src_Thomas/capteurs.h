@@ -8,7 +8,7 @@
 #include <fcntl.h>
 #include <unistd.h>
 #include <pthread.h>
-
+#include <math.h>
 
 #ifndef ADC_CHANNEL
     #define ADC_CHANNEL      0x500
@@ -70,7 +70,7 @@ int get_donnees(int * buffer, double * temperature, double * humidite, double * 
  * @param RH Parametre de sortie. Valeur de l'humidite mesuree (en pourcent).
  * @return   EXIT_SUCCESS ou EXIT_FAILURE
  */
-extern int lire_humidite(int fd, double T, double * RH);
+extern int lire_humidite(int fd, double T, double P, double * RH);
 double calcul_humidite(short donnees_brut, double temperature);
 int ADC_to_humidity(double temperature, double *humidite, int buffer);
 

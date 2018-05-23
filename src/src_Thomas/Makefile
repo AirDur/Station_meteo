@@ -19,6 +19,6 @@ EXEC   = final_meteo
 
 all :
 	$(CC) $(DEFINE) -c $(SRC_WR) $(INCLUDE)
-	$(CC) -Wl, -elf2flt $(DEFINE) $(OBJ_WR) -o $(EXEC) $(LIBS_PATH) $(LIBS)
+	$(CC) -Wl, -elf2flt $(DEFINE) $(OBJ_WR) -o $(EXEC) $(LIBS_PATH) $(LIBS) -lm
 clean :
 	rm -f *.o *.gdb
