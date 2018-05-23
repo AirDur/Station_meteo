@@ -1,12 +1,3 @@
-/**
- * @file     capteurs.h
- *
- * @author   GOURDON Arnaud
- *           PREVOST Theophile
- *
- * @brief    Fonctions permettant la lecture des donnees des capteurs.
- */
-
 #ifndef __CAPTEURS_H__
 #define __CAPTEURS_H__
 

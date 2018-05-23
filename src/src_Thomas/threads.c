@@ -15,7 +15,7 @@
 
 
 // Initialisation des variables globales
-volatile int g_etat_boutons = BOUTON_02;
+volatile int g_etat_boutons = BOUTON_2;
 volatile int g_fin_programme = 0;
 volatile t_tendances g_tendances;
 volatile t_captors_data g_donnees_capteurs = { 0, 0, 0 };
@@ -64,27 +64,27 @@ void * verifier_etat_boutons(void * arg)
 
     while (!g_fin_programme)
     {
-        KbStatus = keyboard_status();
+        KbStatus = KEYBOARD_STATUS();
 
-        if((KbStatus & BOUTON_01) == BOUTON_01)
+        if((KbStatus & BOUTON_1) == BOUTON_1)
         {
-            g_etat_boutons = BOUTON_01;
-            while(keyboard_status() == KbStatus);
+            g_etat_boutons = BOUTON_1;
+            while(KEYBOARD_STATUS() == KbStatus);
         }
-        else if((KbStatus & BOUTON_02) == BOUTON_02)
+        else if((KbStatus & BOUTON_2) == BOUTON_2)
         {
-            g_etat_boutons = BOUTON_02;
-            while(keyboard_status() == KbStatus);
+            g_etat_boutons = BOUTON_2;
+            while(KEYBOARD_STATUS() == KbStatus);
         }
-        else if((KbStatus & BOUTON_03) == BOUTON_03)
+        else if((KbStatus & BOUTON_3) == BOUTON_3)
         {
-            g_etat_boutons = BOUTON_03;
-            while(keyboard_status() == KbStatus);
+            g_etat_boutons = BOUTON_3;
+            while(KEYBOARD_STATUS() == KbStatus);
         }
-        else if((KbStatus & BOUTON_04)== BOUTON_04)
+        else if((KbStatus & BOUTON_4)== BOUTON_4)
         {
-            g_etat_boutons = BOUTON_04;
-            while(keyboard_status() == KbStatus);
+            g_etat_boutons = BOUTON_4;
+            while(KEYBOARD_STATUS() == KbStatus);
         }
 
         usleep(10000);
