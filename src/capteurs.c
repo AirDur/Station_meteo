@@ -1,16 +1,3 @@
-/**
- * @file     	testI2C.c
- * @author   	Patrick BREUGNON
- * @brief    	Fontion permettant de tester l'interface i2c
- *		Ne pas oublie de charger le driver i2c en effectuant
- *		la commande
- *		# insmod i2c_s3c44.o
- * 		On peut verifier si le driver est charge par la presence
- *		du fichier special situe dans /dev
- *		# ls /dev/i2c0c
- */
-
-
 #include "capteurs.h"
 
 int get_donnees(int * buffer, double * temperature, double * humidite, double * pression) {

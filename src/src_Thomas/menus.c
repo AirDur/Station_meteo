@@ -16,7 +16,7 @@ int affichage_menu_01(GR_WINDOW_ID w, GR_GC_ID gc, t_ptr_captors_data p)
     GrText(w, gc, 10, 70," - Temperature :", 17, GR_TFASCII);
     GrText(w, gc, 10, 90,sT, 18, GR_TFASCII);
     GrText(w, gc, 10, 120," - Pression :", 14, GR_TFASCII);
-    GrText(w, gc, 10, 140,sP, 15, GR_EVENT_TYPE_EXPOSUREFASCII);
+    GrText(w, gc, 10, 140,sP, 15, GR_TFASCII);
     GrText(w, gc, 10, 170," - Humidite :", 14, GR_TFASCII);
     GrText(w, gc, 10, 190,sRH, 12, GR_TFASCII);
     GrLine(w, gc, 10, 220, 130, 220);
