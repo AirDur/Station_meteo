@@ -46,7 +46,7 @@ int main(int argc, char**argv)
   //On lit les boutons en boucle.
   while (programme_en_cours == 1){
     //lit le bouton sélectionné
-    GrGetNextEventTimeout(&event, 2000);
+    GrGetNextEventTimeout(&event, 1000);
 
     switch (event.type) {
       case GR_EVENT_TYPE_TIMEOUT:
