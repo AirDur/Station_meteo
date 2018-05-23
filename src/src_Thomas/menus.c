@@ -81,7 +81,7 @@ int affichage_menu_03(GR_WINDOW_ID w, GR_GC_ID gc, t_ptr_tendances p)
 
 int affichage_menu_04(GR_WINDOW_ID w, GR_GC_ID gc)
 {
-    GrText(w, gc, 40, 75, "Aurevoir !",  -1, GR_TFASCII);
+    GrText(w, gc, 40, 75, "Au revoir !",  -1, GR_TFASCII);
 
     return EXIT_SUCCESS;
 
