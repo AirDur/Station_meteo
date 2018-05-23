@@ -2,120 +2,6 @@
 
 int configuration_i2c(int buffer, unsigned char mask)
 {
-<<<<<<< HEAD
-    int ret;
-    unsigned char octets[2];
-
-    ret = ioctl(fd, I2C_SLAVE, I2C_ADDRESS_TEMP);   // Configuration de l'adresse
-    if(ret < 0)
-    {
-        perror("[Config Temp] Configuration de l'adresse I2C");
-        return EXIT_FAILURE;
-    }
-
-    octets[0] = 0x01;                               // Configuration Register
-    octets[1] = mask;                               // Masque de configuration
-
-    ret = write(fd, octets, 2);                     // Ecriture sur le bus I2C
-    if (ret < 0)
-    {
-        perror("[Config Temp] Ecriture sur le bus I2C");
-        return EXIT_FAILURE;
-    }
-
-    return EXIT_SUCCESS;
-
-} // config_temperature
-
-int lire_temperature(int fd, double * T)
-{
-    int ret;
-    unsigned char octets[2];
-    short data;
-
-    ret = ioctl(fd, I2C_SLAVE, I2C_ADDRESS_TEMP);   // Configuration de l'adresse
-    if(ret < 0)
-    {
-        perror("[Lire Temp] Configuration de l'adresse I2C");
-        return EXIT_FAILURE;
-    }
-
-    octets[0] = 0x00;                               // Temperature Register
-
-    ret = write(fd, octets, 1);                     // Ecriture sur le bus I2C
-    if (ret < 0)
-    {
-        perror("[Lire Temp] Configuration du registre");
-        return EXIT_FAILURE;
-    }
-
-    ret = read(fd, octets, 2);                      // Lecture Temperature Register
-    if (ret < 0)
-    {
-        perror("[Lire Temp] Lecture du registre de temperature");
-        return EXIT_FAILURE;
-    }
-
-    data = (octets[0] << 4) | (octets[1] >> 4);
-    *T = data * 0.0625;                             // 0.0625 = 128 / 2048
-
-    return EXIT_SUCCESS;
-
-} // lire_temperature
-
-int lire_humidite(int fd, double T, double P, double * RH)
-{
-  *RH = (100 * P) / (6.112 * pow(M_E, (17.67 * T) / (T + 243.5)));
-  return EXIT_SUCCESS;
-
-  /*  int ret;
-    short data;
-    double Vout, Vs;
-
-    ret = ioctl(fd, ADC_CHANNEL, ADC_CHAN_HUMIDITY); // Configuration du canal
-    if(ret < 0)
-    {
-        perror("[Lire Humidite] Configuration du canal");
-        return EXIT_FAILURE;
-    }
-
-    read(fd, &data, 2);                             // Lecture de la valeur du capteur
-
-    // Calcul humidite physique
-    Vout = (2.5 / 1024) * data * 2;
-    Vs = 5;
-    *RH = (Vout - Vs * 0.16) / (Vs * 0.0062);       // Calcul humidite
-    *RH = *RH / (1.0546 - 0.00216 * T);             // Calcul de l'humidite avec T
-
-
-    return EXIT_SUCCESS; */
-
-} // lire_humidite
-
-int lire_pression(int fd, double * P)
-{
-    int ret;
-    short data;
-    double Vout, Vs;
-
-    ret = ioctl(fd, ADC_CHANNEL, ADC_CHAN_PRESSURE); // Configuration du canal
-    if(ret < 0)
-    {
-        perror("[Lire Pression] Configuration du canal");
-        return EXIT_FAILURE;
-    }
-
-    read(fd, &data, 2);                             // Lecture de la valeur du capteur
-
-    // Calcul pression physique
-    Vout = (2.5 / 1024) * data * 2;
-    Vs = 5.1;
-    *P = (Vout + Vs * 0.1518) / (Vs * 0.01059) * 10;    // Calcul de la pression
-
-    return EXIT_SUCCESS;
-
-} // lire_pression
-=======
   int code_erreur;
   unsigned char bus[2];
 
@@ -224,32 +110,35 @@ double calcul_humidite(short donnees_brut, double temperature){
   return resultat2;
 }
 
-int lire_humidite(double temperature, double *humidite, int buffer) {
-  short donnees_brut;
+  int lire_humidite(int fd, double T, double P, double * RH) {
+    *RH = (100 * P) / (6.112 * pow(M_E, (17.67 * T) / (T + 243.5)));
+    return EXIT_SUCCESS;
 
-  //RECUPERATION DONNES CAPTEUR HUMIDITE/PRESSION
-  if ((buffer = open(ADC_DEVICE,O_RDONLY)) < 0 )
-  {
-    printf("[TEST ADC CAPTEUR] Problème d'ouverture de : %s\n", ADC_DEVICE);
-    return EXIT_FAILURE;
-  }
+    /*  int ret;
+      short data;
+      double Vout, Vs;
 
-  //CONFIGURATION DU CANAL POUR L'HUMIDITE
-  if(ioctl(buffer, ADC_CHANNEL, ADC_CHAN_HUMIDITY) < 0)
-  {
-    perror("[TEST ADC CAPTEUR] Configuration du canal Humidité");
-    return EXIT_FAILURE;
-  }
+      ret = ioctl(fd, ADC_CHANNEL, ADC_CHAN_HUMIDITY); // Configuration du canal
+      if(ret < 0)
+      {
+          perror("[Lire Humidite] Configuration du canal");
+          return EXIT_FAILURE;
+      }
 
-  read(buffer, &donnees_brut, 2);  // Lecture de la valeur du capteur
+      read(fd, &data, 2);                             // Lecture de la valeur du capteur
 
-  // Calcul humidite physique
-  *humidite = calcul_humidite(donnees_brut, temperature);
+      // Calcul humidite physique
+      Vout = (2.5 / 1024) * data * 2;
+      Vs = 5;
+      *RH = (Vout - Vs * 0.16) / (Vs * 0.0062);       // Calcul humidite
+      *RH = *RH / (1.0546 - 0.00216 * T);             // Calcul de l'humidite avec T
 
-	printf(" - Valeur de humidité : %lf \n", *humidite);
 
-  return EXIT_SUCCESS;
-}
+      return EXIT_SUCCESS; */
+
+  } // lire_humidite
+
+
 
 double calcul_pression(short donnees_brut){
   double Vout, Vs;
@@ -307,12 +196,7 @@ int lire_donnees_capteurs(t_ptr_captors_data p)
         return EXIT_FAILURE;
     }
 
-<<<<<<< HEAD
-    r = lire_humidite(fd, p->T, p->P, &p->RH);
-    if (r != EXIT_SUCCESS)
-=======
-    if (lire_humidite(p->T, &p->RH, buffer) != EXIT_SUCCESS)
->>>>>>> a4f55719f629e56ac8401aadf24c65961ff9ac82
+    if (lire_humidite(buffer, p->T, p->P, &p->RH) != EXIT_SUCCESS)
     {
         perror("[ADC] Recuperation humidite");
         return EXIT_FAILURE;
