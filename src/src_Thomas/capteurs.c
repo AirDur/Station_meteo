@@ -283,7 +283,6 @@ int lire_pression(double *pression, int buffer) {
 
   return EXIT_SUCCESS;
 }
->>>>>>> a4f55719f629e56ac8401aadf24c65961ff9ac82
 
 int lire_donnees_capteurs(t_ptr_captors_data p)
 {
