@@ -1,7 +1,6 @@
 #include "boutons.h"
 
-
-KEYBOARD_STATUS keyboard_status(void)
+BIT_BOUTON KEYBOARD_STATUS(void)
 {
     rPCONG = 0x0;       //IN7~0
     rPUPG  = 0x0;       //pull up enable
