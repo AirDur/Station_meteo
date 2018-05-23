@@ -8,6 +8,7 @@
  * des données hexadécimals.
 **/
 #define BIT_ZERO            0x0
+#define NO_BUTTON           0x0
 #define BUTTON_01           0x1
 #define BUTTON_02           0x2
 #define BUTTON_03           0x4
