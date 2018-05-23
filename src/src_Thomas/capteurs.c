@@ -1,7 +1,5 @@
 #include "capteurs.h"
 
-
-
 int config_temperature(int fd, unsigned char mask)
 {
     int ret;
