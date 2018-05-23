@@ -1,30 +1,5 @@
 #include "capteurs.h"
 
-int get_donnees(int * buffer, double * temperature, double * humidite, double * pression) {
-
-  if ( lancement_temperature(temperature, *buffer) != EXIT_SUCCESS )
-  {
-      perror("[main.c] lancement température");
-      return EXIT_FAILURE;
-  }
-
-  if ( ADC_to_humidity(*temperature, humidite, *buffer) != EXIT_SUCCESS )
-  {
-      perror("[main.c] lancement humidité");
-      return EXIT_FAILURE;
-  }
-
-  if ( ADC_to_pression(pression, *buffer) != EXIT_SUCCESS )
-  {
-      perror("[main.c] lancement pression");
-      return EXIT_FAILURE;
-  }
-
-  close(*buffer);
-
-  return EXIT_SUCCESS;
-}
-
 int configuration_i2c(int buffer, unsigned char mask)
 {
   int code_erreur;
@@ -40,7 +15,6 @@ int configuration_i2c(int buffer, unsigned char mask)
 
   bus[0] = 0x01;                               // Configuration Register
   bus[1] = mask;                               // Masque de configuration
-
 
   code_erreur = write(buffer, bus, 2); //ecriture de deux valeurs sur fd
   if (code_erreur < 0)
@@ -70,7 +44,6 @@ int lecture_temperature (int buffer, double * Temperature) {
        return EXIT_FAILURE;
   }
 
-
 	bus[0] = OCTET_ZERO;
 
   code_erreur = write(buffer, bus, 1); //ecriture de deux valeurs sur fd
@@ -96,9 +69,10 @@ int lecture_temperature (int buffer, double * Temperature) {
 	return EXIT_SUCCESS;
 }
 
-int lancement_temperature(double *temperature, int buffer) {
-  //Ouverture du perifique i2c :
-  if ((buffer = open(I2C_FILE, O_RDWR)) < 0)
+int lancement_temperature(double *temperature) {
+  int buffer;
+
+  if ((buffer = open(I2C_DEVICE, O_RDWR)) < 0)
   {
       perror("[testTemperature] /dev/i2c0 n'existe pas : le driver n'est pas installe.");
       return EXIT_FAILURE;
@@ -115,7 +89,7 @@ int lancement_temperature(double *temperature, int buffer) {
       perror("[testTemperature] Recuperation temperature");
       return EXIT_FAILURE;
   }
-  sleep(2);
+  sleep(buffer);
 
   return EXIT_SUCCESS;
 }
@@ -136,34 +110,35 @@ double calcul_humidite(short donnees_brut, double temperature){
   return resultat2;
 }
 
-int ADC_to_humidity(double temperature, double *humidite, int buffer) {
-  short donnees_brut;
+  int lire_humidite(int fd, double T, double P, double * RH) {
+    *RH = (100 * P) / (6.112 * pow(M_E, (17.67 * T) / (T + 243.5)));
+    return EXIT_SUCCESS;
 
-  //RECUPERATION DONNES CAPTEUR HUMIDITE/PRESSION
-  if ((buffer = open(ADC_DEVICE,O_RDONLY)) < 0 )
-  {
-    printf("[TEST ADC CAPTEUR] Problème d'ouverture de : %s\n", ADC_DEVICE);
-    return EXIT_FAILURE;
-  }
+    /*  int ret;
+      short data;
+      double Vout, Vs;
 
-  //CONFIGURATION DU CANAL POUR L'HUMIDITE
-  if(ioctl(buffer, ADC_CHANNEL, ADC_CHAN_HUMIDITY) < 0)
-  {
-    perror("[TEST ADC CAPTEUR] Configuration du canal Humidité");
-    return EXIT_FAILURE;
-  }
+      ret = ioctl(fd, ADC_CHANNEL, ADC_CHAN_HUMIDITY); // Configuration du canal
+      if(ret < 0)
+      {
+          perror("[Lire Humidite] Configuration du canal");
+          return EXIT_FAILURE;
+      }
 
-  read(buffer, &donnees_brut, 2);  // Lecture de la valeur du capteur
+      read(fd, &data, 2);                             // Lecture de la valeur du capteur
 
-  // Calcul humidite physique
+      // Calcul humidite physique
+      Vout = (2.5 / 1024) * data * 2;
+      Vs = 5;
+      *RH = (Vout - Vs * 0.16) / (Vs * 0.0062);       // Calcul humidite
+      *RH = *RH / (1.0546 - 0.00216 * T);             // Calcul de l'humidite avec T
 
-  *humidite = calcul_humidite(donnees_brut, temperature);
+
+      return EXIT_SUCCESS; */
+
+  } // lire_humidite
 
 
-	printf(" - Valeur de humidité : %lf \n", *humidite);
-
-  return EXIT_SUCCESS;
-}
 
 double calcul_pression(short donnees_brut){
   double Vout, Vs;
@@ -172,7 +147,7 @@ double calcul_pression(short donnees_brut){
   return (Vout + Vs * 0.1518) / (Vs * 0.01059) * 10; // Calcul de la pression
 }
 
-int ADC_to_pression(double *pression, int buffer) {
+int lire_pression(double *pression, int buffer) {
   short donnees_brut;
 
   //RECUPERATION DONNES CAPTEUR HUMIDITE/PRESSION
@@ -197,3 +172,38 @@ int ADC_to_pression(double *pression, int buffer) {
 
   return EXIT_SUCCESS;
 }
+
+int lire_donnees_capteurs(t_ptr_captors_data p)
+{
+    int buffer;
+
+    if ( lancement_temperature(&(p->T)) != EXIT_SUCCESS )
+    {
+        perror("[main.c] lancement température");
+        return EXIT_FAILURE;
+    }
+
+    // PRESSION ET HUMIDITE
+    if ((buffer = open(ADC_DEVICE, O_RDONLY)) < 0)
+    {
+        perror("[ADC] Ouverture du peripherique");
+        return EXIT_FAILURE;
+    }
+
+    if (lire_pression(&p->P, buffer) != EXIT_SUCCESS)
+    {
+        perror("[ADC] Recuperation pression");
+        return EXIT_FAILURE;
+    }
+
+    if (lire_humidite(buffer, p->T, p->P, &p->RH) != EXIT_SUCCESS)
+    {
+        perror("[ADC] Recuperation humidite");
+        return EXIT_FAILURE;
+    }
+
+    close(buffer);
+
+    return EXIT_SUCCESS;
+
+} // lire_donnees_capteurs

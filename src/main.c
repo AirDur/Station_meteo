@@ -1,169 +1,121 @@
+/**
+ * @file     main.c
+ *
+ * @author   GOURDON Arnaud
+ *           PREVOST Theophile
+ *
+ * @brief    Programme principal de la station meteorologique.
+ *           Gestion de l'affichage et des differents menus.
+ */
+
+#define MWINCLUDECOLORS
+#include <graphics.h>
+#include "nano-X.h"
 #include <pthread.h>
 #include <stdio.h>
-#include <graphics.h>
-#include <nano-X.h>
-
-#include "nano-X.h"
-#include "capteurs.h"
-#include "affichage.h"
 #include "boutons.h"
+#include "threads.h"
 
 
-int main(int argc, char**argv)
+int main(int ac,char **av)
 {
-  GR_WINDOW_ID  w;
-  GR_EVENT      event;
-  GR_GC_ID      gc;
-  int   buffer
-      , i                   = 0
-      , programme_en_cours  = 1
-      , selection_ecran     = DONNEES_ACTUELLES
-      , bouton              = NO_BUTTON;
+    GR_WINDOW_ID w;
+    GR_GC_ID gc;
+    GR_EVENT event;
+    pthread_t th_boutons, th_capteurs, th_tendances;
 
-  double temperature = 0.0, humidite = 0.0, pression = 0.0;
-
-  // On appelle le module graphique
-  if (GrOpen() < 0) {
-    perror("[main.c] Impossible d'ouvrir le module graphique.");
-    return EXIT_FAILURE;
-  }
-
-  //ON crée une fenetre graphique
-  w = GrNewWindow(1, 0, 0, 160, 240, 0, BLACK, WHITE);
-  gc = GrNewGC();
-  GrMapWindow(w);
-
-
-
-
-  //On lit les boutons en boucle.
-  while (programme_en_cours==1){
-    //lit le bouton sélectionné
-    GrGetNextEventTimeout(&event, 1000);
-
-    switch (g_etat_boutons)
+    if (GrOpen() < 0)
     {
-      case BUTTON_01:       // MENU "TEMPS REEL
-
-        GrGetNextEventTimeout(&event, 1000);
-        switch (event.type)
-        {
-          case GR_EVENT_TYPE_EXPOSURE:
-
-            //On récupère les données une premiere fois
-            if(get_donnees(&buffer, &temperature, &humidite, &pression) == EXIT_FAILURE) {
-              perror("[main.c] Problème au niveau de la récupération des données.");
-              return EXIT_FAILURE;
-            }
-
-            //On affiche les données une premiere fois
-            if(affichage_current_data(w, gc, &temperature, &humidite, &pression) == EXIT_FAILURE) {
-              perror("[main.c] Impossible d'afficher.");
-              return EXIT_FAILURE;
-            }
-            break;
-
-          case GR_EVENT_TYPE_TIMEOUT:
-            GrClearWindow(w, 1);
-            break;
-        }
-        break;
-
-      case BUTTON_02:       // MENU "MOYENNES DES DONNEES"
-
-        GrGetNextEventTimeout(&event, 1000);
-        switch (event.type)
-        {
-          case GR_EVENT_TYPE_EXPOSURE:
-
-            break;
-
-          case GR_EVENT_TYPE_TIMEOUT:
-            GrClearWindow(w, 1);
-            break;
-        }
-        break;
-
-      case BUTTON_03:       // MENU "TENDANCES"
-
-        GrGetNextEventTimeout(&event, 1000);
-        switch (event.type)
-        {
-          case GR_EVENT_TYPE_EXPOSURE:
-
-            break;
-
-          case GR_EVENT_TYPE_TIMEOUT:
-            GrClearWindow(w, 1);
-            break;
-        }
-        break;
-
-      case BUTTON_04:       // ARRET DE L'APPLICATION
-
-        GrGetNextEventTimeout(&event, 3000);
-        switch (event.type)
-        {
-          case GR_EVENT_TYPE_EXPOSURE:
-
-            break;
-
-          case GR_EVENT_TYPE_TIMEOUT:
-            programme_en_cours = 1;
-            break;
-        }
-        break;
+        printf("Can't open graphics\n");
+        exit(1);
     }
 
+    // Configuration de l'ecran
+    w = GrNewWindow(1, 0, 0, 160, 240, 0, WHITE, BLACK);
+    gc = GrNewGC();
+    GrSetGCForeground(gc, BLACK);
+    GrSetGCUseBackground(gc, GR_FALSE);
+    GrSelectEvents(w, GR_EVENT_MASK_EXPOSURE | GR_EVENT_MASK_TIMEOUT);
+    GrMapWindow(w);
 
+    // Creation des threads
+    pthread_create(&th_boutons,   NULL, &verifier_etat_boutons, NULL);
+    pthread_create(&th_capteurs,  NULL, &maj_donnees_capteurs,  NULL);
+    pthread_create(&th_tendances, NULL, &maj_tendances,         NULL);
 
-  /*  switch (event.type) {
-      case GR_EVENT_TYPE_TIMEOUT:
-        if (bouton == BUTTON_01) {
-          bouton = NO_BUTTON;
-          selection_ecran = DONNEES_ACTUELLES; //(selection_ecran+1)%3; //JSP A QUOI CA SERT
-        }
+    // Boucle principale
+    while (!g_fin_programme)
+    {
+        switch (g_etat_boutons)
+        {
+          case BOUTON_1:       // MENU "TEMPS REEL"
 
-        switch(selection_ecran){
-          case DONNEES_ACTUELLES:
-            GrClearWindow(w,0); //On réactualise les données
-            affichage_current_data(w, gc, &temperature, &humidite, &pression);
-
-            switch(bouton){
-
-              case BUTTON_02:
-                bouton = NO_BUTTON;
-                printf("bouton 2\n");
-                //current_orientation = (current_orientation+1)%3;
+            GrGetNextEventTimeout(&event, 1000);
+            switch (event.type)
+            {
+              case GR_EVENT_TYPE_EXPOSURE:
+                affichage_menu_01(w, gc, &g_donnees_capteurs);
                 break;
-
-              case BUTTON_03:
-                bouton = NO_BUTTON;
-                printf("bouton 3\n");
-                //current_format_temp = (current_format_temp+1)%3;
-                break;
-
-              case BUTTON_04:
-                bouton = NO_BUTTON;
-                printf("bouton 4\n");
-                programme_en_cours = 0;
-                //current_format_pressure = (current_format_pressure+1)%3;
+              case GR_EVENT_TYPE_TIMEOUT:
+                GrClearWindow(w, 1);
                 break;
             }
             break;
 
+          case BOUTON_2:       // MENU "MOYENNES DES DONNEES"
 
+            GrGetNextEventTimeout(&event, 1000);
+            switch (event.type)
+            {
+              case GR_EVENT_TYPE_EXPOSURE:
+                affichage_menu_02(w, gc, &g_donnees_moyennes_capteurs);
+                break;
+              case GR_EVENT_TYPE_TIMEOUT:
+                GrClearWindow(w, 1);
+                break;
+            }
+            break;
+
+          case BOUTON_3:       // MENU "TENDANCES"
+
+            GrGetNextEventTimeout(&event, 1000);
+            switch (event.type)
+            {
+              case GR_EVENT_TYPE_EXPOSURE:
+                affichage_menu_03(w, gc, &g_tendances);
+                break;
+              case GR_EVENT_TYPE_TIMEOUT:
+                GrClearWindow(w, 1);
+                break;
+            }
+            break;
+
+          case BOUTON_4:       // ARRET DE L'APPLICATION
+
+            GrGetNextEventTimeout(&event, 3000);
+            switch (event.type)
+            {
+              case GR_EVENT_TYPE_EXPOSURE:
+                affichage_menu_04(w, gc);
+                break;
+              case GR_EVENT_TYPE_TIMEOUT:
+                g_fin_programme = 1;
+                break;
+            }
             break;
         }
+    }
 
-      break;
-    }*/
-  }
+    // Destruction des ressources
+    GrClose();
 
+    // Attente de la fin des threads
+    pthread_join(th_capteurs,  NULL);
+    pthread_join(th_boutons,   NULL);
+    pthread_join(th_tendances, NULL);
 
+    printf("Fin du programme\n");
 
-    //function flushes any buffered function calls and closes the connection created with the GrOpen function.
-   GrClose();
+    return 0;
 
-   return EXIT_SUCCESS;
-}
+} // main

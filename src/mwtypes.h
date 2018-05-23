@@ -48,7 +48,7 @@
 #define MWF_PALINDEX	0x01000000
 #define MWPALINDEX(x)	((MWCOLORVAL)MWF_PALINDEX | (x))
 
-/*
+/* 
  * ROP blitter opcodes
  */
 #define MWROP_EXTENSION		0xff000000L	/* rop extension bits*/
@@ -75,7 +75,7 @@
 #define MWROP_SRCINVERT		0x07000000L
 #define MWROP_BLACKNESS     	0x08000000L
 
-/*
+/* 
  * Pixel formats
  * Note the two pseudo pixel formats are never returned by display drivers,
  * but rather used as a data structure type in GrArea.  The other
@@ -440,22 +440,22 @@ typedef struct _mwfont *	PMWFONT;
  * These colors are the first 16 entries in the std palette,
  * and are written to the system palette if writable.
  */
-#define BLACK			MWRGB( 0  , 0  , 0   )
-#define BLUE			MWRGB( 0  , 0  , 128 )
-#define GREEN			MWRGB( 0  , 128, 0   )
-#define CYAN			MWRGB( 0  , 128, 128 )
-#define RED				MWRGB( 128, 0  , 0   )
+#define BLACK		MWRGB( 0  , 0  , 0   )
+#define BLUE		MWRGB( 0  , 0  , 128 )
+#define GREEN		MWRGB( 0  , 128, 0   )
+#define CYAN		MWRGB( 0  , 128, 128 )
+#define RED		MWRGB( 128, 0  , 0   )
 #define MAGENTA		MWRGB( 128, 0  , 128 )
-#define BROWN			MWRGB( 128, 64 , 0   )
+#define BROWN		MWRGB( 128, 64 , 0   )
 #define LTGRAY		MWRGB( 192, 192, 192 )
-#define GRAY			MWRGB( 128, 128, 128 )
+#define GRAY		MWRGB( 128, 128, 128 )
 #define LTBLUE		MWRGB( 0  , 0  , 255 )
 #define LTGREEN		MWRGB( 0  , 255, 0   )
 #define LTCYAN		MWRGB( 0  , 255, 255 )
-#define LTRED			MWRGB( 255, 0  , 0   )
+#define LTRED		MWRGB( 255, 0  , 0   )
 #define LTMAGENTA	MWRGB( 255, 0  , 255 )
 #define YELLOW		MWRGB( 255, 255, 0   )
-#define WHITE			MWRGB( 255, 255, 255 )
+#define WHITE		MWRGB( 255, 255, 255 )
 
 /* other common colors*/
 #define DKGRAY		MWRGB( 32,  32,  32)
