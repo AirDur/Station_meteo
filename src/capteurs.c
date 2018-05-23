@@ -174,8 +174,6 @@ double calcul_pression(short donnees_brut){
 
 int ADC_to_pression(double *pression, int buffer) {
   short donnees_brut;
-  double Vout, Vs;
-
 
   //RECUPERATION DONNES CAPTEUR HUMIDITE/PRESSION
   if ((buffer = open(ADC_DEVICE,O_RDONLY)) < 0 )
