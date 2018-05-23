@@ -52,13 +52,13 @@ int main(int argc, char**argv)
       case GR_EVENT_TYPE_TIMEOUT:
         if (bouton == BUTTON_01) {
           bouton = NO_BUTTON;
-          selection_ecran = CURRENT_DATA; //(selection_ecran+1)%3; //JSP A QUOI CA SERT
+          selection_ecran = DONNEES_ACTUELLES; //(selection_ecran+1)%3; //JSP A QUOI CA SERT
         }
 
         switch(selection_ecran){
           case DONNEES_ACTUELLES:
             GrClearWindow(w,0); //On réactualise les données
-            affichage_current_data(w,gc,&g_donnees_capteurs);
+            affichage_current_data(w, gc, &temperature, &humidite, &pression);
 
             switch(bouton){
 
