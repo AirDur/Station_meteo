@@ -16,7 +16,7 @@
 #include <stdlib.h>
 #include <fcntl.h>
 #include <unistd.h>
-
+#include <math.h>
 #include <pthread.h>
 
 #define MWINCLUDECOLORS
@@ -42,9 +42,78 @@
 // Fichier correspondant aux peripheriques de la carte
 #define ADC_DEVICE           "/dev/adc"
 
+int configuration_i2c(int buffer, unsigned char mask);
 
-double calcul_temperature_Celcius(short donnees_brut);
+
+/************    ****************
+*********** Temperature en Celsius ************
+***********          ***********/
+
+//calcul de la température à partir des données brutes en Celsius
+double calcul_temperature_Celsius(short donnees_brut) ;
+
+
+int lecture_temperature_Celsius (int buffer, double * Temperature) ;
+
+int lancement_temperature_Celsius(double *temperature, int buffer) ;
+
+
+/************    ****************
+*********** Temperature en Farenheit ************
+***********          ***********/
+
+//calcul de la température à partir des données brutes en Farenheit
 double calcul_temperature_Farenheit(short donnees_brut);
+
+
+int lecture_temperature_Farenheit(int buffer, double * Temperature) ;
+
+
+int lancement_temperature_Farenheit(double *temperature, int buffer);
+
+
+/************    ****************
+*********** Pression en hPa(hectopascali) ************
+***********          ***********/
+double calcul_pression_hPa(short donnees_brut);
+
+
+int ADC_to_pression_hPa(double *pression, int buffer) ;
+
+
+
+/************    ****************
+*********** Pression en mmHg (Millimètre de mercure)************
+***********          ***********/
+double calcul_pression_mmHg(short donnees_brut);
+
+int ADC_to_pression_mmHg(double *pression, int buffer) ;
+
+
+/************    ****************
+*********** Humidité relative en pourcentages% ************
+***********          ***********/
+
+double calcul_humidite_pourcentage(short donnees_brut, double temperature);
+
+
+int ADC_to_humidity_poucentage(double temperature, double *humidite, int buffer) ;
+
+
+/************    ****************
+*********** Humidité relative en g/m¨3 ************
+***********          ***********/
+
+double calcul_humidite_absolue(short donnees_brut, double temperature);
+
+
+int ADC_to_humidity_absolue(double temperature, double *humidite, int buffer) ;
+/************    ****************
+*********** Humidité  ************
+***********          ***********/
+//calcul de l'humidité à partir de la pression et de la temperature
+double humidite_pression_temperature(short donnees_brut,double *pression, double *temperature);
+
 
 extern int lire_humidite(int fd, double T, double * RH);
 
@@ -62,7 +131,4 @@ extern int lire_pression(int fd, double * P);
  * @return   EXIT_SUCCESS ou EXIT_FAILURE
  */
 int lancement_temperature(double *temperature, int buffer);
-
-int clacul_humidite_pression(double temperature, double *pression, double *humidite, int buffer);
-
 #endif

@@ -20,7 +20,7 @@
 #define WHITE			MWRGB( 255, 255, 255 )
 
 
-int affichage_main();
+//int affichage_main();
 /************    ****************
 *********** Bouton 1 ************
 ***********          ***********/
