@@ -27,11 +27,12 @@ int configuration_i2c(int buffer, unsigned char mask)
 }
 
 //calcul de la température à partir des données brutes
-double calcul_temperature(short donnees_brut){
-  return donnees_brut * 0.0625;
+double calcul_temperature(short donnees_brut, int unite){
+  if(unite == 1) return donnees_brut * 0.0625;
+  else return (donnees_brut * 0.0625) * 1.8 + 32;
 }
 
-int lecture_temperature (int buffer, double * Temperature) {
+int lecture_temperature (int buffer, double * Temperature, int unite) {
   int code_erreur;
   unsigned char bus[2];
   short donnees_brut;
@@ -62,14 +63,14 @@ int lecture_temperature (int buffer, double * Temperature) {
   }
 
   donnees_brut = (bus[0] << 4) | (bus[1] >> 4);
-  *Temperature = calcul_temperature(donnees_brut);                          // 0.0625 = 128 / 2048
+  *Temperature = calcul_temperature(donnees_brut, unite);                          // 0.0625 = 128 / 2048
 
 	printf(" - Valeur de température : %lf \n", *Temperature);
 
 	return EXIT_SUCCESS;
 }
 
-int lancement_temperature(double *temperature) {
+int lancement_temperature(double *temperature, int unite) {
   int buffer;
 
   if ((buffer = open(I2C_DEVICE, O_RDWR)) < 0)
@@ -84,7 +85,7 @@ int lancement_temperature(double *temperature) {
       return EXIT_FAILURE;
   }
 
-  if (lecture_temperature(buffer, temperature) != EXIT_SUCCESS)
+  if (lecture_temperature(buffer, temperature, unite) != EXIT_SUCCESS)
   {
       perror("[testTemperature] Recuperation temperature");
       return EXIT_FAILURE;
@@ -94,23 +95,21 @@ int lancement_temperature(double *temperature) {
   return EXIT_SUCCESS;
 }
 
-double calcul_humidite(short donnees_brut, double temperature){
-  double Vout, Vs, resultat1, resultat2;
+double calcul_humidite(short donnees_brut, double temperature, int unite){
+  double Vout, Vs, resultat;
   Vout = (2.5 / 1024) * donnees_brut * 2;
   Vs = 5;
-  printf(" Données brutes : %hi \n", donnees_brut);
-  printf(" Temperature = %lf \n", temperature);
-  printf(" Vs = %lf  \n", Vs);
-  Vout = (2.5 / 1024) * donnees_brut * 2;
-  printf(" Vout = %lf \n", Vout);
-  resultat1 = (Vout - Vs * 0.16) / (Vs * 0.0062);  // Calcul humidite
-  printf(" Resultat 1 = %lf \n", resultat1);
-  resultat2 = (resultat1) / (1.0546 - (0.00216 * temperature)); // Calcul de l'humidite avec T
-  printf(" Resultat 2 = %lf \n", resultat2);
-  return resultat2;
+  resultat = (Vout - Vs * 0.16) / (Vs * 0.0062); // Calcul humidite
+  if (unite == 1) {
+    resultat = (resultat) / (1.0546 - (0.00216 * temperature)); // Calcul de l'humidite avec T
+    return resultat;
+  } else {
+    resultat = (6.112 * pow(M_E, (17.67 * temperature) / (temperature + 243.5)) * ((resultat) / (1.0546 - (0.00216 * (temperature)))) * 2.1674) / (273.15 + temperature); // Calcul de l'humidite avec T
+    return resultat;
+  }
 }
 
-  int lire_humidite(int fd, double T, double P, double * RH) {
+  int lire_humidite(int fd, double T, double P, double * RH, int unite) {
     *RH = (100 * P) / (6.112 * pow(M_E, (17.67 * T) / (T + 243.5)));
     return EXIT_SUCCESS;
 
@@ -138,16 +137,19 @@ double calcul_humidite(short donnees_brut, double temperature){
 
   } // lire_humidite
 
-
-
-double calcul_pression(short donnees_brut){
-  double Vout, Vs;
+double calcul_pression(short donnees_brut, int unite){
+  double resultat, Vout, Vs;
   Vout = (2.5 / 1024) * donnees_brut * 2;
   Vs = 5.1;
-  return (Vout + Vs * 0.1518) / (Vs * 0.01059) * 10; // Calcul de la pression
+  resultat = (Vout + Vs * 0.1518) / (Vs * 0.01059) * 10;
+  if(unite == 1) {
+    return resultat; // Calcul de la pression
+  } else {
+    return resultat * 0.75; // Calcul de la pression en mmHg
+  }
 }
 
-int lire_pression(double *pression, int buffer) {
+int lire_pression(double *pression, int buffer, int unite) {
   short donnees_brut;
 
   //RECUPERATION DONNES CAPTEUR HUMIDITE/PRESSION
@@ -166,18 +168,26 @@ int lire_pression(double *pression, int buffer) {
 
   read(buffer, &donnees_brut, 2);  // Lecture de la valeur du capteur
 
-  *pression = calcul_pression(donnees_brut);
+  *pression = calcul_pression(donnees_brut, unite);
 
 	printf(" - Valeur de pression : %lf \n", *pression);
 
   return EXIT_SUCCESS;
 }
 
+
+/*
+TODO ;
+- ajout d'un parametre ou lecture d'une variable global qui dit quelle
+unité on utilise
+
+*/
 int lire_donnees_capteurs(t_ptr_captors_data p)
 {
-    int buffer;
+    int buffer,
+        unite = 0;
 
-    if ( lancement_temperature(&(p->T)) != EXIT_SUCCESS )
+    if ( lancement_temperature(&(p->T), unite) != EXIT_SUCCESS )
     {
         perror("[main.c] lancement température");
         return EXIT_FAILURE;
@@ -190,13 +200,13 @@ int lire_donnees_capteurs(t_ptr_captors_data p)
         return EXIT_FAILURE;
     }
 
-    if (lire_pression(&p->P, buffer) != EXIT_SUCCESS)
+    if (lire_pression(&p->P, buffer, unite) != EXIT_SUCCESS)
     {
         perror("[ADC] Recuperation pression");
         return EXIT_FAILURE;
     }
 
-    if (lire_humidite(buffer, p->T, p->P, &p->RH) != EXIT_SUCCESS)
+    if (lire_humidite(buffer, p->T, p->P, &p->RH, unite) != EXIT_SUCCESS)
     {
         perror("[ADC] Recuperation humidite");
         return EXIT_FAILURE;

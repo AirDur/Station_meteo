@@ -22,6 +22,7 @@ int main(int ac,char **av)
     GR_WINDOW_ID w;
     GR_GC_ID gc;
     GR_EVENT event;
+    int celsius = 1;
     pthread_t th_boutons, th_capteurs, th_tendances;
 
     if (GrOpen() < 0)
@@ -54,7 +55,8 @@ int main(int ac,char **av)
             switch (event.type)
             {
               case GR_EVENT_TYPE_EXPOSURE:
-                affichage_menu_01(w, gc, &g_donnees_capteurs);
+                if(celsius == 1) { affichage_menu_01_a(w, gc, &g_donnees_capteurs); celsius--; }
+                else             { affichage_menu_01_b(w, gc, &g_donnees_capteurs); celsius++; }
                 break;
               case GR_EVENT_TYPE_TIMEOUT:
                 GrClearWindow(w, 1);
@@ -68,6 +70,7 @@ int main(int ac,char **av)
             switch (event.type)
             {
               case GR_EVENT_TYPE_EXPOSURE:
+                celsius = 1;
                 affichage_menu_02(w, gc, &g_donnees_moyennes_capteurs);
                 break;
               case GR_EVENT_TYPE_TIMEOUT:
@@ -82,6 +85,7 @@ int main(int ac,char **av)
             switch (event.type)
             {
               case GR_EVENT_TYPE_EXPOSURE:
+                celsius = 1;
                 affichage_menu_03(w, gc, &g_tendances);
                 break;
               case GR_EVENT_TYPE_TIMEOUT:
@@ -96,6 +100,7 @@ int main(int ac,char **av)
             switch (event.type)
             {
               case GR_EVENT_TYPE_EXPOSURE:
+                celsius = 1;
                 affichage_menu_04(w, gc);
                 break;
               case GR_EVENT_TYPE_TIMEOUT:

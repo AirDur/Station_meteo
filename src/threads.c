@@ -108,6 +108,7 @@ void * maj_donnees_capteurs(void * arg)
         r = lire_donnees_capteurs(&g_donnees_capteurs);
         if (r == EXIT_SUCCESS)
         {
+            //TODO ICI FAUT GERER LA VARIABLE (ON va pas stocker les mêmes trucs)
             archiver_donnees_capteurs();
             calculer_moyennes();
             sleep(INTERVAL_MAJ);
