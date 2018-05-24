@@ -70,7 +70,8 @@ int main(int ac,char **av)
             switch (event.type)
             {
               case GR_EVENT_TYPE_EXPOSURE:
-                affichage_menu_02(w, gc, &g_donnees_moyennes_capteurs);
+                if(g_etat_bouton_1 == 1)  { affichage_menu_02_a(w, gc, &g_donnees_moyennes_capteurs); }
+                else                      { affichage_menu_02_b(w, gc, &g_donnees_moyennes_capteurs); }
                 break;
               case GR_EVENT_TYPE_TIMEOUT:
                 GrClearWindow(w, 1);

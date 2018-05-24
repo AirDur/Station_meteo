@@ -48,13 +48,35 @@ int affichage_menu_01_b(GR_WINDOW_ID w, GR_GC_ID gc, t_ptr_captors_data p)
 
 } // affichage_menu_01
 
-int affichage_menu_02(GR_WINDOW_ID w, GR_GC_ID gc, t_ptr_captors_data p)
+int affichage_menu_02_a(GR_WINDOW_ID w, GR_GC_ID gc, t_ptr_captors_data p)
 {
   char sT[64], sP[64], sRH[64];
 
   sprintf(sT, "%lf celsius", p->Tc);
   sprintf(sP, "%lf hPa", p->Ph);
   sprintf(sRH, "%lf %%", p->Hr);
+
+  GrText(w, gc, 25, 20,"---Moyennes---", 16, GR_TFASCII);
+  GrLine(w, gc, 10, 40, 130, 40);
+  GrText(w, gc, 10, 70," - Temperature :", 17, GR_TFASCII);
+  GrText(w, gc, 10, 90,sT, 18, GR_TFASCII);
+  GrText(w, gc, 10, 120," - Pression :", 14, GR_TFASCII);
+  GrText(w, gc, 10, 140,sP, 15, GR_TFASCII);
+  GrText(w, gc, 10, 170," - Humidite :", 14, GR_TFASCII);
+  GrText(w, gc, 10, 190,sRH, 12, GR_TFASCII);
+  GrLine(w, gc, 10, 220, 130, 220);
+
+  return EXIT_SUCCESS;
+
+} // affichage_menu_02
+
+int affichage_menu_02_b(GR_WINDOW_ID w, GR_GC_ID gc, t_ptr_captors_data p)
+{
+  char sT[64], sP[64], sRH[64];
+
+  sprintf(sT, "%lf Farenheit", p->Tf);
+  sprintf(sP, "%lf mmHg", p->Pm);
+  sprintf(sRH, "%lf absolue", p->Ha);
 
   GrText(w, gc, 25, 20,"---Moyennes---", 16, GR_TFASCII);
   GrLine(w, gc, 10, 40, 130, 40);
