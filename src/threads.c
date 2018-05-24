@@ -131,19 +131,19 @@ void * maj_tendances(void * arg)
         sleep(INTERVAL_TENDANCES);
 
         if (g_donnees_capteurs.Tc > g_dernieres_mesures_tendances.Tc)
-            g_tendances.Tc = 1;
+            g_tendances.T = 1;
         else
-            g_tendances.Tc = -1;
+            g_tendances.T = -1;
 
         if (g_donnees_capteurs.Ph > g_dernieres_mesures_tendances.Ph)
-            g_tendances.Ph = 1;
+            g_tendances.P = 1;
         else
-            g_tendances.Ph = -1;
+            g_tendances.P = -1;
 
         if (g_donnees_capteurs.Hr > g_dernieres_mesures_tendances.Hr)
-            g_tendances.Hr = 1;
+            g_tendances.RH = 1;
         else
-            g_tendances.Hr = -1;
+            g_tendances.RH = -1;
 
         g_dernieres_mesures_tendances = g_donnees_capteurs;
     }
