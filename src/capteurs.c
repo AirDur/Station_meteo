@@ -109,7 +109,7 @@ double calcul_humidite(short donnees_brut, double temperature, int unite){
 }
 
   int lire_humidite(int fd, double T, double P, double * RH, int unite) {
-    *RH = 79;
+    *RH = 79; //le capteur ne marchant pas correctement. Nous donnons la valeur moyenne de l'humidité à Marseille.
     return EXIT_SUCCESS;
   }
 
@@ -151,23 +151,21 @@ int lire_pression(double *pression, int buffer, int unite) {
   return EXIT_SUCCESS;
 }
 
+
+/*
+TODO ;
+- ajout d'un parametre ou lecture d'une variable global qui dit quelle
+unité on utilise
+
+*/
 int lire_donnees_capteurs(t_ptr_captors_data p)
 {
-<<<<<<< HEAD
-    int buffer;
-=======
     int buffer,
         unite = 1;
->>>>>>> 5a5cd99cd066b992d8409ad0e4dd7a974b68291c
 
-    if ( lancement_temperature(&(p->Tc), 1) != EXIT_SUCCESS )
+    if ( lancement_temperature(&(p->T), unite) != EXIT_SUCCESS )
     {
-        perror("[main.c] lancement température celsius");
-        return EXIT_FAILURE;
-    }
-    if ( lancement_temperature(&(p->Tf), 0) != EXIT_SUCCESS )
-    {
-        perror("[main.c] lancement température Farenheit");
+        perror("[main.c] lancement température");
         return EXIT_FAILURE;
     }
 
@@ -178,25 +176,15 @@ int lire_donnees_capteurs(t_ptr_captors_data p)
         return EXIT_FAILURE;
     }
 
-    if (lire_pression(&p->Ph, buffer, 1) != EXIT_SUCCESS)
+    if (lire_pression(&p->P, buffer, unite) != EXIT_SUCCESS)
     {
-        perror("[ADC] Recuperation pression hPa");
-        return EXIT_FAILURE;
-    }
-    if (lire_pression(&p->Pm, buffer, 0) != EXIT_SUCCESS)
-    {
-        perror("[ADC] Recuperation pression mmHg");
+        perror("[ADC] Recuperation pression");
         return EXIT_FAILURE;
     }
 
-    if (lire_humidite(buffer, p->Tc, p->Ph, &p->Hr, 1) != EXIT_SUCCESS)
+    if (lire_humidite(buffer, p->T, p->P, &p->RH, unite) != EXIT_SUCCESS)
     {
-        perror("[ADC] Recuperation humidite relatif");
-        return EXIT_FAILURE;
-    }
-    if (lire_humidite(buffer, p->Tc, p->Ph, &p->Ha, 0) != EXIT_SUCCESS)
-    {
-        perror("[ADC] Recuperation humidite absolue");
+        perror("[ADC] Recuperation humidite");
         return EXIT_FAILURE;
     }
 
