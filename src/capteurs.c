@@ -109,7 +109,7 @@ double calcul_humidite(short donnees_brut, double temperature, int unite){
 }
 
   int lire_humidite(int fd, double T, double P, double * RH, int unite) {
-    *RH = (100 * P) / (6.112 * pow(M_E, (17.67 * T) / (T + 243.5)));
+    *RH = 79;
     return EXIT_SUCCESS;
   }
 
@@ -153,7 +153,12 @@ int lire_pression(double *pression, int buffer, int unite) {
 
 int lire_donnees_capteurs(t_ptr_captors_data p)
 {
+<<<<<<< HEAD
     int buffer;
+=======
+    int buffer,
+        unite = 1;
+>>>>>>> 5a5cd99cd066b992d8409ad0e4dd7a974b68291c
 
     if ( lancement_temperature(&(p->Tc), 1) != EXIT_SUCCESS )
     {

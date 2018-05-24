@@ -109,7 +109,11 @@ double calcul_humidite(short donnees_brut, double temperature, int unite){
   }
 }
 
+<<<<<<< HEAD:src/src_Thomas/capteurs.c
+  int lire_humidite(int fd, double T, double P, double * RH) {
+=======
   int lire_humidite(int fd, double T, double P, double * RH, int unite) {
+>>>>>>> 28c5865e7013cd7e300820ea1ec9e19e3604cf0e:old/Ana-Maria boutons essai==menus/Nouveau essai Ana-Maria/src/capteurs.c
     *RH = (100 * P) / (6.112 * pow(M_E, (17.67 * T) / (T + 243.5)));
     return EXIT_SUCCESS;
 
@@ -137,8 +141,15 @@ double calcul_humidite(short donnees_brut, double temperature, int unite){
 
   } // lire_humidite
 
+<<<<<<< HEAD:src/src_Thomas/capteurs.c
+
+
+double calcul_pression(short donnees_brut){
+  double Vout, Vs;
+=======
 double calcul_pression(short donnees_brut, int unite){
   double resultat, Vout, Vs;
+>>>>>>> 28c5865e7013cd7e300820ea1ec9e19e3604cf0e:old/Ana-Maria boutons essai==menus/Nouveau essai Ana-Maria/src/capteurs.c
   Vout = (2.5 / 1024) * donnees_brut * 2;
   Vs = 5.1;
   resultat = (Vout + Vs * 0.1518) / (Vs * 0.01059) * 10;
@@ -206,7 +217,11 @@ int lire_donnees_capteurs(t_ptr_captors_data p)
         return EXIT_FAILURE;
     }
 
+<<<<<<< HEAD:src/src_Thomas/capteurs.c
+    if (lire_humidite(buffer, p->T, p->P, &p->RH) != EXIT_SUCCESS)
+=======
     if (lire_humidite(buffer, p->T, p->P, &p->RH, unite) != EXIT_SUCCESS)
+>>>>>>> 28c5865e7013cd7e300820ea1ec9e19e3604cf0e:old/Ana-Maria boutons essai==menus/Nouveau essai Ana-Maria/src/capteurs.c
     {
         perror("[ADC] Recuperation humidite");
         return EXIT_FAILURE;
