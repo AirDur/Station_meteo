@@ -100,7 +100,7 @@ int main(int ac,char **av)
             {
               case GR_EVENT_TYPE_EXPOSURE:
                 affichage_menu_04(w, gc);
-                goto END_PROGRAMME;
+                g_fin_programme = 1;
                 break;
               case GR_EVENT_TYPE_TIMEOUT:
                 g_fin_programme = 1;
@@ -110,7 +110,6 @@ int main(int ac,char **av)
         }
     }
 
-    END_PROGRAMME :
       // Destruction des ressources
       GrClose();
 
