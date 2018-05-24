@@ -15,7 +15,7 @@
 
 
 // Initialisation des variables globales
-volatile int g_etat_boutons = BOUTON_2;
+volatile int g_etat_boutons = BOUTON_1;
 volatile int g_fin_programme = 0;
 volatile t_tendances g_tendances;
 volatile t_captors_data g_donnees_capteurs = { 0, 0, 0 };
@@ -98,9 +98,12 @@ void * maj_donnees_capteurs(void * arg)
 
     for (i = 0; i < NB_MAX_ARCHIVES; ++i)
     {
-        g_archives_donnees[i].T  = 0;
-        g_archives_donnees[i].P  = 0;
-        g_archives_donnees[i].RH = 0;
+        g_archives_donnees[i].Tc    = 0;
+        g_archives_donnees[i].Tf    = 0;
+        g_archives_donnees[i].Ph    = 0;
+        g_archives_donnees[i].Pm    = 0;
+        g_archives_donnees[i].Hr    = 0;
+        g_archives_donnees[i].Ha    = 0;
     }
 
     while (!g_fin_programme)
@@ -127,20 +130,20 @@ void * maj_tendances(void * arg)
     {
         sleep(INTERVAL_TENDANCES);
 
-        if (g_donnees_capteurs.T > g_dernieres_mesures_tendances.T)
-            g_tendances.T = 1;
+        if (g_donnees_capteurs.Tc > g_dernieres_mesures_tendances.Tc)
+            g_tendances.Tc = 1;
         else
-            g_tendances.T = -1;
+            g_tendances.Tc = -1;
 
-        if (g_donnees_capteurs.P > g_dernieres_mesures_tendances.P)
-            g_tendances.P = 1;
+        if (g_donnees_capteurs.Ph > g_dernieres_mesures_tendances.Ph)
+            g_tendances.Ph = 1;
         else
-            g_tendances.P = -1;
+            g_tendances.Ph = -1;
 
-        if (g_donnees_capteurs.RH > g_dernieres_mesures_tendances.RH)
-            g_tendances.RH = 1;
+        if (g_donnees_capteurs.Hr > g_dernieres_mesures_tendances.Hr)
+            g_tendances.Hr = 1;
         else
-            g_tendances.RH = -1;
+            g_tendances.Hr = -1;
 
         g_dernieres_mesures_tendances = g_donnees_capteurs;
     }
