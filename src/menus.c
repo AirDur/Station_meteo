@@ -17,7 +17,7 @@ int affichage_menu_01_a(GR_WINDOW_ID w, GR_GC_ID gc, t_ptr_captors_data p)
     GrText(w, gc, 10, 90,sT, 18, GR_TFASCII);
     GrText(w, gc, 10, 120," - Pression :", 14, GR_TFASCII);
     GrText(w, gc, 10, 140,sP, 15, GR_TFASCII);
-    GrText(w, gc, 10, 170," - Humidite :", 14, GR_TFASCII);
+    GrText(w, gc, 10, 170," - Humidite rel :", 14, GR_TFASCII);
     GrText(w, gc, 10, 190,sRH, 12, GR_TFASCII);
     GrLine(w, gc, 10, 220, 130, 220);
 
@@ -32,7 +32,7 @@ int affichage_menu_01_b(GR_WINDOW_ID w, GR_GC_ID gc, t_ptr_captors_data p)
 
     sprintf(sT, "%lf Farenheit", p->Tf);
     sprintf(sP, "%lf mmHg", p->Pm);
-    sprintf(sRH, "%lf absolue", p->Ha);
+    sprintf(sRH, "%lf g/m3", p->Ha);
 
     GrText(w, gc, 25, 20,"---Temps reel---", 16, GR_TFASCII);
     GrLine(w, gc, 10, 40, 130, 40);
@@ -40,7 +40,7 @@ int affichage_menu_01_b(GR_WINDOW_ID w, GR_GC_ID gc, t_ptr_captors_data p)
     GrText(w, gc, 10, 90,sT, 18, GR_TFASCII);
     GrText(w, gc, 10, 120," - Pression :", 14, GR_TFASCII);
     GrText(w, gc, 10, 140,sP, 15, GR_TFASCII);
-    GrText(w, gc, 10, 170," - Humidite :", 14, GR_TFASCII);
+    GrText(w, gc, 10, 170," - Humidite abs :", 14, GR_TFASCII);
     GrText(w, gc, 10, 190,sRH, 12, GR_TFASCII);
     GrLine(w, gc, 10, 220, 130, 220);
 
@@ -62,7 +62,7 @@ int affichage_menu_02_a(GR_WINDOW_ID w, GR_GC_ID gc, t_ptr_captors_data p)
   GrText(w, gc, 10, 90,sT, 18, GR_TFASCII);
   GrText(w, gc, 10, 120," - Pression :", 14, GR_TFASCII);
   GrText(w, gc, 10, 140,sP, 15, GR_TFASCII);
-  GrText(w, gc, 10, 170," - Humidite :", 14, GR_TFASCII);
+  GrText(w, gc, 10, 170," - Humidite rel :", 14, GR_TFASCII);
   GrText(w, gc, 10, 190,sRH, 12, GR_TFASCII);
   GrLine(w, gc, 10, 220, 130, 220);
 
@@ -76,7 +76,7 @@ int affichage_menu_02_b(GR_WINDOW_ID w, GR_GC_ID gc, t_ptr_captors_data p)
 
   sprintf(sT, "%lf Farenheit", p->Tf);
   sprintf(sP, "%lf mmHg", p->Pm);
-  sprintf(sRH, "%lf absolue", p->Ha);
+  sprintf(sRH, "%lf g/m3", p->Ha);
 
   GrText(w, gc, 25, 20,"---Moyennes---", 16, GR_TFASCII);
   GrLine(w, gc, 10, 40, 130, 40);
@@ -84,7 +84,7 @@ int affichage_menu_02_b(GR_WINDOW_ID w, GR_GC_ID gc, t_ptr_captors_data p)
   GrText(w, gc, 10, 90,sT, 18, GR_TFASCII);
   GrText(w, gc, 10, 120," - Pression :", 14, GR_TFASCII);
   GrText(w, gc, 10, 140,sP, 15, GR_TFASCII);
-  GrText(w, gc, 10, 170," - Humidite :", 14, GR_TFASCII);
+  GrText(w, gc, 10, 170," - Humidite abs :", 14, GR_TFASCII);
   GrText(w, gc, 10, 190,sRH, 12, GR_TFASCII);
   GrLine(w, gc, 10, 220, 130, 220);
 
@@ -104,7 +104,7 @@ int affichage_menu_03(GR_WINDOW_ID w, GR_GC_ID gc, t_ptr_tendances p)
   GrLine(w, gc, 10, 40, 130, 40);
   GrText(w, gc, 10, 70," - Temperature :", 17, GR_TFASCII);
   GrText(w, gc, 10, 120," - Pression :", 14, GR_TFASCII);
-  GrText(w, gc, 10, 170," - Humidite :", 14, GR_TFASCII);
+  GrText(w, gc, 10, 170," - Humidite rel :", 14, GR_TFASCII);
   GrLine(w, gc, 10, 200, 130, 200);
 
   if (p->T > 0)
