@@ -28,6 +28,7 @@
 
 // Variables globales
 extern volatile int g_etat_boutons;
+extern volatile int g_etat_bouton_1;
 extern volatile int g_fin_programme;
 extern volatile t_tendances g_tendances;
 extern volatile t_captors_data g_donnees_capteurs;
@@ -60,4 +61,3 @@ extern void * maj_tendances(void * arg);
 
 
 #endif /* __THREADS_H__ */
-
