@@ -109,7 +109,12 @@ double calcul_humidite(short donnees_brut, double temperature, int unite){
 }
 
   int lire_humidite(int fd, double T, double P, double * RH, int unite) {
-    *RH = 79;
+    if (unite == 1) {
+      *RH = 79;
+    } else {
+      *RH = 79;
+      *RH = (6.112 * pow(M_E, (17.67 * T) / (T + 243.5)) *  (*RH) * 2.1674 ) / (273.15 + T); // Calcul de l'humidite avec T
+    }
     return EXIT_SUCCESS;
   }
 /************************************HUMIDITÉ ABSOLUE***********
