@@ -153,12 +153,7 @@ int lire_pression(double *pression, int buffer, int unite) {
 
 int lire_donnees_capteurs(t_ptr_captors_data p)
 {
-<<<<<<< HEAD
     int buffer;
-=======
-    int buffer,
-        unite = 1;
->>>>>>> 5a5cd99cd066b992d8409ad0e4dd7a974b68291c
 
     if ( lancement_temperature(&(p->Tc), 1) != EXIT_SUCCESS )
     {
