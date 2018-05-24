@@ -112,6 +112,13 @@ double calcul_humidite(short donnees_brut, double temperature, int unite){
     *RH = 79; //le capteur ne marchant pas correctement. Nous donnons la valeur moyenne de l'humidité à Marseille.
     return EXIT_SUCCESS;
   }
+/************************************HUMIDITÉ ABSOLUE***********
+/======================================****************************/
+int lire_humidite_absolue(double temperature, double pression_relative,double *RH_absolue) {
+  *RH_absolue = (6.112 * pow(M_E, (17.67 * temperature) / (temperature + 243.5)) *  pression_relative * 2.1674 ) / (273.15 + temperature); // Calcul de l'humidite avec T
+  return EXIT_SUCCESS;
+}
+
 
 double calcul_pression(short donnees_brut, int unite){
   double resultat, Vout, Vs;
