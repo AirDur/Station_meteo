@@ -25,6 +25,8 @@
     #define INTERVAL_TENDANCES  10          // 10 secs
 #endif
 
+#define NB_MAX_ARCHIVES     (DUREE_VIE_ARCHIVES / INTERVAL_MAJ)
+
 
 // Variables globales
 extern volatile int g_etat_boutons;
@@ -33,6 +35,8 @@ extern volatile int g_fin_programme;
 extern volatile t_tendances g_tendances;
 extern volatile t_captors_data g_donnees_capteurs;
 extern volatile t_captors_data g_donnees_moyennes_capteurs;
+extern volatile t_captors_data g_archives_donnees[NB_MAX_ARCHIVES];
+extern int g_nb_archives;
 
 /**
  * @brief     Thread qui verifie l'etat des boutons poussoirs.

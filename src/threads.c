@@ -23,9 +23,9 @@ volatile t_captors_data g_donnees_capteurs = { 0, 0, 0, 0, 0, 0 };
 volatile t_captors_data g_donnees_moyennes_capteurs = { 0, 0, 0, 0, 0, 0};
 
 static t_captors_data g_dernieres_mesures_tendances = { 0, 0, 0 };
-static t_captors_data g_archives_donnees[NB_MAX_ARCHIVES];
+volatile t_captors_data g_archives_donnees[NB_MAX_ARCHIVES];
 static int g_id_archive = 0;
-static int g_nb_archives = 0;
+int g_nb_archives = 0;
 
 
 void archiver_donnees_capteurs(void)

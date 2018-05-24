@@ -1,7 +1,7 @@
 
 #include "capteurs.h"
 #include "menus.h"
-#include "threads.h"
+int ord_pix_1, ord_pix_2, ord_min, ord_max, debut_nb_archives=0;
 
 int affichage_menu_01_a(GR_WINDOW_ID w, GR_GC_ID gc, t_ptr_captors_data p)
 {
@@ -135,32 +135,78 @@ int affichage_menu_04(GR_WINDOW_ID w, GR_GC_ID gc)
 /*********************================= Nouveau***************/
 //=================== à tester pour les courbes **************/
 /********* affiche la courbes des valeurs pour la temperature***/
-int affichage_menu_courbes_temperature_celsius(GR_WINDOW_ID w, GR_GC_ID gc, t_ptr_captors_data p)
+int affichage_menu_courbes_temperature_celsius(GR_WINDOW_ID w, GR_GC_ID gc, t_ptr_captors_data g_archives_donnees, int g_nb_archives)
 {
+  printf("debut_nb_archives= %d \n",debut_nb_archives);
   char sT[64], sP[64], sRH[64];
   //valeur sur l'axe Ox
-  int abscisse = 0,i;
+  int i, abscisse=10;
+  GrDrawImageFromFile(w, gc, 140, 215, 10, 10, IMG_RIGHT, 0);
+  GrLine(w, gc, 10, 220, 140, 220);
+  GrDrawImageFromFile(w, gc, 5, 30, 10, 10, IMG_UP, 0);
+  GrLine(w, gc, 10, 220, 10, 30);
+  GrText(w, gc, 100, 235,"temps", 5, GR_TFASCII);
+  GrText(w, gc, 5, 235,"24C", 3, GR_TFASCII);
+  GrText(w, gc, 5, 25,"27C", 3, GR_TFASCII);
 
-  GrText(w, gc, 25, 20,"---Courbes---", 16, GR_TFASCII);
+  GrText(w, gc, 35, 20,"---Courbe tmp---", 16, GR_TFASCII);
+
 //========================Pour la temperature en degreés Celsius
-for (i = 0; i < g_nb_archives -1 ; ++i)
-{
+  printf("Nb de valeurs dans Archive : %d \n", g_nb_archives);
+
+  ord_min=g_archives_donnees[debut_nb_archives]-1;
+  for (i = debut_nb_archives; i < g_nb_archives ; ++i){
+    if (g_archives_donnees[i]-1)>ord_min {
+      ord_min=g_archives_donnees[i]-1;
+    }
+  }
+
+  ord_max=g_archives_donnees[debut_nb_archives]+1;
+  for (i = debut_nb_archives; i < g_nb_archives ; ++i){
+    if (g_archives_donnees[i]+1)>ord_max {
+      ord_max=g_archives_donnees[i]+1;
+    }
+  }
+  char index_min[3];
+  sprintf(index_min, "%dC", ord_min);
+  char index_max[3];
+  sprintf(index_max, "%dC", ord_max);
+  GrText(w, gc, 5, 235, index_min, 3, GR_TFASCII);
+  GrText(w, gc, 5, 25, index_max, 3, GR_TFASCII);
+
+  for (i = debut_nb_archives; i < g_nb_archives-1 ; ++i)
+  {
   //le point faire un simbole joli :)
 
-  GrDrawImageFromFile(w, gc, abscisse,  g_archives_donnees[i].Tc, 5, 5, IMG_DOWN, 0);
+//  GrDrawImageFromFile(w, gc, abscisse,  g_archives_donnees[i].Tc, 5, 5, IMG_DOWN, 0);
 
   //la valeur de tempterature en degree Celsius
-  GrLine(w, gc, abscisse, g_archives_donnees[i].Tc, abscisse+10, g_archives_donnees[i+1].Tc);
-  abscisse = abscisse + 10;
-}
+      ord_pix_1=(int)((g_archives_donnees[i].Tc-ord_min)*(190/(ord_max-ord_min))+30);
+      ord_pix_2=(int)((g_archives_donnees[i+1].Tc-ord_min)*(190/(ord_max-ord_min))+30);
+
+    //  printf("Valeur de Archive temp : %lf \n",g_archives_donnees[i].Tc);
+    //  printf("Valeur de Archive temp +1 : %lf \n",g_archives_donnees[i+1].Tc);
+    //  printf("Valeur de ord temp : %d \n", ord_pix_1);
+    //  printf("Valeur de ord temp +1 : %d \n", ord_pix_2);
+
+
+
+      GrLine(w, gc, abscisse, ord_pix_1, (abscisse+20), ord_pix_2);
+      abscisse = abscisse + 20;
+
+  }
+  printf("abcisse= %d",abscisse);
+  if (abscisse>=220){
+    debut_nb_archives=g_nb_archives;
+  }
 //le dernier point
-GrDrawImageFromFile(w, gc, abscisse,  g_archives_donnees[i].Tc, 5, 5, IMG_DOWN, 0);
+//GrDrawImageFromFile(w, gc, abscisse,  g_archives_donnees[i].Tc, 5, 5, IMG_DOWN, 0);
 
   return EXIT_SUCCESS;
 }
 
 
-int affichage_menu_courbes_pression_hPa(GR_WINDOW_ID w, GR_GC_ID gc, t_ptr_captors_data p)
+int affichage_menu_courbes_pression_hPa(GR_WINDOW_ID w, GR_GC_ID gc, t_ptr_captors_data g_archives_donnees, int g_nb_archives)
 {
   char sT[64], sP[64], sRH[64];
   //valeur sur l'axe Ox
@@ -184,7 +230,7 @@ GrDrawImageFromFile(w, gc, abscisse,  g_archives_donnees[i].Ph, 5, 5, IMG_DOWN, 
   return EXIT_SUCCESS;
 }
 
-int affichage_menu_courbes_humidite_absolue(GR_WINDOW_ID w, GR_GC_ID gc, t_ptr_captors_data p)
+int affichage_menu_courbes_humidite_absolue(GR_WINDOW_ID w, GR_GC_ID gc, t_ptr_captors_data g_archives_donnees, int g_nb_archives)
 {
   char sT[64], sP[64], sRH[64];
   //valeur sur l'axe Ox

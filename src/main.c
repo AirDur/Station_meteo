@@ -85,7 +85,7 @@ int main(int ac,char **av)
             switch (event.type)
             {
               case GR_EVENT_TYPE_EXPOSURE:
-                affichage_menu_03(w, gc, &g_tendances);
+                affichage_menu_courbes_temperature_celsius(w, gc, &g_archives_donnees, g_nb_archives);
                 break;
               case GR_EVENT_TYPE_TIMEOUT:
                 GrClearWindow(w, 1);
