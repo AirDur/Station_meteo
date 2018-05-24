@@ -41,9 +41,13 @@
  */
 typedef struct s_captors_data
 {
-    double T;       /**< Temperature (en C) */
-    double P;       /**< Pression (en hPA) */
-    double RH;      /**< Humidite (en %) */
+    double Tc;      //temperature en Celsius
+    double Tf;      //temperature en Farenheit
+    double Ph;      //Pression en hPa
+    double Pm;      //Pression en mmHg
+    double Ha;      //humidite absolue
+    double Hr;      //humidite relatif;
+
 } t_captors_data, * t_ptr_captors_data;
 
 /**
