@@ -84,7 +84,7 @@ extern int config_temperature(int fd, unsigned char mask);
  * @return   EXIT_SUCCESS ou EXIT_FAILURE
  */
  int lancement_temperature(double *temperature, int unite);
- int configuration_i2c(int buffer, unsigned char mask, int unite);
+ int configuration_i2c(int buffer, unsigned char mask);
  int lecture_temperature (int buffer, double * Temperature, int unite);
  double calcul_temperature(short donnees_brut, int unite);
 
