@@ -83,10 +83,10 @@ extern int config_temperature(int fd, unsigned char mask);
  * @param T  Parametre de sortie. Valeur de la temperature mesuree (en C).
  * @return   EXIT_SUCCESS ou EXIT_FAILURE
  */
- int lancement_temperature(double *temperature);
- int configuration_i2c(int buffer, unsigned char mask);
- int lecture_temperature (int buffer, double * Temperature);
- double calcul_temperature(short donnees_brut);
+ int lancement_temperature(double *temperature, int unite);
+ int configuration_i2c(int buffer, unsigned char mask, int unite);
+ int lecture_temperature (int buffer, double * Temperature, int unite);
+ double calcul_temperature(short donnees_brut, int unite);
 
 /**
  * @brief    Lecture du niveau d'humidite.
@@ -95,8 +95,8 @@ extern int config_temperature(int fd, unsigned char mask);
  * @param RH Parametre de sortie. Valeur de l'humidite mesuree (en pourcent).
  * @return   EXIT_SUCCESS ou EXIT_FAILURE
  */
- double calcul_humidite(short donnees_brut, double temperature);
-extern int lire_humidite(int fd, double T, double P, double * RH);
+ double calcul_humidite(short donnees_brut, double temperature, int unite);
+extern int lire_humidite(int fd, double T, double P, double * RH, int unite);
 
 /**
  * @brief    Lecture du niveau de pression.
@@ -104,8 +104,8 @@ extern int lire_humidite(int fd, double T, double P, double * RH);
  * @param P  Parametre de sortie. Valeur de la pression mesuree (en hPA).
  * @return   EXIT_SUCCESS ou EXIT_FAILURE
  */
-double calcul_pression(short donnees_brut);
-extern int lire_pression(double *pression, int buffer);
+double calcul_pression(short donnees_brut, int unite);
+extern int lire_pression(double *pression, int buffer, int unite);
 
 /**
  * @brief    Lectures des donnees de tous les capteurs.

@@ -519,1193 +519,163 @@ typedef void (*GR_FNCALLBACKEVENT)(GR_EVENT *);
 extern char *nxErrorStrings[];
 
 /* Public graphics routines. */
-/**force execution of GL commands in finite time
-The GrFlush function flushs graphics request buffer to the device. Flushing the graphics buffer causes the server to execute all graphics requests. You only need to flush the buffer if you do not check the event queue frequently since checking the queue automatically flushes the buffer.**/
 void		GrFlush(void);
-
-/**opens a client connection to the Nano-X server. This must be the first Nano-X function called by your program.  **/
 int		GrOpen(void);
-
-/**flushes any buffered function calls and closes the connection created with the GrOpen function.  **/
 void		GrClose(void);
-
-/**retrieves the configuration of the current screen such as number of rows, number of columns, and bits per pixel. **/
 void		GrGetScreenInfo(GR_SCREEN_INFO *sip);
-
-/** finds a color in the system pallete with index index, returns the RGB value of that color; otherwise, returns zero.  **/
 GR_COLOR	GrGetSysColor(int index);
-
-/**The GrNewWindow function creates a new input-output window as a child of the parent window. The new window inherits the cursor of its parent. Also, the GrNewWindow function does not draw the new window on the client. To draw the new window, use the GrMapWindow function.
-
-The x, y, wihth, and height parameters specify the drawable area of the window. The border draws outside the drawable area. Thus, if you want window, including the border to appear within a particular area, you must adjust the dimensions of the drawing area accordingly.
-
-The new window inherits the cursor of its parent window and initially has no selected events.
-You cannot make an input-output window as the child of an input-only window.
-x, y-------------------->
-
-    The coordinates of the new window relative to the parent window.
-width, height-------------------->
-
-    The dimension of the new window.
-bordersize-------------------->
-
-    The thickness of the new window's border in pixels.
-background-------------------->
-
-    The background color as an RGB value.
-bordercolor-------------------->
-
-    The border color as an RGB value.  **/
 GR_WINDOW_ID	GrNewWindow(GR_WINDOW_ID parent, GR_COORD x, GR_COORD y,
 			GR_SIZE width, GR_SIZE height, GR_SIZE bordersize,
 			GR_COLOR background, GR_COLOR bordercolor);
-
-/**Parameters===================
-
-width, height ----------------->
-
-    The dimension of the new pixmap.
-addr --------------------------->
-
-    Reserved for future use to support shared memory. For now, use zero or NULL.
-
-Return Value=======================
-
-Returns the window ID of the new pixmap.  **/
 GR_WINDOW_ID    GrNewPixmap(GR_SIZE width, GR_SIZE height, void * addr);
-
-/**Parameters==============
-
-parent---------------->
-
-    The window ID of new window's parent window.
-x, y----------------->
-
-    The coordinates of the new window relative to the parent window.
-width, height----------->
-
-    The dimension of the new window.
-
-Return Value=============
-
-Returns the window ID of the new input window.
-Description
-
-The GrNewInputWindow function creates a window with special focus
-rules to help with user input.
- An input-only window is invisible and cannot be drawn into. You can select events for an input-only window and set the window's cursor. Like input-output windows, input-only windows start out unmapped, and you must map the window to make it effective. The new window inherits the cursor of the parent window, and initially is set to select no events.  **/
 GR_WINDOW_ID	GrNewInputWindow(GR_WINDOW_ID parent, GR_COORD x, GR_COORD y,
 				GR_SIZE width, GR_SIZE height);
-
-/**Parameters
-
-wid---------------->
-
-    The window ID of the window to destroy
- removes a window from the screen and frees all resources allocated for that window and all that window's children.  **/
 void		GrDestroyWindow(GR_WINDOW_ID wid);
-
-/**allocates a new graphic context with all parameters set to the default values.
-
-Member	Default Value
-mode	GR_MODE_SET
-font	0
-foreground	WHITE
-background	BLACK  **/
 GR_GC_ID	GrNewGC(void);
-
-/**Parameters========
-
-gc ---------------->
-
-    The graphics context you want to copy.
-
-Return Value=============
-
-Returns the ID of the new graphic context.
-Description============
-
-The GrCopyGC function creates a new graphics context and copies all the members from the gc graphics context into the newly created graphics context **/
 GR_GC_ID	GrCopyGC(GR_GC_ID gc);
-
-/**Parameters============
-
-gc---------------------->
-
-    The graphics context ID number.
-gcip-------------------->
-
-    A pointer to a GR_GC_INFO structure that will store the requested graphics context information.
-
-Description==============
-
-The GrGetGCInfo function retrieves information about the specified graphics context, including the graphics context id, the current font, the foreground color, and the background colors. If the gc graphics context does not exist, the GrGetGCInfo sets the returned ID to 0 and the other GR_GC_INFO information is undefined.   **/
 void		GrGetGCInfo(GR_GC_ID gc, GR_GC_INFO *gcip);
-
-/**Destroy a graphics context ---> gc --> The graphics context you want to destroy. **/
 void		GrDestroyGC(GR_GC_ID gc);
-
-/**Allocate a new region  === Returns the ID of the new region.**/
 GR_REGION_ID	GrNewRegion(void);
-
-/**Parameters===========
-
-mode----------------->
-
-    The fill mode for the polygon. Accepted values: MWPOLY_EVENODD, MWPOLY_WINDING.
-count---------------->
-
-    The number of points that define the polygon.
-points-------------->
-
-    A pointer to an array of GR_POINT coordinate pairs.
-
-Return Value============
-
-Returns the ID of the new region.
-Description============
-
-The GrNewPolygonRegion function creates a region from an array of points that define a polygon.  **/
 GR_REGION_ID	GrNewPolygonRegion(int mode, GR_COUNT count, GR_POINT *points);
-
-/** Parameters====
-
-region------------->
-
-    The region you want to destroy.
-
-Description======
-
-The GrDestroyRegion function destroys the region with the region ID you specify. **/
 void		GrDestroyRegion(GR_REGION_ID region);
-
-/**Parameters==
-
-region-->
-
-    The ID of the region you want to modify.
-rect-->
-
-    A pointer to the GR_RECT rectangle you want to add to the region region.
-
-Description==
-
-The GrUnionRectWithRegion function adds the area of a rectangle to the region region.   **/
 void		GrUnionRectWithRegion(GR_REGION_ID region, GR_RECT *rect);
-
-/**Parameters==
-
-dst_rgn-->
-
-    A GR_REGION_ID region that will hold the union of src_rgn1 and src_rgn2.
-src_rgn1-->
-
-    The first of two regions to combine.
-src_rgn2-->
-
-    The second of two regions to combine.
-
-Description==
-
-The GrUnionRegion function adds the area of two other regions.   **/
 void		GrUnionRegion(GR_REGION_ID dst_rgn, GR_REGION_ID src_rgn1,
 			GR_REGION_ID src_rgn2);
-
-/**Parameters==
-
-dst_rgn -->
-
-    A GR_REGION_ID region that will hold the intersection of src_rgn1 and src_rgn2.
-src_rgn1 -->
-
-    The first of two regions to intersect.
-src_rgn2 -->
-
-    The second of two regions to intersect.
-
-Description==
-
-The GrIntersectRegion function intersects the area of two regions.   **/
 void		GrIntersectRegion(GR_REGION_ID dst_rgn, GR_REGION_ID src_rgn1,
 			GR_REGION_ID src_rgn2);
-
-/**Parameters==
-
-dst_rgn-->
-
-    A GR_REGION_ID region that will hold the difference of src_rgn1 minus src_rgn2.
-src_rgn1-->
-
-    The minuend region.
-src_rgn2-->
-
-    The subtrahend region.
-
-Description==
-
-The GrSubtractRegion function removes the area of src_rgn2 from src_rgn1 and returns the difference in dst_rgn.   **/
 void		GrSubtractRegion(GR_REGION_ID dst_rgn, GR_REGION_ID src_rgn1,
 			GR_REGION_ID src_rgn2);
-
-/** Parameters==
-
-dst_rgn -->
-
-    A GR_REGION_ID region that will hold the exclusive or of src_rgn1 and src_rgn2.
-src_rgn1-->
-
-    The first of two source regions.
-src_rgn2-->
-
-    The second of two source regions.
-
-Description==
-
-The GrXorRegion function calculates the exclusive or of src_rgn2 and src_rgn1 and returns the result in dst_rgn.  **/
 void		GrXorRegion(GR_REGION_ID dst_rgn, GR_REGION_ID src_rgn1,
 			GR_REGION_ID src_rgn2);
-
-/**Parameters==
-
-gc-->
-
-    The graphics context ID of the graphics context for which you want to set a clip region.
-region-->
-
-    The ID of the clip region to use with this graphics context.
-
-Description==
-
-The GrSetGCRegion function sets the clip region to use with the specified graphics context. Any drawing functions will only draw to the screen if the drawing takes place within an area described by the region clip region.   **/
 void		GrSetGCRegion(GR_GC_ID gc, GR_REGION_ID region);
-
-/**Parameters==
-
-region-->
-
-    The region in which you want to test for a point.
-x, y-->
-
-    The coordinates of the point to test.
-
-Return Value==
-
-Returns one if the region containts the point; otherwise returns zero.
-Description==
-
-The GrPointInRegion function checks to see if the region region contains the point (x, y).  **/
 GR_BOOL		GrPointInRegion(GR_REGION_ID region, GR_COORD x, GR_COORD y);
-
-/**Parameters==
-
-region -->
-
-    The region in which you want to test for a point.
-x, y -->
-
-    The upper left corner of the rectangle to test.
-widht, height -->
-
-    The dimensions of the rectangle to test.
-
-Return Value==
-
-Returns one of the following values:
-
--->Return Value	Description
--->MWRECT_ALLIN	The region contains the entire rectangle
--->MWRECT_PARTIN	The region contains part of the rectangle
--->MWRECT_OUT	No point of the rectangle resides within the region
-
-Description==
-
-The GrRectInRegion function checks to see if the region region contains the rectangle defined by the x, y, width, and height parameters, and returns a value based on whether the rectangle resides entirely within the region, only partly in the region or completely outside the region.  **/
 int		GrRectInRegion(GR_REGION_ID region, GR_COORD x, GR_COORD y,
 			GR_COORD w, GR_COORD h);
-
-/**Parameters==
-
-region -->
-
-    The ID of the region you want to test.
-
-Return Value==
-
-Returns one if the region is empty; otherwise returns zero.
-Description==
-
-The GrEmptyRegion function checks to see if the region region is empty.  **/
 GR_BOOL		GrEmptyRegion(GR_REGION_ID region);
-
-/**Parameters==
-
---> rgn1, rgn2
-
-    The IDs of the regions you want to test.
-
-Return Value==
-
-Returns one if the regions are equal; otherwise returns zero.
-Description==
-
-The GrEqualRegion function checks to see if the two specified regions are equal.  **/
 GR_BOOL		GrEqualRegion(GR_REGION_ID rgn1, GR_REGION_ID rgn2);
-
-/**Parameters==
-
-region -->
-
-    The region you want to move.
-dx-->
-
-    The number of pixels to move the region in the direction parallel to the x-axis.
-dy-->
-
-    The number of pixels to move the region in the direction parallel to the y-axis.
-
-Description==
-
-The GrOffsetRegion function moves the specified region. If the region starts at ( x, y ), then after using the GrOffsetRegion function, the top left corner of the region will reside at ( x + dx, y + dy ).  **/
 void		GrOffsetRegion(GR_REGION_ID region, GR_SIZE dx, GR_SIZE dy);
-
-/**Parameters==
-
-region-->
-
-    The region you want to move.
-rect-->
-
-    A pointer to rectangle structure.
-
-Description==
-
-The GrGetRegionBox function returns a pointer to a GR_RECT scructure that describes the specified region's starting coordinates, height, and width.  **/
 int		GrGetRegionBox(GR_REGION_ID region, GR_RECT *rect);
-
-/**Make a window visible on the screen
-Parameters==
-
-wid -->
-
-    The ID of the window you want to map.
-
-Description==
-
-The GrMapWindow function maps a window and any unmapped children of that window. For each window mapped, the GrMapWindow function draws the window's border, fills the background area with the window's background color, and creates a GR_EVENT_TYPE_EXPOSURE event for the window.   **/
 void		GrMapWindow(GR_WINDOW_ID wid);
-
-/**Remove a window from the screen
-wid -->
-
-    The ID of the window you want to unmap.
-
-Description==
-
-The GrUnmapWindow function unmaps a window and any children of that window.   **/
 void		GrUnmapWindow(GR_WINDOW_ID wid);
-
-/**Parameters==
-
-wid -->
-
-    The ID of the window you want to raise.
-Description==
-The GrRaiseWindow function raises a window to the highest level among its siblings -- windows that have the same parent as the wid window. A raised window appears above all its siblings.   **/
 void		GrRaiseWindow(GR_WINDOW_ID wid);
-
-/**Parameters==
-
-wid-->
-
-    The ID of the window you want to lower.
-
-Description==
-
-The GrLowerWindow function lowers a window to the lowest level among its siblings -- windows that have the same parent as the wid window. A lowered window appears below all its siblings.
-  **/
 void		GrLowerWindow(GR_WINDOW_ID wid);
-
-/**wid-->
-
-    The ID of the window you want to move.
-x, y-->
-
-    The coordinates of the window's new location.
-
-Description==
-
-The GrMoveWindow function moves a window to the new coordinates (x, y) relative to its parent window.   **/
 void		GrMoveWindow(GR_WINDOW_ID wid, GR_COORD x, GR_COORD y);
-
-/**Parameters==
-
-wid-->
-
-    The ID of the window you want to move.
-width, height
-
-    The new dimentions for the window.
-
-Description==
-
-The GrResizeWindow function changes a window's dimensions to those specified (width, height).   **/
 void		GrResizeWindow(GR_WINDOW_ID wid, GR_SIZE width, GR_SIZE height);
-
-/**Parameters==
-
-wid-->
-
-    The ID of the window to get a new parent.
-pwid-->
-
-    The ID of the new parent window.
-x, y-->
-
-    The coordinates of the window's new location within the new parent window.
-
-Description==
-
-The GrReparentWindow function changes a windows parent to pwid and locates the window at the coordinates (x, y) relative to its new parent window.   **/
 void		GrReparentWindow(GR_WINDOW_ID wid, GR_WINDOW_ID pwid,
 			GR_COORD x, GR_COORD y);
-
-/**Parameters==
-
-wid-->
-
-    The window number.
-wip-->
-
-    A pointer to a GR_WINDOW_INFO structure that will store the requested window information.
-
-Description==
-
-The GrGetWindowInfo function retrieves information about the specified font, including the parent window id, the id of the window's first child window, the absolute position of the window in its parent window, and the window's event mask. If the GrGetWindowInfo function cannot find a window with the number wid, it sets the returned window number to zero and the remainder of the information is undefined.   **/
 void		GrGetWindowInfo(GR_WINDOW_ID wid, GR_WINDOW_INFO *infoptr);
-
-/**  **/
 void		GrSetWMProperties(GR_WINDOW_ID wid, GR_WM_PROPERTIES *props);
-
-/**Parameters==
-
-wid-->
-
-    The window number.
-wip-->
-
-    A pointer to a GR_WM_PROPERTIES structure that will store the requested window information.
-
-Description==
-
-The GrGetWMProperties function retrieves window management data about the specified window, including property flags and bits, the window title, background color and border size. If the GrGetWMProperties function cannot find a window with the number wid, it sets the returned flags to zero and the remainder of the information is undefined.   **/
 void		GrGetWMProperties(GR_WINDOW_ID wid, GR_WM_PROPERTIES *props);
-
-/**  **/
 GR_FONT_ID	GrCreateFont(GR_CHAR *name, GR_COORD height,
 			GR_LOGFONT *plogfont);
-
-/**  **/
 void		GrSetFontSize(GR_FONT_ID fontid, GR_COORD size);
-/**  **/
 void		GrSetFontRotation(GR_FONT_ID fontid, int tenthsdegrees);
-/**  **/
 void		GrSetFontAttr(GR_FONT_ID fontid, int setflags, int clrflags);
-/**  **/
 void		GrDestroyFont(GR_FONT_ID fontid);
-
-/**Parameters==
-
-font-->
-
-    The font number.
-fip-->
-
-    A pointer to a GR_FONT_INFO structure that will store the requested font information.
-
-Description==
-
-The GrGetFontInfo function retrieves information about the specified font, including the font number, the height of the font, the maximum width of any character in the font, the height of the baseline, a flag indicating whether or not the font is fixed-width, and a table of the individual widths of each character in the font. If the GrGetFontInfo function cannot find a font with the number font, it sets the returned font number to zero and the remainder of the information is undefined.  **/
 void		GrGetFontInfo(GR_FONT_ID font, GR_FONT_INFO *fip);
-
-/**  **/
 GR_WINDOW_ID	GrGetFocus(void);
-
-/**Parameters==
-
-wid-->
-
-    The window ID of the window to get focus.
-
-Description==
-
-The GrSetFocus function sets the focus to the wid window. When you set the focust to a window, only that window (or its children) will receive keyboard events. If you set the focus to the root window, then the input focus follows the pointer.   **/
 void		GrSetFocus(GR_WINDOW_ID wid);
-
-/**Parameters==
-
-wid-->
-
-    The window ID of the window for which you want to change the border color.
-color-->
-
-    The new color for the window border.
-
-Description==
-
-The GrSetBorderColor function sets the border color of the specified window.   **/
 void		GrSetBorderColor(GR_WINDOW_ID wid, GR_COLOR color);
-
-/**Parameters==
-
-wid-->
-
-    The window id of the window you want to clear.
-exposeflag
-
-    If you set exposeflag to a nonzero value, the GrClearWindot function generates an exposure event for the window.
-
-Description==
-
-The GrClearWindow function clears the wid window by filling the entire drawable area of the window with its background color. If you set exposeflag to a nonzero value, the window will also receive a GR_EVENT_TYPE_EXPOSE event.
-  **/
 void		GrClearWindow(GR_WINDOW_ID wid, GR_BOOL exposeflag);
-
-/** Parameters==
-
-wid-->
-
-    The window id of the window from which this client wants events.
-eventmask-->
-
-    The bitmask of the events.
-
-Description==
-
-The GrSelectEvents function tells the server which events the client want to receive for the wid window. The GrSelectEvents replaces any previously selected event mask for the window. **/
 void		GrSelectEvents(GR_WINDOW_ID wid, GR_EVENT_MASK eventmask);
-
-/** Wait for and retrieve the next event from the event queue
-Parameters==
-
-ep-->
-
-    A pointer to a GR_EVENT structure that will hold the event returned from the queue.
-
-Description==
-
-The GrGetNextEvent function flushes any buffered graphics commands and returns the next event from the event queue and waits for the event, if necessary. If a graphics error occurs, the server calls the error handler at this point. The GR_EVENT is a union of all the possible events. The type field of the union indicates which of the possible events took place, and then you can check the correct element of the union to access that particular event type's data.   **/
 void		GrGetNextEvent(GR_EVENT *ep);
-
-/**  **/
 void		GrGetNextEventTimeout(GR_EVENT *ep, GR_TIMEOUT timeout);
-
-/** Get the next event from the event queue
-Parameters==
-
-ep-->
-
-    A pointer to a GR_EVENT structure that will hold the event returned from the queue.
-
-Description==
-
-The GrCheckNextEvent function flushes any buffered graphics commands and returns the next event from the event queue if one exists. If no event exists, the GrCheckNextEvent function returns GR_EVENT_TYPE_NONE. **/
 void		GrCheckNextEvent(GR_EVENT *ep);
-
-/**Copy the next event from the event queue
-Parameters==
-
-ep-->
-
-    A pointer to a GR_EVENT structure that will hold the event returned from the queue.
-
-Return Value==
-
-Returns 1 if an event exists in the queue and zero if the queue is empty.
-Description==
-
-The GrPeekEvent function flushes any buffered graphics commands and returns the next event from the event queue, if one exists, and leaves the event on the queue. If no event exists, the GrPeekEvent function returns GR_EVENT_TYPE_NONE. **/
 int		GrPeekEvent(GR_EVENT *ep);
-
-/** Draw a line
-Parameters==
-
-id-->
-
-    The ID of the window or other drawable area.
-gc-->
-
-    The graphics context to use when drawing the line.
-x1, y1-->
-
-    The first point of the line segment.
-x2, y2-->
-
-    The last point of the line segment.
-
-Description==
-
-The GrLine function draws a line from the first point to the second point using the settings in the gc grapics context.
- **/
 void		GrLine(GR_DRAW_ID id, GR_GC_ID gc, GR_COORD x1, GR_COORD y1,
 			GR_COORD x2, GR_COORD y2);
-
-/**Parameters==
-
-id-->
-
-    The ID of the window or other drawable area.
-gc-->
-
-    The graphics context to use when drawing the point.
-x, y-->
-
-    The location to draw the point.
-
-Description==
-
-The GrPoint function draws a point at the specified coordinates (x, y) using the settings in the gc grapics context.  **/
 void		GrPoint(GR_DRAW_ID id, GR_GC_ID gc, GR_COORD x, GR_COORD y);
-
-/** Draw a set of points
-Parameters==
-
-id-->
-
-    The ID of the window or other drawable area.
-gc-->
-
-    The graphics context to use when drawing the points.
-count-->
-
-    The number of points in the pointtable.
-pointtable-->
-
-    An array of GR_POINT point.
-
-Description==
-
-The GrPoints function draws count points at the coordinates listed in the pointtable array using the settings in the gc grapics context. **/
 void		GrPoints(GR_DRAW_ID id, GR_GC_ID gc, GR_COUNT count,
 			GR_POINT *pointtable);
-
-/**Draw the perimeter of a rectangle
-Parameters==
-
-id-->
-
-    The ID of the window or other drawable area.
-gc-->
-
-    The graphics context to use when drawing the rectangle.
-x, y-->
-
-    The upper left corner of the rectangle relative to the drawable area.
-widht, height-->
-
-    The dimensions of the rectangle.
-
-Description==
-
-The GrRect function draws the perimeter of a rectangle with its upper left corner at ( x, y) with dimensions width and height. **/
 void		GrRect(GR_DRAW_ID id, GR_GC_ID gc, GR_COORD x, GR_COORD y,
 			GR_SIZE width, GR_SIZE height);
-
-/** Draw a filled rectangle
-Parameters==
-
-id-->
-
-    The ID of the window or other drawable area.
-gc-->
-
-    The graphics context to use when drawing the rectangle.
-x, y-->
-
-    The upper left corner of the rectangle relative to the drawable area.
-widht, height-->
-
-    The dimensions of the rectangle.
-
-Description==
-
-The GrFillRect function draws a filled rectangle (including the permiter that would draw with the GrRect function). The new rectangle has its upper left corner at ( x, y) and dimensions of width and height.**/
 void		GrFillRect(GR_DRAW_ID id, GR_GC_ID gc, GR_COORD x, GR_COORD y,
 			GR_SIZE width, GR_SIZE height);
-
-/**Draw the perimeter of a polygon
-Parameters==
-
-id-->
-
-    The ID of the window or other drawable area.
-gc-->
-
-    The graphics context to use when drawing the point.
-count-->
-
-    The number of points in the polygon.
-pointtable-->
-
-    An array of GR_POINT coordinates.
-
-Description==
-
-The GrPoly function draws a polygon defined by the pointtabel array. To draw a closed polygon, you must set the first and last points to the same coordinates. **/
 void		GrPoly(GR_DRAW_ID id, GR_GC_ID gc, GR_COUNT count,
 			GR_POINT *pointtable);
-
-/** Draw a filled polygon
-Parameters==
-
-id-->
-
-    The ID of the window or other drawable area.
-gc-->
-
-    The graphics context to use when drawing the point.
-count-->
-
-    The number of points in the polygon.
-pointtable-->
-
-    An array of GR_POINT coordinates.
-
-Description==
-
-The GrFillPoly function draws a polygon defined by the pointtabel array. Unlike the GrPoly function, where you must set the first and last points to the same coordinates to get a closed shape, the GrFillPoly function fills in the closed shape including an assumed line from the last point to the first, if necessary.**/
 void		GrFillPoly(GR_DRAW_ID id, GR_GC_ID gc, GR_COUNT count,
 			GR_POINT *pointtable);
-
-/**Draw the perimeter of an ellipse
-Description==
-Parameters==
-
-id-->
-
-    The ID of the window or other drawable area.
-gc-->
-
-    The graphics context to use when drawing the ellipse.
-x, y-->
-
-    The center of the ellipse relative to the drawable area.
-rx, ry-->
-
-    The radii of the ellipse.
-The GrEllipse function draws the perimeter of the ellipse with its center at ( x, y) and horizontal radius of rx and a vertical radius of ry.**/
 void		GrEllipse(GR_DRAW_ID id, GR_GC_ID gc, GR_COORD x, GR_COORD y,
 			GR_SIZE rx, GR_SIZE ry);
-
-/**  Draw a filled ellipse
-Parameters==
-
-id-->
-
-    The ID of the window or other drawable area.
-gc-->
-
-    The graphics context to use when drawing the ellipse.
-x, y-->
-
-    The center of the ellipse relative to the drawable area.
-rx, ry-->
-
-    The radii of the ellipse.
-
-Description==
-
-The GrFillEllipse function draws a filled ellipse with its center at ( x, y) and horizontal radius of rx and a vertical radius of ry.**/
 void		GrFillEllipse(GR_DRAW_ID id, GR_GC_ID gc, GR_COORD x,
 			GR_COORD y, GR_SIZE rx, GR_SIZE ry);
-
-/**Draw an arc or pie
-id-->
-
-    The ID of the window or other drawable area.
-gc-->
-
-    The graphics context to use when drawing the arc.
-x, y-->
-
-    The center of the arc relative to the drawable area.
-rx, ry-->
-
-    The radii of the arc.
-ax, ay-->
-
-    The first point on the arc to draw.
-bx, by-->
-
-    The last point on the arc to draw.
-type-->
-
-    The method of drawinnng the arc. The type parameter has the following acceptable values:
-
-    ==Value	Description==
-    -->MWARC	Draws the arc
-    -->MWARCOUTLINE	Draws the arc and the radii to the endpoints
-    -->MWPIE	Draws the arc filled with the foreground color
-The GrArc function draws an arc with its center at (x, y) and horizontal radius of rx and a vertical radius of ry. The function starts drawing the arc from (ax, ay) and draws the arc to (bx, by). When specifying the points on the angle, rember to state these points relative to the center point and that the positive values move away from the upper left corner of the window.**/
 void		GrArc(GR_DRAW_ID id, GR_GC_ID gc, GR_COORD x, GR_COORD y,
 			GR_SIZE rx, GR_SIZE ry, GR_COORD ax, GR_COORD ay,
 			GR_COORD bx, GR_COORD by, int type);
-
-/** Draw an arc or pie
-The GrArcAngle function draws an arc with its center at (x, y) and horizontal radius of rx and a vertical radius of ry. The function drawing the arc from angle1 to angle2.
-
-    Note: You must have a platform with a floating point processor to use the GrArcAngle function. If you do not have a floating point processor, Use the GrArc function instead.**/
 void		GrArcAngle(GR_DRAW_ID id, GR_GC_ID gc, GR_COORD x, GR_COORD y,
 			GR_SIZE rx, GR_SIZE ry, GR_COORD angle1,
 			GR_COORD angle2, int type); /* floating point required*/
-
-/** Set the foreground color in a graphics context
-Parameters==
-
-gc-->
-
-    The graphics context ID of the graphics context for which you want to change the foreground color.
-color-->
-
-    The new foreground color for the graphics context.
-
-Description==
-
-The GrSetGCForeground function sets the foreground color of the specified graphics context. **/
 void		GrSetGCForeground(GR_GC_ID gc, GR_COLOR foreground);
-
-/** Set the background color in a graphics context
-Parameters==
-
-gc-->
-
-    The graphics context ID of the graphics context for which you want to change the background color.
-color-->
-
-    The new background color for the graphics context.
-
-Description==
-
-The GrSetGCBackground function sets the background color of the specified graphics context.  **/
 void		GrSetGCBackground(GR_GC_ID gc, GR_COLOR background);
-/**  **/
 void		GrSetGCUseBackground(GR_GC_ID gc, GR_BOOL flag);
-
-/** Set the drawing mode for a graphics context
-Parameters==
-
-gc-->
-
-    The graphics context ID of the graphics context for which you want to change the drawing mode.
-mode-->
-
-    The new drawing mode for the graphics context. The mode parameter has the following acceptable values: GR_MODE_SET, GR_MODE_XOR, GR_MODE_AND, GR_MODE_OR.
-
-Description==
-
-The GrSetGCMode function sets the foreground color of the specified graphics context.  **/
 void		GrSetGCMode(GR_GC_ID gc, int mode);
-/** Set the font used in a graphics context
-Parameters
-
-gc
-
-    The graphics context ID of the graphics context for which you want to set the font.
-font
-
-    The number of the font to use for the graphics context.
-
-Description
-
-The GrSetGCFont function sets the font used for text drawing in the specified graphics context. **/
 void		GrSetGCFont(GR_GC_ID gc, GR_FONT_ID font);
-
-/** Return the size of a text string for a particular graphics context
-Parameters==
-
-gc-->
-
-    The graphics context ID number.
-cp-->
-
-    A text string.
-len-->
-
-    The number of characters in the cp string.
-retwidth-->
-
-    The returned width of the string.
-retheight-->
-
-    The returned height of the string.
-retbase-->
-
-    The returned height of the baseline above the bottom of the string.
-
-Description==
-
-The GrGetGCTextSize function calculates the size of the first len charecters of the cp string using the font characteristic specified in the gc graphics context. All returned sizes measure pixels. **/
 void		GrGetGCTextSize(GR_GC_ID gc, void *str, int count, int flags,
 			GR_SIZE *retwidth, GR_SIZE *retheight,GR_SIZE *retbase);
-
-/** Create a bitmap from the content of a drawable area
-Parameters==
-
-id-->
-
-    The ID of the window or other drawable area.
-x, y-->
-
-    The location in the drawable area to draw the upper left corner of bitmap.
-widht, height-->
-
-    The dimensions of the bitmap in pixels.
-colortable-->
-
-    A pointer to a packed pixel bitmap large enough to hold the area from the screen.
-
-Description==
-
-The GrReadArea function reads the color values from a specified rectangular area into a buffer. If other windows obscure the drawable area id, then the returned values inclued the values of the covering windows. Regions read outside the screen boundaries or from unmapped windows get set to black.
- **/
 void		GrReadArea(GR_DRAW_ID id, GR_COORD x, GR_COORD y, GR_SIZE width,
 			GR_SIZE height, GR_PIXELVAL *pixels);
-
-/** Draw a multiple-bit-per-pixel bitmap
-draws a bitmap at the (x, y) coordinates of the drawable area using the gc graphics context. Each pixel in the drawable area gets set to the corresponding color value from the bitmap. The pixtype parameter describes the bit depth of the bitmap.
-Parameters==========
-
-id-->
-
-    The ID of the window or other drawable area.
-gc-->
-
-    The graphics context to use when drawing the bitmap.
-x, y-->
-
-    The location in the drawable area to draw the upper left corner of bitmap.
-widht, height-->
-
-    The dimensions of the bitmap in pixels.
-pixels-->
-
-    A pointer to a packed pixel bitmap.
-pixtype-->
-
-    One of the following acceptable bitmap types:
-
-    Type	Bitmap Description
-    MWPF_RGB	Packed 32-bit RGB
-    MWPF_PIXELVAL	Packed PIXELVAL
-    MWPF_PALETTE	Packed 8 bits, 1, 4, or 8 pallette index
-    MWPF_TRUECOLOR0888	Packed 32 bits 8/8/8 truecolor
-    MWPF_TRUECOLOR888	Packed 24 bits 8/8/8 truecolor
-    MWPF_TRUECOLER565	Packed 16 bits 5/6/5 truecolor
-    MWPF_TRUECOLOR332	Packed 8 bits 3/3/2 truecolor
-If you set the usebackround mode for the graphics context, then the GrArea function draws pixels with color values equal to the graphics context background color; otherwise, the function does not draw pixels with color values equal to the background color of the graphics context. **/
 void		GrArea(GR_DRAW_ID id, GR_GC_ID gc, GR_COORD x, GR_COORD y,
 			GR_SIZE width,GR_SIZE height,void *pixels,int pixtype);
-
-/**  **/
 void            GrCopyArea(GR_DRAW_ID id, GR_GC_ID gc, GR_COORD x, GR_COORD y,
 			GR_SIZE width, GR_SIZE height, GR_DRAW_ID srcid,
 			GR_COORD srcx, GR_COORD srcy, int op);
-
-/**  Draw a bitmap
-Parameters==
-
-id-->
-
-    The ID of the window or other drawable area.
-gc-->
-
-    The graphics context to use when drawing the bitmap.
-x, y-->
-
-    The location in the drawable area to draw the upper left corner of bitmap.
-widht, height-->
-
-    The dimensions of the bitmap in pixels.
-bitmaptable-->
-
-    A pointer to a one-bit-per-pixel bitmap.
-
-Description==
-
-The GrBitmap function draws a bitmap at the (x, y) coordinates of the drawable area using the gc graphics context. One bits in bitmaptable get drawn with the graphics context foreground color. If you set the usebackround mode for the graphics context, then zero bits in the bitmap get draw with the graphics context background color.**/
 void		GrBitmap(GR_DRAW_ID id, GR_GC_ID gc, GR_COORD x, GR_COORD y,
 			GR_SIZE width, GR_SIZE height, GR_BITMAP *imagebits);
-
-/**  **/
 void		GrDrawImageBits(GR_DRAW_ID id,GR_GC_ID gc,GR_COORD x,GR_COORD y,
 			GR_IMAGE_HDR *pimage);
-
-/**  **/
 void		GrDrawImageFromFile(GR_DRAW_ID id, GR_GC_ID gc, GR_COORD x,
 			GR_COORD y, GR_SIZE width, GR_SIZE height,
 			char *path, int flags);
-
-/**  **/
 GR_IMAGE_ID	GrLoadImageFromFile(char *path, int flags);
-
-/**  **/
 void		GrDrawImageToFit(GR_DRAW_ID id, GR_GC_ID gc, GR_COORD x,
 			GR_COORD y, GR_SIZE width, GR_SIZE height,
 			GR_IMAGE_ID imageid);
-
-/**  **/
 void		GrFreeImage(GR_IMAGE_ID id);
-
-/**  **/
 void		GrGetImageInfo(GR_IMAGE_ID id, GR_IMAGE_INFO *iip);
-/** Draw a text string
-Parameters==
-
-id-->
-
-    The ID of the window or other drawable area.
-gc-->
-
-    The graphics context to use when drawing the rectangle.
-x, y-->
-
-    The location in the drawable area to begin drawing the string.
-str-->
-
-    A pointer to a string.
-count-->
-
-    The number of characters in the str string.
-
-Description==
-
-The GrText function draws a text string beginning at the coordinates (x, y) using the gc graphics context.
- **/
 void		GrText(GR_DRAW_ID id, GR_GC_ID gc, GR_COORD x, GR_COORD y,
 			void *str, GR_COUNT count, int flags);
-
-/** Set the cursor for a window
-Parameters==
-
-wid-->
-
-    The window ID of the window for which you want to set the cursor.
-width, height-->
-
-    The dimensions of the cursor.
-hotx, hoty-->
-
-    The position of the hot spot within the cursor relative to the upper left corner of the cursor.
-foreground, background-->
-
-    The foreground and background colors of the cursor.
-fgbitmap, bgbitmap-->
-
-    Pointers to the foreground and background bitmaps.
-
-Description==
-
-The GrSetCursor function sets a new cursor for a window. The server will display the cursor only in the wid window and its children, unless the children set a different cursor.
-
-If the fgbitmap and the bgbitmap both set a bit at the same position, the foreground gets precedence.  **/
 void		GrSetCursor(GR_WINDOW_ID wid, GR_SIZE width, GR_SIZE height,
 			GR_COORD hotx, GR_COORD hoty, GR_COLOR foreground,
 			GR_COLOR background, GR_BITMAP *fbbitmap,
 			GR_BITMAP *bgbitmap);
-
-/**Move the cursor to specified coordinates
-x, y-->
-
-    The absolute coordinates of the new cursor location.
-
-Description==
-
-The GrMoveCursor function moves the cursor to the coordinates (x, y) relative to the root window. The coordinates specify the new location of the cursor's hot spot, and the server sets the cursor's appearance to the cursor for the visible window at the new coordinates.  **/
 void		GrMoveCursor(GR_COORD x, GR_COORD y);
-/**  **/
 void		GrGetSystemPalette(GR_PALETTE *pal);
-/**  **/
 void		GrSetSystemPalette(GR_COUNT first, GR_PALETTE *pal);
-/**  **/
 void		GrFindColor(GR_COLOR c, GR_PIXELVAL *retpixel);
-/**  **/
 void		GrReqShmCmds(long shmsize);
-/**  **/
 void		GrInjectPointerEvent(MWCOORD x, MWCOORD y,
 			int button, int visible);
-/**  **/
 void		GrInjectKeyboardEvent(GR_WINDOW_ID wid, GR_KEY keyvalue,
 			GR_KEYMOD modifiers, GR_SCANCODE scancode,
 			GR_BOOL pressed);
-/**  **/
 void		GrCloseWindow(GR_WINDOW_ID wid);
-/**  **/
 void		GrKillWindow(GR_WINDOW_ID wid);
-/**  **/
 void		GrSetScreenSaverTimeout(GR_TIMEOUT timeout);
-/**  **/
 void		GrSetSelectionOwner(GR_WINDOW_ID wid, GR_CHAR *typelist);
-/**  **/
 GR_WINDOW_ID	GrGetSelectionOwner(GR_CHAR **typelist);
-/**  **/
 void		GrRequestClientData(GR_WINDOW_ID wid, GR_WINDOW_ID rid,
 			GR_SERIALNO serial, GR_MIMETYPE mimetype);
-/**  **/
 void		GrSendClientData(GR_WINDOW_ID wid, GR_WINDOW_ID did,
 			GR_SERIALNO serial, GR_LENGTH len, GR_LENGTH thislen,
 			void *data);
-/**  **/
 void		GrBell(void);
-/**  **/
 void		GrSetBackgroundPixmap(GR_WINDOW_ID wid, GR_WINDOW_ID pixmap,
 			int flags);
-/**  **/
 void		GrRegisterInput(int fd);
-/**  **/
 void		GrMainLoop(GR_FNCALLBACKEVENT fncb);
-/** Specify the error handling function
-Parameters==
-
-func-->
-
-    The function you want to set as the error handler
-
-Return Value
-
-Returns the previous error hander.
-Description==
-
-The GrSetErrorHandler function sets an error handling function that the server calls whenever an error occurs while the client has requested an event.
-
-If you set func to zero, the server then calls a default routine, GrDefaultErrorHandler.
-
-When an error occurs, the server calls the error handling function is called with the parameters GR_ERROR, GR_FUNC_NAME, and GR_ID. These are the error code, the name of the function which failed, and a resource id, which is set to zero if there is no meaningful resource ID. The error routine can return if desired, but without corrective action new errors will probably occur.  **/
 GR_FNCALLBACKEVENT GrSetErrorHandler(GR_FNCALLBACKEVENT fncb);
-
-/** The default error handler
-err-->
-
-    The error the handler should process
-
-Description==
-
-When the server reports an error and the client has not set an error handler for error events (with GrSetErrorHandler), the GrDefaultErrorHandler function handles error events. **/
 void		GrDefaultErrorHandler(GR_EVENT *ep);
 
 /* passive library entry points - available with client/server only*/
-/**  **/
 void		GrPrepareSelect(int *maxfd,void *rfdset);
-/**  **/
 void		GrServiceSelect(void *rfdset, GR_FNCALLBACKEVENT fncb);
 
 /* nxutil.c - utility routines*/
-/**  **/
 GR_WINDOW_ID	GrNewWindowEx(GR_WM_PROPS props, GR_CHAR *title,
 			GR_WINDOW_ID parent, GR_COORD x, GR_COORD y,
 			GR_SIZE width, GR_SIZE height, GR_COLOR background);
-/**  **/
 void		GrDrawLines(GR_DRAW_ID w, GR_GC_ID gc, GR_POINT *points,
 			GR_COUNT count);
-/**  **/
 GR_WINDOW_ID    GrNewPixmapFromData(GR_SIZE width, GR_SIZE height,
 			GR_COLOR foreground, GR_COLOR background, void * bits,
 			int flags);
