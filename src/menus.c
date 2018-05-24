@@ -104,7 +104,7 @@ int affichage_menu_03(GR_WINDOW_ID w, GR_GC_ID gc, t_ptr_tendances p)
   GrLine(w, gc, 10, 40, 130, 40);
   GrText(w, gc, 10, 70," - Temperature :", 17, GR_TFASCII);
   GrText(w, gc, 10, 120," - Pression :", 14, GR_TFASCII);
-  GrText(w, gc, 10, 170," - Humidite rel :", 14, GR_TFASCII);
+  GrText(w, gc, 10, 170," - Humidite :", 14, GR_TFASCII);
   GrLine(w, gc, 10, 200, 130, 200);
 
   if (p->T > 0)
