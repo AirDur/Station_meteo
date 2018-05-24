@@ -16,6 +16,7 @@
 
 // Initialisation des variables globales
 volatile int g_etat_boutons = BOUTON_1;
+volatile int g_etat_bouton_1 = 1;
 volatile int g_fin_programme = 0;
 volatile t_tendances g_tendances;
 volatile t_captors_data g_donnees_capteurs = { 0, 0, 0 };
@@ -69,6 +70,7 @@ void * verifier_etat_boutons(void * arg)
         if((KbStatus & BOUTON_1) == BOUTON_1)
         {
             g_etat_boutons = BOUTON_1;
+            g_etat_bouton_1 = -g_etat_bouton_1;
             while(KEYBOARD_STATUS() == KbStatus);
         }
         else if((KbStatus & BOUTON_2) == BOUTON_2)
