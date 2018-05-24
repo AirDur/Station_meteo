@@ -41,20 +41,20 @@ void calculer_moyennes(void)
 {
     int i;
 
-    g_donnees_moyennes_capteurs.T = 0;
-    g_donnees_moyennes_capteurs.P = 0;
-    g_donnees_moyennes_capteurs.RH = 0;
+    g_donnees_moyennes_capteurs.Tc = 0;
+    g_donnees_moyennes_capteurs.Ph = 0;
+    g_donnees_moyennes_capteurs.Hr = 0;
 
     for (i = 0; i < g_nb_archives; ++i)
     {
-        g_donnees_moyennes_capteurs.T  += g_archives_donnees[i].T;
-        g_donnees_moyennes_capteurs.P  += g_archives_donnees[i].P;
-        g_donnees_moyennes_capteurs.RH += g_archives_donnees[i].RH;
+        g_donnees_moyennes_capteurs.Tc  += g_archives_donnees[i].Tc;
+        g_donnees_moyennes_capteurs.Ph  += g_archives_donnees[i].Ph;
+        g_donnees_moyennes_capteurs.Hr += g_archives_donnees[i].Hr;
     }
 
-    g_donnees_moyennes_capteurs.T /= g_nb_archives;
-    g_donnees_moyennes_capteurs.P /= g_nb_archives;
-    g_donnees_moyennes_capteurs.RH /= g_nb_archives;
+    g_donnees_moyennes_capteurs.Tc /= g_nb_archives;
+    g_donnees_moyennes_capteurs.Ph /= g_nb_archives;
+    g_donnees_moyennes_capteurs.Hr /= g_nb_archives;
 
 } // calculer_moyennes
 
