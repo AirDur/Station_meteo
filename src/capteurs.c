@@ -160,12 +160,7 @@ unité on utilise
 */
 int lire_donnees_capteurs(t_ptr_captors_data p)
 {
-<<<<<<< HEAD
-    int buffer,
-        unite = 1;
-=======
     int buffer;
->>>>>>> cb459d0e2c3e6a9180b73633a32cc29107514c69
 
     if ( lancement_temperature(&(p->T), unite) != EXIT_SUCCESS )
     {
