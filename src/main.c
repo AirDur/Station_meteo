@@ -109,7 +109,6 @@ int main(int ac,char **av)
             break;
         }
     }
-
       // Destruction des ressources
       GrClose();
 
