@@ -22,7 +22,6 @@ int configuration_i2c(int buffer, unsigned char mask)
       perror("[configuration_i2c] Erreur d'ecriture sur le bus i2c ");
       return EXIT_FAILURE;
   }
-
   return EXIT_SUCCESS;
 }
 
@@ -112,30 +111,7 @@ double calcul_humidite(short donnees_brut, double temperature, int unite){
   int lire_humidite(int fd, double T, double P, double * RH, int unite) {
     *RH = (100 * P) / (6.112 * pow(M_E, (17.67 * T) / (T + 243.5)));
     return EXIT_SUCCESS;
-
-    /*  int ret;
-      short data;
-      double Vout, Vs;
-
-      ret = ioctl(fd, ADC_CHANNEL, ADC_CHAN_HUMIDITY); // Configuration du canal
-      if(ret < 0)
-      {
-          perror("[Lire Humidite] Configuration du canal");
-          return EXIT_FAILURE;
-      }
-
-      read(fd, &data, 2);                             // Lecture de la valeur du capteur
-
-      // Calcul humidite physique
-      Vout = (2.5 / 1024) * data * 2;
-      Vs = 5;
-      *RH = (Vout - Vs * 0.16) / (Vs * 0.0062);       // Calcul humidite
-      *RH = *RH / (1.0546 - 0.00216 * T);             // Calcul de l'humidite avec T
-
-
-      return EXIT_SUCCESS; */
-
-  } // lire_humidite
+  }
 
 double calcul_pression(short donnees_brut, int unite){
   double resultat, Vout, Vs;
