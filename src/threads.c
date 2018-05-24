@@ -16,6 +16,7 @@
 
 // Initialisation des variables globales
 volatile int g_etat_boutons = BOUTON_1;
+volatile int g_etat_bouton_1 = 1;
 volatile int g_fin_programme = 0;
 volatile t_tendances g_tendances;
 volatile t_captors_data g_donnees_capteurs = { 0, 0, 0 };
@@ -41,20 +42,20 @@ void calculer_moyennes(void)
 {
     int i;
 
-    g_donnees_moyennes_capteurs.T = 0;
-    g_donnees_moyennes_capteurs.P = 0;
-    g_donnees_moyennes_capteurs.RH = 0;
+    g_donnees_moyennes_capteurs.Tc = 0;
+    g_donnees_moyennes_capteurs.Ph = 0;
+    g_donnees_moyennes_capteurs.Hr = 0;
 
     for (i = 0; i < g_nb_archives; ++i)
     {
-        g_donnees_moyennes_capteurs.T  += g_archives_donnees[i].T;
-        g_donnees_moyennes_capteurs.P  += g_archives_donnees[i].P;
-        g_donnees_moyennes_capteurs.RH += g_archives_donnees[i].RH;
+        g_donnees_moyennes_capteurs.Tc  += g_archives_donnees[i].Tc;
+        g_donnees_moyennes_capteurs.Ph  += g_archives_donnees[i].Ph;
+        g_donnees_moyennes_capteurs.Hr += g_archives_donnees[i].Hr;
     }
 
-    g_donnees_moyennes_capteurs.T /= g_nb_archives;
-    g_donnees_moyennes_capteurs.P /= g_nb_archives;
-    g_donnees_moyennes_capteurs.RH /= g_nb_archives;
+    g_donnees_moyennes_capteurs.Tc /= g_nb_archives;
+    g_donnees_moyennes_capteurs.Ph /= g_nb_archives;
+    g_donnees_moyennes_capteurs.Hr /= g_nb_archives;
 
 } // calculer_moyennes
 
@@ -68,7 +69,8 @@ void * verifier_etat_boutons(void * arg)
 
         if((KbStatus & BOUTON_1) == BOUTON_1)
         {
-            g_etat_boutons = BOUTON_1;
+            if(g_etat_boutons == BOUTON_1)    g_etat_bouton_1 = -g_etat_bouton_1;
+            else                              g_etat_boutons = BOUTON_1;
             while(KEYBOARD_STATUS() == KbStatus);
         }
         else if((KbStatus & BOUTON_2) == BOUTON_2)
@@ -131,19 +133,19 @@ void * maj_tendances(void * arg)
         sleep(INTERVAL_TENDANCES);
 
         if (g_donnees_capteurs.Tc > g_dernieres_mesures_tendances.Tc)
-            g_tendances.Tc = 1;
+            g_tendances.T = 1;
         else
-            g_tendances.Tc = -1;
+            g_tendances.T = -1;
 
         if (g_donnees_capteurs.Ph > g_dernieres_mesures_tendances.Ph)
-            g_tendances.Ph = 1;
+            g_tendances.P = 1;
         else
-            g_tendances.Ph = -1;
+            g_tendances.P = -1;
 
         if (g_donnees_capteurs.Hr > g_dernieres_mesures_tendances.Hr)
-            g_tendances.Hr = 1;
+            g_tendances.RH = 1;
         else
-            g_tendances.Hr = -1;
+            g_tendances.RH = -1;
 
         g_dernieres_mesures_tendances = g_donnees_capteurs;
     }

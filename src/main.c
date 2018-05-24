@@ -23,7 +23,6 @@ int main(int ac,char **av)
     GR_WINDOW_ID w;
     GR_GC_ID gc;
     GR_EVENT event;
-    int precedent_btn = 1;
     pthread_t th_boutons, th_capteurs, th_tendances;
 
     if (GrOpen() < 0)
@@ -56,8 +55,8 @@ int main(int ac,char **av)
             switch (event.type)
             {
               case GR_EVENT_TYPE_EXPOSURE:
-                if(precedent_btn == 1) { affichage_menu_01_a(w, gc, &g_donnees_capteurs); precedent_btn--; }
-                else                   { affichage_menu_01_b(w, gc, &g_donnees_capteurs); precedent_btn++; }
+                if(g_etat_bouton_1 == 1)  { affichage_menu_01_a(w, gc, &g_donnees_capteurs); }
+                else                      { affichage_menu_01_b(w, gc, &g_donnees_capteurs); }
                 break;
               case GR_EVENT_TYPE_TIMEOUT:
                 GrClearWindow(w, 1);
@@ -71,7 +70,6 @@ int main(int ac,char **av)
             switch (event.type)
             {
               case GR_EVENT_TYPE_EXPOSURE:
-                precedent_btn = 1;
                 affichage_menu_02(w, gc, &g_donnees_moyennes_capteurs);
                 break;
               case GR_EVENT_TYPE_TIMEOUT:
@@ -86,7 +84,6 @@ int main(int ac,char **av)
             switch (event.type)
             {
               case GR_EVENT_TYPE_EXPOSURE:
-                precedent_btn = 1;
                 affichage_menu_03(w, gc, &g_tendances);
                 break;
               case GR_EVENT_TYPE_TIMEOUT:
@@ -101,7 +98,6 @@ int main(int ac,char **av)
             switch (event.type)
             {
               case GR_EVENT_TYPE_EXPOSURE:
-                precedent_btn = 1;
                 affichage_menu_04(w, gc);
                 break;
               case GR_EVENT_TYPE_TIMEOUT:
