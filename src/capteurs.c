@@ -128,7 +128,7 @@ double calcul_pression(short donnees_brut, int unite){
   if(unite == 1) {
     return resultat; // Calcul de la pression
   } else {
-    return resultat * 0.75; // Calcul de la pression en mmHg
+    return resultat * 0.75006157584566; // Calcul de la pression en mmHg
   }
 }
 
