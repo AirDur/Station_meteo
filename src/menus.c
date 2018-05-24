@@ -52,9 +52,9 @@ int affichage_menu_02(GR_WINDOW_ID w, GR_GC_ID gc, t_ptr_captors_data p)
 {
   char sT[64], sP[64], sRH[64];
 
-  sprintf(sT, "%lf celsius", p->T);
-  sprintf(sP, "%lf bar", p->P);
-  sprintf(sRH, "%lf %%", p->RH);
+  sprintf(sT, "%lf celsius", p->Tc);
+  sprintf(sP, "%lf hPa", p->Ph);
+  sprintf(sRH, "%lf %%", p->Hr);
 
   GrText(w, gc, 25, 20,"---Moyennes---", 16, GR_TFASCII);
   GrLine(w, gc, 10, 40, 130, 40);
