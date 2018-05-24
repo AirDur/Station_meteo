@@ -1,7 +1,7 @@
 
 #include "capteurs.h"
 #include "menus.h"
-
+#include "threads.h"
 
 int affichage_menu_01_a(GR_WINDOW_ID w, GR_GC_ID gc, t_ptr_captors_data p)
 {
@@ -139,7 +139,7 @@ int affichage_menu_courbes_temperature_celsius(GR_WINDOW_ID w, GR_GC_ID gc, t_pt
 {
   char sT[64], sP[64], sRH[64];
   //valeur sur l'axe Ox
-  int abscisse = 0;
+  int abscisse = 0,i;
 
   GrText(w, gc, 25, 20,"---Courbes---", 16, GR_TFASCII);
 //========================Pour la temperature en degreés Celsius
@@ -164,7 +164,7 @@ int affichage_menu_courbes_pression_hPa(GR_WINDOW_ID w, GR_GC_ID gc, t_ptr_capto
 {
   char sT[64], sP[64], sRH[64];
   //valeur sur l'axe Ox
-  int abscisse = 0;
+  int abscisse = 0,i;
 
   GrText(w, gc, 25, 20,"---Courbes---", 16, GR_TFASCII);
 //========================Pour la pression en hPa
@@ -188,7 +188,7 @@ int affichage_menu_courbes_humidite_absolue(GR_WINDOW_ID w, GR_GC_ID gc, t_ptr_c
 {
   char sT[64], sP[64], sRH[64];
   //valeur sur l'axe Ox
-  int abscisse = 0;
+  int abscisse = 0,i;
 
   GrText(w, gc, 25, 20,"---Courbes---", 16, GR_TFASCII);
 //========================Pour l'humidité absolue
