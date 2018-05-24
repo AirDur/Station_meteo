@@ -100,6 +100,7 @@ int main(int ac,char **av)
             {
               case GR_EVENT_TYPE_EXPOSURE:
                 affichage_menu_04(w, gc);
+                goto END_PROGRAMME;
                 break;
               case GR_EVENT_TYPE_TIMEOUT:
                 g_fin_programme = 1;
@@ -109,16 +110,17 @@ int main(int ac,char **av)
         }
     }
 
-    // Destruction des ressources
-    GrClose();
+    END_PROGRAMME :
+      // Destruction des ressources
+      GrClose();
 
-    // Attente de la fin des threads
-    pthread_join(th_capteurs,  NULL);
-    pthread_join(th_boutons,   NULL);
-    pthread_join(th_tendances, NULL);
+      // Attente de la fin des threads
+      pthread_join(th_capteurs,  NULL);
+      pthread_join(th_boutons,   NULL);
+      pthread_join(th_tendances, NULL);
 
-    printf("Fin du programme\n");
+      printf("Fin du programme\n");
 
-    return 0;
+      return 0;
 
 } // main
