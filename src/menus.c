@@ -131,3 +131,79 @@ int affichage_menu_04(GR_WINDOW_ID w, GR_GC_ID gc)
     return EXIT_SUCCESS;
 
 } // affichage_menu_04
+
+/*********************================= Nouveau***************/
+//=================== à tester pour les courbes **************/
+/********* affiche la courbes des valeurs pour la temperature***/
+int affichage_menu_courbes_temperature_celsius(GR_WINDOW_ID w, GR_GC_ID gc, t_ptr_captors_data p)
+{
+  char sT[64], sP[64], sRH[64];
+  //valeur sur l'axe Ox
+  int abscisse = 0;
+
+  GrText(w, gc, 25, 20,"---Courbes---", 16, GR_TFASCII);
+//========================Pour la temperature en degreés Celsius
+for (i = 0; i < g_nb_archives -1 ; ++i)
+{
+  //le point faire un simbole joli :)
+
+  GrDrawImageFromFile(w, gc, abscisse,  g_archives_donnees[i].Tc, 5, 5, IMG_DOWN, 0);
+
+  //la valeur de tempterature en degree Celsius
+  GrLine(w, gc, abscisse, g_archives_donnees[i].Tc, abscisse+10, g_archives_donnees[i+1].Tc);
+  abscisse = abscisse + 10;
+}
+//le dernier point
+GrDrawImageFromFile(w, gc, abscisse,  g_archives_donnees[i].Tc, 5, 5, IMG_DOWN, 0);
+
+  return EXIT_SUCCESS;
+}
+
+
+int affichage_menu_courbes_pression_hPa(GR_WINDOW_ID w, GR_GC_ID gc, t_ptr_captors_data p)
+{
+  char sT[64], sP[64], sRH[64];
+  //valeur sur l'axe Ox
+  int abscisse = 0;
+
+  GrText(w, gc, 25, 20,"---Courbes---", 16, GR_TFASCII);
+//========================Pour la pression en hPa
+for (i = 0; i < g_nb_archives -1 ; ++i)
+{
+  //le point faire un simbole joli :)
+
+  GrDrawImageFromFile(w, gc, abscisse,  g_archives_donnees[i].Ph, 5, 5, IMG_DOWN, 0);
+
+  //la valeur de tempterature en degree Celsius
+  GrLine(w, gc, abscisse, g_archives_donnees[i].Ph, abscisse+10, g_archives_donnees[i+1].Tc);
+  abscisse = abscisse + 10;
+}
+//le dernier point
+GrDrawImageFromFile(w, gc, abscisse,  g_archives_donnees[i].Ph, 5, 5, IMG_DOWN, 0);
+
+  return EXIT_SUCCESS;
+}
+
+int affichage_menu_courbes_humidite_absolue(GR_WINDOW_ID w, GR_GC_ID gc, t_ptr_captors_data p)
+{
+  char sT[64], sP[64], sRH[64];
+  //valeur sur l'axe Ox
+  int abscisse = 0;
+
+  GrText(w, gc, 25, 20,"---Courbes---", 16, GR_TFASCII);
+//========================Pour l'humidité absolue
+for (i = 0; i < g_nb_archives -1 ; ++i)
+{
+  //le point faire un simbole joli :)
+
+  GrDrawImageFromFile(w, gc, abscisse,  g_archives_donnees[i].Ha, 5, 5, IMG_DOWN, 0);
+
+  //la valeur de  l'humidité absolue
+  GrLine(w, gc, abscisse, g_archives_donnees[i].Ha, abscisse+10, g_archives_donnees[i+1].Tc);
+  abscisse = abscisse + 10;
+}
+//le dernier point
+GrDrawImageFromFile(w, gc, abscisse,  g_archives_donnees[i].Ha, 5, 5, IMG_DOWN, 0);
+
+  return EXIT_SUCCESS;
+}
