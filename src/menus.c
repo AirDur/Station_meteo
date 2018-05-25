@@ -138,23 +138,13 @@ int affichage_menu_04(GR_WINDOW_ID w, GR_GC_ID gc)
 /********* affiche la courbes des valeurs pour la temperature***/
 int affichage_menu_courbes_temperature_celsius(GR_WINDOW_ID w, GR_GC_ID gc, t_ptr_captors_data g_archives_donnees, int g_nb_archives)
 {
-<<<<<<< HEAD
-  char sT[64], sP[64], sRH[64], index_min[10], index_max[10];
-  //valeur sur l'axe Ox
+  char index_min[10], index_max[10];
   int i, abscisse=10;
-
-  GrDrawImageFromFile(w, gc, 140, 215, 10, 10, IMG_RIGHT, 0);
-=======
-
-  int i, abscisse=10;
-  printf("debut_nb_archives= %d \n",debut_nb_archives);
-
-// ==== titre de l'écran
-  GrText(w, gc, 35, 20,"---Courbe tmp---", 16, GR_TFASCII);
+  // ==== titre de l'écran
+    GrText(w, gc, 35, 12,"---Courbe tmp---", 16, GR_TFASCII);
   //valeur sur l'axe Ox
 
   //=====axe Ox
->>>>>>> 2e19291535bb4a9e30f5c61794fef194e3de5e40
   GrLine(w, gc, 10, 220, 140, 220);
   GrDrawImageFromFile(w, gc, 140, 215, 10, 10, IMG_RIGHT, 0);
   GrText(w, gc, 100, 235,"temps", 5, GR_TFASCII);
@@ -163,13 +153,9 @@ int affichage_menu_courbes_temperature_celsius(GR_WINDOW_ID w, GR_GC_ID gc, t_pt
   GrLine(w, gc, 10, 220, 10, 30);
   GrDrawImageFromFile(w, gc, 5, 30, 10, 10, IMG_UP, 0);
 
-  //GrText(w, gc, 5, 235,"24C", 3, GR_TFASCII);
-  //GrText(w, gc, 5, 25,"27C", 3, GR_TFASCII);
-
 //========================Pour la temperature en degreés Celsius
   printf("Nb de valeurs dans Archive : %d \n", g_nb_archives);
 
-<<<<<<< HEAD
   ord_min=(int)g_archives_donnees[debut_nb_archives].Tc-1;
   for (i = debut_nb_archives; i < g_nb_archives ; ++i){
     ord_i=(int)g_archives_donnees[i].Tc-1;
@@ -188,9 +174,12 @@ int affichage_menu_courbes_temperature_celsius(GR_WINDOW_ID w, GR_GC_ID gc, t_pt
 
   sprintf(index_min, "%dC", ord_min);
   sprintf(index_max, "%dC", ord_max);
+  // =================mettre les valeurs sur les axes
+  //la valeur minimum
   GrText(w, gc, 5, 235, index_min, 3, GR_TFASCII);
+  //la valeur max en haut
   GrText(w, gc, 5, 25, index_max, 3, GR_TFASCII);
-=======
+
 //================chercher le minimum de Temperature en Celsius
   ord_min=g_archives_donnees[debut_nb_archives].Tc-1;
   for (i = debut_nb_archives +1 ; i < g_nb_archives ; ++i){
@@ -204,101 +193,166 @@ int affichage_menu_courbes_temperature_celsius(GR_WINDOW_ID w, GR_GC_ID gc, t_pt
       ord_max=g_archives_donnees[i].Tc+1;
   }
 
-  // =================mettre les valeurs sur les axes
-  //la valeur max en haut
-  GrText(w, gc, 5, 25, (void *)ord_max, 3, GR_TFASCII);
-  //la valeur minimum
-  GrText(w, gc, 5, 235, (void *)ord_min, 3, GR_TFASCII);
->>>>>>> 2e19291535bb4a9e30f5c61794fef194e3de5e40
-
   for (i = debut_nb_archives; i < g_nb_archives-1 ; ++i)
   {
   //la valeur de tempterature en degree Celsius
       ord_pix_1=(int)(220-(g_archives_donnees[i].Tc-ord_min)*(190/(ord_max-ord_min)));
       ord_pix_2=(int)(220-(g_archives_donnees[i+1].Tc-ord_min)*(190/(ord_max-ord_min)));
-
       //on trace la courbe
       GrLine(w, gc, abscisse, ord_pix_1, (abscisse+20), ord_pix_2);
-
       //on chage d'abscisse
       abscisse = abscisse + 20;
-  }      
-    //  printf("Valeur de Archive temp : %lf \n",g_archives_donnees[i].Tc);
-    //  printf("Valeur de Archive temp +1 : %lf \n",g_archives_donnees[i+1].Tc);
-    //  printf("Valeur de ord temp : %d \n", ord_pix_1);
-    //  printf("Valeur de ord temp +1 : %d \n", ord_pix_2);
-
-  //printf("abcisse= %d",abscisse);
-
-<<<<<<< HEAD
-
-      GrLine(w, gc, abscisse, ord_pix_1, (abscisse+20), ord_pix_2);
-      abscisse = abscisse + 20;
-
   }
-  printf("abcisse= %d",abscisse);
-  if (abscisse>=140){
-=======
   //si ça depasse
-  if (abscisse>=220){
->>>>>>> 2e19291535bb4a9e30f5c61794fef194e3de5e40
+  if (abscisse>=140)
     debut_nb_archives=g_nb_archives;
-  }
   return EXIT_SUCCESS;
-//======================ce qu'il y avait avant =========on verra :)
-  //char index_min[3];
-  //sprintf(index_min, "%dC", ord_min);
-  //char index_max[3];
-  //sprintf(index_max, "%dC", ord_max);
-//  GrText(w, gc, 5, 235, index_min, 3, GR_TFASCII);
-//  GrText(w, gc, 5, 25, index_max, 3, GR_TFASCII);
 }
 
 
 int affichage_menu_courbes_pression_hPa(GR_WINDOW_ID w, GR_GC_ID gc, t_ptr_captors_data g_archives_donnees, int g_nb_archives)
 {
- // char sT[64], sP[64], sRH[64];
+  char index_min[10], index_max[10];
+  int i, abscisse=10;
+  // ==== titre de l'écran
+    GrText(w, gc, 30, 12,"---Courbe press---", 18, GR_TFASCII);
   //valeur sur l'axe Ox
-  int abscisse = 0,i;
 
-  GrText(w, gc, 25, 20,"---Courbes---", 16, GR_TFASCII);
+  //=====axe Ox
+  GrLine(w, gc, 10, 220, 140, 220);
+  GrDrawImageFromFile(w, gc, 140, 215, 10, 10, IMG_RIGHT, 0);
+  GrText(w, gc, 100, 235,"temps", 5, GR_TFASCII);
+
+  //===== axe Oy
+  GrLine(w, gc, 10, 220, 10, 30);
+  GrDrawImageFromFile(w, gc, 5, 30, 10, 10, IMG_UP, 0);
+
 //========================Pour la pression en hPa
-for (i = 0; i < g_nb_archives -1 ; ++i)
-{
-  //le point faire un simbole joli :)
+  printf("Nb de valeurs dans Archive : %d \n", g_nb_archives);
 
-  GrDrawImageFromFile(w, gc, abscisse,  g_archives_donnees[i].Ph, 5, 5, IMG_DOWN, 0);
+  ord_min=(int)g_archives_donnees[debut_nb_archives].Ph-2;
+  for (i = debut_nb_archives; i < g_nb_archives ; ++i){
+    ord_i=(int)g_archives_donnees[i].Ph-2;
+    if (ord_i>ord_min) {
+      ord_min=(int)g_archives_donnees[i].Ph-2;
+    }
+  }
 
-  //la valeur de tempterature en degree Celsius
-  GrLine(w, gc, abscisse, g_archives_donnees[i].Ph, abscisse+10, g_archives_donnees[i+1].Tc);
-  abscisse = abscisse + 10;
-}
-//le dernier point
-GrDrawImageFromFile(w, gc, abscisse,  g_archives_donnees[i].Ph, 5, 5, IMG_DOWN, 0);
+  ord_max=(int)g_archives_donnees[debut_nb_archives].Ph+2;
+  for (i = debut_nb_archives; i < g_nb_archives ; ++i){
+    ord_i=(int)g_archives_donnees[i].Ph+2;
+    if (ord_i>ord_max) {
+      ord_max=(int)g_archives_donnees[i].Ph+2;
+    }
+  }
 
+  sprintf(index_min, "%dhPa", ord_min);
+  sprintf(index_max, "%dhPa", ord_max);
+  // =================mettre les valeurs sur les axes
+  //la valeur minimum
+  GrText(w, gc, 5, 235, index_min, 7, GR_TFASCII);
+  //la valeur max en haut
+  GrText(w, gc, 5, 25, index_max, 6, GR_TFASCII);
+
+//================chercher le minimum de pression en hPa
+  ord_min=g_archives_donnees[debut_nb_archives].Ph-2;
+  for (i = debut_nb_archives +1 ; i < g_nb_archives ; ++i){
+    if ((g_archives_donnees[i].Ph-2)>ord_min )
+      ord_min=g_archives_donnees[i].Ph-2;
+  }
+//================chercher le maximum de pression en hPa
+  ord_max=g_archives_donnees[debut_nb_archives].Ph+2;
+  for (i = debut_nb_archives + 1; i < g_nb_archives ; ++i){
+    if ((g_archives_donnees[i].Ph+2)>ord_max )
+      ord_max=g_archives_donnees[i].Ph+2;
+  }
+
+  for (i = debut_nb_archives; i < g_nb_archives-1 ; ++i)
+  {
+  //la valeur de pression en hPa
+      ord_pix_1=(int)(220-(g_archives_donnees[i].Ph-ord_min)*(190/(ord_max-ord_min)));
+      ord_pix_2=(int)(220-(g_archives_donnees[i+1].Ph-ord_min)*(190/(ord_max-ord_min)));
+
+      //on trace la courbe
+      GrLine(w, gc, abscisse, ord_pix_1, (abscisse+20), ord_pix_2);
+      //on chage d'abscisse
+      abscisse = abscisse + 20;
+  }
+  //si ça depasse
+  if (abscisse>=140)
+    debut_nb_archives=g_nb_archives;
   return EXIT_SUCCESS;
 }
 
-int affichage_menu_courbes_humidite_absolue(GR_WINDOW_ID w, GR_GC_ID gc, t_ptr_captors_data g_archives_donnees, int g_nb_archives)
+int affichage_menu_courbes_humidite_gm3(GR_WINDOW_ID w, GR_GC_ID gc, t_ptr_captors_data g_archives_donnees, int g_nb_archives)
 {
- // char sT[64], sP[64], sRH[64];
+  char index_min[10], index_max[10];
+  int i, abscisse=10;
+  // ==== titre de l'écran
+    GrText(w, gc, 35, 12,"---Courbe hum---", 16, GR_TFASCII);
   //valeur sur l'axe Ox
-  int abscisse = 0,i;
 
-  GrText(w, gc, 25, 20,"---Courbes---", 16, GR_TFASCII);
-//========================Pour l'humidité absolue
-for (i = 0; i < g_nb_archives -1 ; ++i)
-{
-  //le point faire un simbole joli :)
+  //=====axe Ox
+  GrLine(w, gc, 10, 220, 140, 220);
+  GrDrawImageFromFile(w, gc, 140, 215, 10, 10, IMG_RIGHT, 0);
+  GrText(w, gc, 100, 235,"temps", 5, GR_TFASCII);
 
-  GrDrawImageFromFile(w, gc, abscisse,  g_archives_donnees[i].Ha, 5, 5, IMG_DOWN, 0);
+  //===== axe Oy
+  GrLine(w, gc, 10, 220, 10, 30);
+  GrDrawImageFromFile(w, gc, 5, 30, 10, 10, IMG_UP, 0);
 
-  //la valeur de  l'humidité absolue
-  GrLine(w, gc, abscisse, g_archives_donnees[i].Ha, abscisse+10, g_archives_donnees[i+1].Tc);
-  abscisse = abscisse + 10;
-}
-//le dernier point
-GrDrawImageFromFile(w, gc, abscisse,  g_archives_donnees[i].Ha, 5, 5, IMG_DOWN, 0);
+//========================Pour la pression en hPa
+  printf("Nb de valeurs dans Archive : %d \n", g_nb_archives);
 
+  ord_min=(int)g_archives_donnees[debut_nb_archives].Ha-1;
+  for (i = debut_nb_archives; i < g_nb_archives ; ++i){
+    ord_i=(int)g_archives_donnees[i].Ha-1;
+    if (ord_i>ord_min) {
+      ord_min=(int)g_archives_donnees[i].Ha-1;
+    }
+  }
+
+  ord_max=(int)g_archives_donnees[debut_nb_archives].Ha+1;
+  for (i = debut_nb_archives; i < g_nb_archives ; ++i){
+    ord_i=(int)g_archives_donnees[i].Ha+1;
+    if (ord_i>ord_max) {
+      ord_max=(int)g_archives_donnees[i].Ha+1;
+    }
+  }
+
+  sprintf(index_min, "%dg/m3", ord_min);
+  sprintf(index_max, "%dg/m3", ord_max);
+  // =================mettre les valeurs sur les axes
+  //la valeur minimum
+  GrText(w, gc, 5, 235, index_min, 6, GR_TFASCII);
+  //la valeur max en haut
+  GrText(w, gc, 5, 25, index_max, 6, GR_TFASCII);
+
+//================chercher le minimum de pression en hPa
+  ord_min=g_archives_donnees[debut_nb_archives].Ha-1;
+  for (i = debut_nb_archives +1 ; i < g_nb_archives ; ++i){
+    if ((g_archives_donnees[i].Ha-1)>ord_min )
+      ord_min=g_archives_donnees[i].Ha-1;
+  }
+//================chercher le maximum de pression en hPa
+  ord_max=g_archives_donnees[debut_nb_archives].Ha+1;
+  for (i = debut_nb_archives + 1; i < g_nb_archives ; ++i){
+    if ((g_archives_donnees[i].Ha+1)>ord_max )
+      ord_max=g_archives_donnees[i].Ha+1;
+  }
+
+  for (i = debut_nb_archives; i < g_nb_archives-1 ; ++i)
+  {
+  //la valeur de pression en hPa
+      ord_pix_1=(int)(220-(g_archives_donnees[i].Ha-ord_min)*(190/(ord_max-ord_min)));
+      ord_pix_2=(int)(220-(g_archives_donnees[i+1].Ha-ord_min)*(190/(ord_max-ord_min)));
+      //on trace la courbe
+      GrLine(w, gc, abscisse, ord_pix_1, (abscisse+20), ord_pix_2);
+      //on chage d'abscisse
+      abscisse = abscisse + 20;
+  }
+  //si ça depasse
+  if (abscisse>=140)
+    debut_nb_archives=g_nb_archives;
   return EXIT_SUCCESS;
 }

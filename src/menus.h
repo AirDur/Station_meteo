@@ -56,4 +56,11 @@ extern int affichage_menu_03(GR_WINDOW_ID w, GR_GC_ID gc, t_ptr_tendances p);
 extern int affichage_menu_04(GR_WINDOW_ID w, GR_GC_ID gc);
 
 
+/*****************Le courbes de tendances *********************/
+extern int affichage_menu_courbes_temperature_celsius(GR_WINDOW_ID w, GR_GC_ID gc, t_ptr_captors_data g_archives_donnees, int g_nb_archives);
+
+extern int affichage_menu_courbes_pression_hPa(GR_WINDOW_ID w, GR_GC_ID gc, t_ptr_captors_data g_archives_donnees, int g_nb_archives);
+
+extern int affichage_menu_courbes_humidite_gm3(GR_WINDOW_ID w, GR_GC_ID gc, t_ptr_captors_data g_archives_donnees, int g_nb_archives);
+
 #endif /* __MENUS_H__ */

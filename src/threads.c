@@ -90,7 +90,8 @@ void * verifier_etat_boutons(void * arg)
         }
         else if((KbStatus & BOUTON_3) == BOUTON_3)
         {
-            g_etat_boutons = BOUTON_3;
+            if (g_etat_boutons == BOUTON_3)  g_etat_bouton_1 = (g_etat_bouton_1+1)%3;
+            else                              g_etat_boutons = BOUTON_3;
             while(KEYBOARD_STATUS() == KbStatus);
         }
         else if((KbStatus & BOUTON_4)== BOUTON_4)

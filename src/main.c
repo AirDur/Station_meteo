@@ -85,8 +85,10 @@ int main(int ac,char **av)
             switch (event.type)
             {
               case GR_EVENT_TYPE_EXPOSURE:
-                affichage_menu_courbes_temperature_celsius(w, gc, &g_archives_donnees, g_nb_archives);
-                break;
+              if(g_etat_bouton_1 == 1)  {  affichage_menu_courbes_temperature_celsius(w, gc, &g_archives_donnees, g_nb_archives);  }
+              if(g_etat_bouton_1 == 2)  {  affichage_menu_courbes_pression_hPa(w, gc, &g_archives_donnees, g_nb_archives); }
+              if(g_etat_bouton_1 == 0)  {  affichage_menu_courbes_humidite_gm3(w, gc, &g_archives_donnees, g_nb_archives); }
+            break;
               case GR_EVENT_TYPE_TIMEOUT:
                 GrClearWindow(w, 1);
                 break;
@@ -100,7 +102,6 @@ int main(int ac,char **av)
             {
               case GR_EVENT_TYPE_EXPOSURE:
                 affichage_menu_04(w, gc);
-                g_fin_programme = 1;
                 break;
               case GR_EVENT_TYPE_TIMEOUT:
                 g_fin_programme = 1;
