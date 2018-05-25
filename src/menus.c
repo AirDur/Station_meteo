@@ -1,7 +1,8 @@
 
 #include "capteurs.h"
 #include "menus.h"
-int ord_pix_1, ord_pix_2, ord_min, ord_max, debut_nb_archives=0;
+
+int ord_pix_1, ord_pix_2, ord_min, ord_max, ord_i, debut_nb_archives=0;
 
 int affichage_menu_01_a(GR_WINDOW_ID w, GR_GC_ID gc, t_ptr_captors_data p)
 {
@@ -137,39 +138,38 @@ int affichage_menu_04(GR_WINDOW_ID w, GR_GC_ID gc)
 /********* affiche la courbes des valeurs pour la temperature***/
 int affichage_menu_courbes_temperature_celsius(GR_WINDOW_ID w, GR_GC_ID gc, t_ptr_captors_data g_archives_donnees, int g_nb_archives)
 {
-  printf("debut_nb_archives= %d \n",debut_nb_archives);
-  char sT[64], sP[64], sRH[64];
+  char sT[64], sP[64], sRH[64], index_min[10], index_max[10];
   //valeur sur l'axe Ox
   int i, abscisse=10;
+
   GrDrawImageFromFile(w, gc, 140, 215, 10, 10, IMG_RIGHT, 0);
   GrLine(w, gc, 10, 220, 140, 220);
   GrDrawImageFromFile(w, gc, 5, 30, 10, 10, IMG_UP, 0);
   GrLine(w, gc, 10, 220, 10, 30);
   GrText(w, gc, 100, 235,"temps", 5, GR_TFASCII);
-  GrText(w, gc, 5, 235,"24C", 3, GR_TFASCII);
-  GrText(w, gc, 5, 25,"27C", 3, GR_TFASCII);
 
   GrText(w, gc, 35, 20,"---Courbe tmp---", 16, GR_TFASCII);
 
 //========================Pour la temperature en degreés Celsius
   printf("Nb de valeurs dans Archive : %d \n", g_nb_archives);
 
-  ord_min=g_archives_donnees[debut_nb_archives]-1;
+  ord_min=(int)g_archives_donnees[debut_nb_archives].Tc-1;
   for (i = debut_nb_archives; i < g_nb_archives ; ++i){
-    if (g_archives_donnees[i]-1)>ord_min {
-      ord_min=g_archives_donnees[i]-1;
+    ord_i=(int)g_archives_donnees[i].Tc-1;
+    if (ord_i>ord_min) {
+      ord_min=(int)g_archives_donnees[i].Tc-1;
     }
   }
 
-  ord_max=g_archives_donnees[debut_nb_archives]+1;
+  ord_max=(int)g_archives_donnees[debut_nb_archives].Tc+1;
   for (i = debut_nb_archives; i < g_nb_archives ; ++i){
-    if (g_archives_donnees[i]+1)>ord_max {
-      ord_max=g_archives_donnees[i]+1;
+    ord_i=(int)g_archives_donnees[i].Tc+1;
+    if (ord_i>ord_max) {
+      ord_max=(int)g_archives_donnees[i].Tc+1;
     }
   }
-  char index_min[3];
+
   sprintf(index_min, "%dC", ord_min);
-  char index_max[3];
   sprintf(index_max, "%dC", ord_max);
   GrText(w, gc, 5, 235, index_min, 3, GR_TFASCII);
   GrText(w, gc, 5, 25, index_max, 3, GR_TFASCII);
@@ -181,8 +181,8 @@ int affichage_menu_courbes_temperature_celsius(GR_WINDOW_ID w, GR_GC_ID gc, t_pt
 //  GrDrawImageFromFile(w, gc, abscisse,  g_archives_donnees[i].Tc, 5, 5, IMG_DOWN, 0);
 
   //la valeur de tempterature en degree Celsius
-      ord_pix_1=(int)((g_archives_donnees[i].Tc-ord_min)*(190/(ord_max-ord_min))+30);
-      ord_pix_2=(int)((g_archives_donnees[i+1].Tc-ord_min)*(190/(ord_max-ord_min))+30);
+      ord_pix_1=(int)(220-(g_archives_donnees[i].Tc-ord_min)*(190/(ord_max-ord_min)));
+      ord_pix_2=(int)(220-(g_archives_donnees[i+1].Tc-ord_min)*(190/(ord_max-ord_min)));
 
     //  printf("Valeur de Archive temp : %lf \n",g_archives_donnees[i].Tc);
     //  printf("Valeur de Archive temp +1 : %lf \n",g_archives_donnees[i+1].Tc);
@@ -196,7 +196,7 @@ int affichage_menu_courbes_temperature_celsius(GR_WINDOW_ID w, GR_GC_ID gc, t_pt
 
   }
   printf("abcisse= %d",abscisse);
-  if (abscisse>=220){
+  if (abscisse>=140){
     debut_nb_archives=g_nb_archives;
   }
 //le dernier point

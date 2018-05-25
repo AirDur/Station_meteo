@@ -89,7 +89,7 @@ int lancement_temperature(double *temperature, int unite) {
       perror("[testTemperature] Recuperation temperature");
       return EXIT_FAILURE;
   }
-  sleep(buffer);
+  //sleep(buffer);
 
   return EXIT_SUCCESS;
 }

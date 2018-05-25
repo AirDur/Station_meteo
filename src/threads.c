@@ -99,7 +99,7 @@ void * verifier_etat_boutons(void * arg)
             while(KEYBOARD_STATUS() == KbStatus);
         }
 
-        usleep(10000);
+        usleep(1000);
     }
 
 } // verifier_etat_boutons

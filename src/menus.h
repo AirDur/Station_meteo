@@ -12,7 +12,7 @@
 
 
 #include "nano-X.h"
-
+#include <math.h>
 
 // Chemin vers les fichiers images representant les tendances.
 #define IMG_UP     "/home/img/up.gif"

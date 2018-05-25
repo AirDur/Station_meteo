@@ -19,7 +19,7 @@
     #define DUREE_VIE_ARCHIVES  600         // 10 min
 #endif
 #ifndef INTERVAL_TENDANCES
-    #define INTERVAL_MAJ        5           // 5 secs
+    #define INTERVAL_MAJ        1           // 5 secs
 #endif
 #ifndef INTERVAL_TENDANCES
     #define INTERVAL_TENDANCES  10          // 10 secs
