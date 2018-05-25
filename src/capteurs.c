@@ -94,6 +94,7 @@ int lancement_temperature(double *temperature, int unite) {
   return EXIT_SUCCESS;
 }
 
+
 double calcul_humidite(short donnees_brut, double temperature, int unite){
   double Vout, Vs, resultat;
   Vout = (2.5 / 1024) * donnees_brut * 2;
