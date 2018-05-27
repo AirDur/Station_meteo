@@ -25,6 +25,7 @@ int configuration_i2c(int buffer, unsigned char mask)
   return EXIT_SUCCESS;
 }
 
+*dab*
 //calcul de la température à partir des données brutes
 double calcul_temperature(short donnees_brut, int unite){
   if(unite == 1) return donnees_brut * 0.0625;    //en clesius
