@@ -16,10 +16,10 @@
 
 #define BIT_BOUTON          unsigned int
 
-/**
- * @brief  Recupere l'etat des boutons.
- * @return Etat des boutons.
- */
+ /**
+  *  Recupere l'etat des boutons.
+  * @return Etat des boutons.
+  */
 extern BIT_BOUTON KEYBOARD_STATUS(void);
 
 #endif
