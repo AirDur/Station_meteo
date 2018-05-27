@@ -158,23 +158,3 @@ void * maj_donnees_capteurs(void * arg)
   }
 
 } // maj_donnees_capteurs
-
-void * maj_tendances(void * arg)
-{
-  int i;
-  t_captors_data g_tendance;
-  while (!g_fin_programme)
-  {
-    sleep(INTERVAL_TENDANCES);
-
-    g_nb_archives_tendances = 0;
-    for(i=1; i<g_nb_archives_semaine;i++){
-      g_tendance.T = g_archives_donnees_week[i-1].T - g_archives_donnees_week[i].T;
-      g_tendance.RH = g_archives_donnees_week[i-1].RH - g_archives_donnees_week[i].RH;
-      g_tendance.P = g_archives_donnees_week[i-1].P - g_archives_donnees_week[i].P;
-      g_archives_tendances[i-1] = g_tendance;
-      g_nb_archives_tendances++;
-    }
-  }
-
-} // maj_tendances

@@ -27,7 +27,9 @@ volatile t_captors_data g_archives_donnees[NB_MAX_ARCHIVES];
 static int g_id_archive = 0;
 int g_nb_archives = 0;
 
-
+/**
+ * Fonction d'archivage des données en temps réél.
+ */
 void archiver_donnees_capteurs(void)
 {
     g_archives_donnees[g_id_archive] = g_donnees_capteurs;
@@ -124,7 +126,6 @@ void * maj_donnees_capteurs(void * arg)
         r = lire_donnees_capteurs(&g_donnees_capteurs);
         if (r == EXIT_SUCCESS)
         {
-            //TODO ICI FAUT GERER LA VARIABLE (ON va pas stocker les mêmes trucs)
             archiver_donnees_capteurs();
             calculer_moyennes();
             sleep(INTERVAL_MAJ);
@@ -136,29 +137,3 @@ void * maj_donnees_capteurs(void * arg)
     }
 
 } // maj_donnees_capteurs
-
-void * maj_tendances(void * arg)
-{
-    while (!g_fin_programme)
-    {
-        sleep(INTERVAL_TENDANCES);
-
-        if (g_donnees_capteurs.Tc > g_dernieres_mesures_tendances.Tc)
-            g_tendances.T = 1;
-        else
-            g_tendances.T = -1;
-
-        if (g_donnees_capteurs.Ph > g_dernieres_mesures_tendances.Ph)
-            g_tendances.P = 1;
-        else
-            g_tendances.P = -1;
-
-        if (g_donnees_capteurs.Hr > g_dernieres_mesures_tendances.Hr)
-            g_tendances.RH = 1;
-        else
-            g_tendances.RH = -1;
-
-        g_dernieres_mesures_tendances = g_donnees_capteurs;
-    }
-
-} // maj_tendances

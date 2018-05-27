@@ -25,7 +25,6 @@ int configuration_i2c(int buffer, unsigned char mask)
   return EXIT_SUCCESS;
 }
 
-*dab*
 //calcul de la température à partir des données brutes
 double calcul_temperature(short donnees_brut, int unite){
   if(unite == 1) return donnees_brut * 0.0625;    //en clesius
@@ -95,7 +94,7 @@ int lancement_temperature(double *temperature, int unite) {
   return EXIT_SUCCESS;
 }
 
-
+/**
 double calcul_humidite(short donnees_brut, double temperature, int unite){
   double Vout, Vs, resultat;
   Vout = (2.5 / 1024) * donnees_brut * 2;
@@ -109,18 +108,34 @@ double calcul_humidite(short donnees_brut, double temperature, int unite){
     return resultat;
   }
 }
+**/
 
-  int lire_humidite(int fd, double T, double P, double * RH, int unite) {
-    if (unite == 1) {
-      *RH = 79;
-    } else {
-      *RH = 79;
-      *RH = (6.112 * pow(M_E, (17.67 * T) / (T + 243.5)) *  (*RH) * 2.1674 ) / (273.15 + T); // Calcul de l'humidite avec T
-    }
-    return EXIT_SUCCESS;
+/**
+ * Calcul l'humidité
+ * @param  fd    fichier descripteur
+ * @param  T     temperature
+ * @param  P     [pression]
+ * @param  RH    [humidite]
+ * @param  unite [unité]
+ * @return       [EXIT_SUCCESS]
+ */
+int lire_humidite(int fd, double T, double P, double * RH, int unite) {
+  if (unite == 1) {
+    *RH = 79;
+  } else {
+    *RH = 79;
+    *RH = (6.112 * pow(M_E, (17.67 * T) / (T + 243.5)) *  (*RH) * 2.1674 ) / (273.15 + T); // Calcul de l'humidite avec T
   }
-/************************************HUMIDITÉ ABSOLUE***********
-/======================================****************************/
+  return EXIT_SUCCESS;
+}
+
+/**
+ * Calcul l'humidité absolue
+ * @param  temperature       [temperature]
+ * @param  pression_relative [pression relative]
+ * @param  RH_absolue        [pointeur pour écrire l'humidite]
+ * @return                   [EXIT_SUCCESS]
+ */
 int lire_humidite_absolue(double temperature, double pression_relative,double *RH_absolue) {
   *RH_absolue = (6.112 * pow(M_E, (17.67 * temperature) / (temperature + 243.5)) *  pression_relative * 2.1674 ) / (273.15 + temperature); // Calcul de l'humidite avec T
   return EXIT_SUCCESS;
@@ -165,6 +180,12 @@ int lire_pression(double *pression, int buffer, int unite) {
   return EXIT_SUCCESS;
 }
 
+/**
+ * Permet de lire les données des capteurs en appellant les différentes fonctions
+ * et en vérifiant les erreurs.
+ * @param  p [pointeur vers un espace mémoire pour écrire les données des capteurs]
+ * @return   [EXIT_FAILURE s'il y a un probleme. EXIT_SUCCESS si tout va bien]
+ */
 int lire_donnees_capteurs(t_ptr_captors_data p)
 {
     int buffer;
@@ -212,5 +233,4 @@ int lire_donnees_capteurs(t_ptr_captors_data p)
     close(buffer);
 
     return EXIT_SUCCESS;
-
-} // lire_donnees_capteurs
+} 

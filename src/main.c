@@ -1,13 +1,3 @@
-/**
- * @file     main.c
- *
- * @author   GOURDON Arnaud
- *           PREVOST Theophile
- *
- * @brief    Programme principal de la station meteorologique.
- *           Gestion de l'affichage et des differents menus.
- */
-
 #define MWINCLUDECOLORS
 #include <graphics.h>
 #include "nano-X.h"
@@ -15,8 +5,6 @@
 #include <stdio.h>
 #include "boutons.h"
 #include "threads.h"
-
-
 
 int main(int ac,char **av)
 {
@@ -27,7 +15,7 @@ int main(int ac,char **av)
 
     if (GrOpen() < 0)
     {
-        printf("Can't open graphics\n");
+        printf("Impossible d'ouvrir l'interface graphique.\n");
         exit(1);
     }
 
@@ -42,7 +30,6 @@ int main(int ac,char **av)
     // Creation des threads
     pthread_create(&th_boutons,   NULL, &verifier_etat_boutons, NULL);
     pthread_create(&th_capteurs,  NULL, &maj_donnees_capteurs,  NULL);
-    pthread_create(&th_tendances, NULL, &maj_tendances,         NULL);
 
     // Boucle principale
     while (!g_fin_programme)
@@ -116,7 +103,6 @@ int main(int ac,char **av)
       // Attente de la fin des threads
       pthread_join(th_capteurs,  NULL);
       pthread_join(th_boutons,   NULL);
-      pthread_join(th_tendances, NULL);
 
       printf("Fin du programme\n");
 
